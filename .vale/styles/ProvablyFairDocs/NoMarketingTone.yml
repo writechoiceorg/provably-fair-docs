@@ -1,0 +1,10 @@
+extends: existence
+message: "Avoid marketing language in technical docs."
+level: warning
+ignorecase: true
+tokens:
+  - \b(?:best-in-class|world-class|industry-leading)\b
+  - \b(?:revolutionary|cutting-edge|groundbreaking)\b
+  - \b(?:seamless|effortless|intuitive)\b
+  - \b(?:powerful|robust|state-of-the-art)\b
+  - \b(?:simply|just)\b

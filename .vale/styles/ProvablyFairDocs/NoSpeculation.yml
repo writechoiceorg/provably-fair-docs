@@ -1,0 +1,10 @@
+extends: existence
+message: "Avoid speculative wording. Use only verified source material or mark it as missing information."
+level: error
+ignorecase: true
+tokens:
+  - \b(?:assume|assumes|assumed|assuming)\b
+  - \b(?:infer|infers|inferred|inference)\b
+  - \b(?:guess|guesses|guessed|guessing)\b
+  - \b(?:probably|likely|maybe|perhaps)\b
+  - \b(?:it seems|appears to|might be)\b

@@ -1,0 +1,6 @@
+extends: existence
+message: "Use Docusaurus admonitions (:::note, :::tip, :::info, :::warning, :::danger) instead of inline note labels."
+level: suggestion
+ignorecase: true
+tokens:
+  - '^(?:Note|Tip|Warning|Danger|Info):'
