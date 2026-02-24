@@ -1,0 +1,173 @@
+---
+title: Dashboard
+description: Independent verification of RNG integrity, live game parity, RTP convergence, and fairness integrity across 8 games.
+---
+
+(image Duel.com Provably Fair System Audit)
+
+Complete analysis of the audit methodology, technical findings, and final certification is available in the Executive Summary.
+
+## System Integrity Snapshot
+
+To guarantee complete cryptographic transparency, the following key performance indicators (KPIs) show the total volume of live data and stress-testing simulations verified during this audit period.
+
+(image of snapshot)
+
+| KPI                   | Value       |
+| --------------------- | ----------- |
+| Live bets verified    | 30,742      |
+| Simulation rounds     | 80,000,000+ |
+| Game integrity checks | 147         |
+| Games fully validated | 8 / 8       |
+
+## Games Audited
+
+Comprehensive audit results for individual game modules, including hashing algorithms and simulation densities.
+
+<div className="gameAuditCardsGrid">
+  <section className="gameAuditCard">
+    <h3>Dice</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Crash</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Plinko</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Blackjack</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Roulette</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Keno</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Mines</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+
+  <section className="gameAuditCard">
+    <h3>Cross Road</h3>
+    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
+    <p className="gameAuditMeta">Simulation density: 10M sim</p>
+    <span className="gameAuditStatus">PASS</span>
+  </section>
+</div>
+
+## Audit Timeline
+
+The following milestones delineate the entire certification process, from initial data collection to final system validation.
+
+<div className="auditTimeline">
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">Audit Initiated</div>
+    <div className="auditTimelineDate">Jan 28</div>
+  </div>
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">
+      <span>Data Capture</span>
+      <span>Completed</span>
+    </div>
+    <div className="auditTimelineDate">Feb 4</div>
+  </div>
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">Parity Testing Completed</div>
+    <div className="auditTimelineDate">Feb 6</div>
+  </div>
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">RTP Simulation Completed</div>
+    <div className="auditTimelineDate">Feb 8</div>
+  </div>
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">Exploit Testing Completed</div>
+    <div className="auditTimelineDate">Feb 12</div>
+  </div>
+  <div className="auditTimelineStep">
+    <div className="auditTimelineTitle">Certification Issued</div>
+    <div className="auditTimelineDate">Feb 12</div>
+  </div>
+</div>
+
+## Transparency and Verification
+
+In line with our commitment to open-source integrity, the following resources enable third parties to independently reproduce our findings and verify the cryptographic authenticity of any game result.
+
+<div className="dashboardTransparencyGrid">
+  <section className="dashboardTransparencyCard">
+    <h3>Public Transparency</h3>
+    <p className="dashboardTransparencySubtitle">Open and reproducible audit</p>
+    <p>
+      This audit is fully reproducible and open source. All datasets, simulations, and verification logic used in this report are publicly available.
+    </p>
+    <div className="dashboardTransparencyActions">
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonPrimary" href="#">
+        Reproduce This Audit
+      </a>
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonGhost" href="#">
+        View Audit Repository
+      </a>
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonGhost" href="#">
+        View Dataset &amp; Simulation Logs
+      </a>
+    </div>
+    <p className="dashboardTransparencyUrl">[MISSING_INFO: Add canonical URLs for each resource]</p>
+  </section>
+
+  <section className="dashboardTransparencyCard">
+    <h3>Player Verification</h3>
+    <p className="dashboardTransparencySubtitle">Verify any bet yourself</p>
+    <p>Every game result can be independently recomputed using publicly disclosed inputs.</p>
+    <div className="dashboardTransparencyActions">
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonPrimary" href="#">
+        Open Independent Public Verifier
+      </a>
+    </div>
+    <p className="dashboardTransparencyUrl">[MISSING_INFO: Link for "Open Independent Public Verifier"]</p>
+  </section>
+</div>
+
+:::tip Verification Rule
+If your computed result matches the displayed result, the game is provably fair.
+:::
+
+### Audit Pinning
+
+<div className="auditPinningGrid">
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Audit commit</div>
+    <code className="auditPinningValue">fa913ab94883d06950d3c63bbb7007f927648131</code>
+  </section>
+
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Framework version</div>
+    <div className="auditPinningValue">ProvablyFair v1.0</div>
+  </section>
+</div>

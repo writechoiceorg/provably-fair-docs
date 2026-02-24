@@ -1,0 +1,777 @@
+---
+title: Dice Audit
+description: Independent validation of Duel.com Dice across deterministic outcome generation, entropy integrity, live parity, RTP accuracy, and fairness integrity testing.
+diataxis: reference
+---
+
+# Dice Audit
+
+Provably Fair audit of the Duel Dice game
+
+## Audit Metadata
+
+| Field | Value |
+| --- | --- |
+| Audit version | 1.0 |
+| Audit date | January 25, 2026 |
+| Repository | `https://github.com/ProvablyFair-org/duel-audit` |
+| Commit audited | `fa913ab` |
+| Public certification | `https://www.provablyfair.org/audits/Duel` |
+| Audit ID | PF-2026-001 |
+
+## Audit Verdict
+
+| Check | Result | Reference |
+| --- | --- | --- |
+| Overall Status | PASS | [MISSING_INFO: canonical reference link] |
+| RTP Verified | PASS | 99.9% plus/minus 0.1% house edge |
+| Live to Verifier Parity | PASS | 100% all test rounds matched |
+| Commit-Reveal System | PASS | SHA-256 verified |
+| Seed Handling | PASS | Player control verified |
+| RNG Analysis | PASS | Unbiased via rejection sampling |
+| Payout Logic | PASS | All payouts verified correct |
+| Fairness Guarantees Tested | PASS | 7 of 7 fairness guarantees verified |
+| Determinism | PASS | Full reproducibility confirmed |
+
+## Dice Audit Overview
+
+This audit evaluates the Dice game operated by Duel Casino under the ProvablyFair.org Audit Framework v1.0.
+Dice is a prediction game where you bet on whether a randomly generated number (`0.00` to `100.00`) lands above or
+below a target you choose.
+
+### Purpose
+
+This audit determines whether outcomes are cryptographically reproducible, statistically fair, and resistant to
+manipulation by either players or the casino.
+
+### What This Audit Evaluates
+
+- Deterministic outcome generation
+- Entropy integrity
+- Live-to-verifier parity
+- RTP mathematical accuracy
+- Fairness integrity testing
+
+### What Was Audited
+
+- RNG algorithm determinism and verifiability
+- Server seed commitment timing and reveal
+- Client seed control
+- Nonce lifecycle and uniqueness
+- Payout logic and multipliers
+- Theoretical RTP target (99.9%)
+- Provably fair outcome generation
+- Independent player verification path
+- Commit-reveal cryptographic integrity
+
+### What Audit Covers
+
+The following pillars define the scope of the analysis and map directly to the audited Dice components.
+
+<div className="diceCoverageGrid">
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="11" width="16" height="9" rx="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">Commit-Reveal System</h4>
+    </div>
+    <p className="diceCoverageDesc">Server seed hashing, timing, and reveal mechanics</p>
+  </section>
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 20s7-3.5 7-10V5l-7-2-7 2v5c0 6.5 7 10 7 10z" />
+          <path d="M9.5 11.5l1.7 1.7 3.3-3.3" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">Seed Handling</h4>
+    </div>
+    <p className="diceCoverageDesc">Client seed control and nonce lifecycle</p>
+  </section>
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="3" />
+          <circle cx="9" cy="9" r="1.4" />
+          <circle cx="15" cy="15" r="1.4" />
+          <path d="M8 16l8-8" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">RNG Analysis</h4>
+    </div>
+    <p className="diceCoverageDesc">Algorithm verification and bias testing</p>
+  </section>
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 7h16" />
+          <path d="M4 12h16" />
+          <path d="M4 17h10" />
+          <circle cx="18" cy="17" r="2" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">Payout Logic</h4>
+    </div>
+    <p className="diceCoverageDesc">Multiplier accuracy and win-condition verification</p>
+  </section>
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 7h12" />
+          <path d="M6 17h12" />
+          <path d="M16 4l3 3-3 3" />
+          <path d="M8 14l-3 3 3 3" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">Live Parity</h4>
+    </div>
+    <p className="diceCoverageDesc">Verifier versus live-game result matching</p>
+  </section>
+  <section className="diceCoverageCard">
+    <div className="diceCoverageHead">
+      <span className="diceCoverageIcon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 16l4-4 3 3 7-7" />
+          <path d="M19 12v-4h-4" />
+        </svg>
+      </span>
+      <h4 className="diceCoverageTitle">RTP Validation</h4>
+    </div>
+    <p className="diceCoverageDesc">Theoretical and simulated RTP analysis</p>
+  </section>
+</div>
+
+### What Audit Guarantees
+
+- Outcomes are deterministic and reproducible.
+- Live game results match the public verifier.
+- Randomness behaves as documented.
+- No adversarial condition in audit scope violated any fairness guarantee at audit time.
+
+### What Audit Excludes
+
+- Infrastructure and server security
+- Wallet, payments, and custody systems
+- Operational controls outside game logic
+
+### Summary Verdict
+
+| Check | Status | Reference |
+| --- | --- | --- |
+| Overall Status | PASS | [MISSING_INFO: canonical verdict reference] |
+| RTP Verified | PASS | 99.91% plus/minus [MISSING_INFO: tolerance format] |
+| Live ↔ Verifier Parity | PASS | 100% (980k simulations plus 6,200 real bets) |
+| Known Exploits Tested | PASS | Section 5 |
+
+### Reproduce This Audit
+
+- Repository: `https://github.com/ProvablyFair-org/duel-audit`
+- Commit audited: `fa913ab94883d06950d3c63bbb7007f927648131`
+- Public verifier: `https://duel.com/dice`
+- For full reproduction instructions, see Section 7: Reproducibility & Artifacts.
+
+```bash
+# Clone and setup
+git clone https://github.com/ProvablyFair-org/duel-audit.git
+cd duel-audit
+git checkout fa913ab94883d06950d3c63bbb7007f927648131
+npm install
+
+# Run all tests
+npm test
+
+# Dice-specific tests
+npx mocha tests/dice/DiceAuditExecutionChecklistTests.ts
+npx mocha tests/dice/DiceWinCalculatorTests.ts
+npx mocha tests/dice/DuelDiceNumbersGeneratorTests.ts
+npx mocha tests/dice/DiceGameProfilesTests.ts
+npx mocha "tests/dice/**/*.ts"
+```
+
+:::note
+All code, datasets, and simulation scripts are publicly accessible according to the template source.
+:::
+
+### References
+
+<details className="diceLayerExpand">
+  <summary>Dice - Game Rules</summary>
+  <p>
+    Duel Dice is a number prediction game. Players set a target number and choose over or under. A provably fair roll
+    between 0.00 and 100.00 determines the outcome. Payouts scale inversely with win probability.
+  </p>
+  <h4>Risk versus reward</h4>
+  <ul>
+    <li>High risk, high reward: target 90 (roll over) gives about 10% win chance and about 9.99x payout.</li>
+    <li>Low risk, low reward: target 50 (roll over) gives about 50% win chance and about 1.998x payout.</li>
+  </ul>
+
+  <h4>Game parameters</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+        <th>Audit note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Roll range</td>
+        <td>0.00 to 100.00</td>
+        <td>Uniform distribution across 10,001 outcomes</td>
+      </tr>
+      <tr>
+        <td>Target precision</td>
+        <td>0.01</td>
+        <td>Supports values like 35.00, 50.05, and 72.50</td>
+      </tr>
+      <tr>
+        <td>House edge</td>
+        <td>0.1%</td>
+        <td>UI may display "Zero Edge"; audited value is 0.1%</td>
+      </tr>
+      <tr>
+        <td>Theoretical RTP</td>
+        <td>99.9%</td>
+        <td>Verified across target configurations</td>
+      </tr>
+      <tr>
+        <td>Betting modes</td>
+        <td>Manual, Auto</td>
+        <td>Auto mode allows sequential betting</td>
+      </tr>
+      <tr>
+        <td>Bet ID format</td>
+        <td>Numeric</td>
+        <td>Each bet has a unique ID (for example, <code>#308953686</code>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Seed formats</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Input</th>
+        <th>Format</th>
+        <th>Example</th>
+        <th>Purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Server seed</td>
+        <td>64-char hex (32 bytes)</td>
+        <td><code>4f775f81301c7fe8...</code></td>
+        <td>Casino-provided randomness</td>
+      </tr>
+      <tr>
+        <td>Client seed</td>
+        <td>16-char alphanumeric</td>
+        <td><code>kJbhRHVAg4lh_OY7</code></td>
+        <td>Player-controlled randomness</td>
+      </tr>
+      <tr>
+        <td>Nonce</td>
+        <td>Integer, starts at 0</td>
+        <td><code>0, 1, 2, ...</code></td>
+        <td>Ensures unique result per bet</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    These three inputs are combined with HMAC-SHA256 to generate each roll. Because you control the client seed and the
+    server seed is pre-committed, neither party can unilaterally manipulate outcomes.
+  </p>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Why Provably Fair Matters</summary>
+  <p>
+    Traditional online casinos require trust in internal systems. Provably fair systems replace trust with verification:
+    the casino commits before betting, you contribute your own randomness, and anyone can verify outcomes after reveal.
+  </p>
+  <p>[MISSING_INFO: canonical explainer link]</p>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>High-Level Overview</summary>
+  <h4>Provably fair model</h4>
+  <p>
+    The model combines three elements: a server seed committed by hash before play, a player-controlled client seed,
+    and a sequential nonce. These inputs are processed by HMAC-SHA256 to produce deterministic and verifiable results.
+  </p>
+  <h4>High-level flow</h4>
+  <ol>
+    <li>Player bets.</li>
+    <li>System combines server seed, client seed, and nonce.</li>
+    <li>HMAC-SHA256 with rejection sampling generates RNG output.</li>
+    <li>Game logic compares output to the selected target.</li>
+    <li>Payout resolves as win or loss with multiplier application.</li>
+  </ol>
+  <h4>Commit-reveal model</h4>
+  <ol>
+    <li><strong>Commit:</strong> casino publishes only the SHA-256 hash of the server seed.</li>
+    <li><strong>Bet:</strong> your client seed contributes independent entropy.</li>
+    <li><strong>Reveal:</strong> casino reveals server seed after resolution.</li>
+    <li><strong>Verify:</strong> hashing revealed seed must match committed hash.</li>
+  </ol>
+  <p>[MISSING_INFO: Dashboard URL]</p>
+  <p>[MISSING_INFO: Executive Summary URL]</p>
+  <p>Public certification: `https://www.provablyfair.org/audits/Duel`</p>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Technical Glossary</summary>
+  <h4>Core concepts</h4>
+  <ul>
+    <li><strong>Provably fair:</strong> Cryptographic proof that outcomes are not manipulated.</li>
+    <li><strong>Commit-reveal protocol:</strong> Hash commitment before bet, value reveal after bet.</li>
+    <li><strong>Determinism:</strong> Identical inputs always produce identical outputs.</li>
+  </ul>
+  <h4>Seed system</h4>
+  <ul>
+    <li><strong>Server seed:</strong> Casino-generated random value, revealed after commitment period.</li>
+    <li><strong>Client seed:</strong> Player-controlled random value used in outcome generation.</li>
+    <li><strong>Nonce:</strong> Sequential counter incremented per bet under the same seed pair.</li>
+    <li><strong>Seed pair:</strong> Active combination of server seed and client seed.</li>
+    <li><strong>Hashed server seed:</strong> SHA-256 commitment published before bets.</li>
+  </ul>
+  <h4>Cryptographic functions</h4>
+  <ul>
+    <li><strong>HMAC-SHA256:</strong> Deterministic hash construction for Dice outcome derivation.</li>
+    <li><strong>SHA-256:</strong> One-way hash used for server-seed commitment verification.</li>
+    <li><strong>Rejection sampling:</strong> Method used to remove modulo bias in mapped outcomes.</li>
+  </ul>
+  <h4>Verification terms</h4>
+  <ul>
+    <li><strong>Verifier:</strong> Tool that recomputes outcomes from disclosed inputs.</li>
+    <li><strong>Parity:</strong> Match rate between live-game and verifier outcomes.</li>
+    <li><strong>Reproducibility:</strong> Ability to regenerate historical outcomes exactly.</li>
+  </ul>
+  <h4>Game and audit terms</h4>
+  <ul>
+    <li><strong>RNG:</strong> Deterministic generator based on seed inputs and nonce.</li>
+    <li><strong>RTP:</strong> Long-run return percentage, equal to <code>(1 - house edge) * 100%</code>.</li>
+    <li><strong>House edge:</strong> Casino mathematical advantage per wager.</li>
+    <li><strong>Multiplier:</strong> Payout ratio based on win probability and house edge.</li>
+    <li><strong>Win condition:</strong> Over/under target rule for payout resolution.</li>
+    <li><strong>Exploit:</strong> Attack path that could create unfair advantage.</li>
+    <li><strong>Entropy:</strong> Randomness source from both casino and player inputs.</li>
+    <li><strong>Bias:</strong> Non-uniform outcome distribution.</li>
+    <li><strong>Edge case:</strong> Rare input or state condition requiring explicit verification.</li>
+    <li><strong>Bet ID:</strong> Unique numeric identifier for a specific wager.</li>
+  </ul>
+</details>
+
+## 1. Seed, Nonce & Determinism
+
+**Player question:** Can the casino change your outcome after you bet?
+
+Every Dice roll on Duel is generated from three inputs: server seed, client seed, and nonce. The casino commits to
+its server seed before you bet, you control your client seed, and the nonce increments automatically with each bet.
+These inputs make outcomes independently verifiable and reproducible.
+
+This section validates whether Duel seed handling meets provably fair standards and whether the implementation is
+deterministic and tamper-resistant.
+
+### Layer 1: Player Summary
+
+- The casino commits to a server seed before any bet is placed.
+- You can freely set or change your client seed before betting.
+- A nonce increments automatically for each bet and is not reused in a seed session.
+- Dice results are generated only from server seed, client seed, and nonce.
+- Identical inputs always produce identical outcomes.
+
+### Verdict Summary
+
+| Test | Status | What this means for you |
+| --- | --- | --- |
+| Server seed committed before bet | PASS | The casino cannot change outcomes after you bet. |
+| Player client seed control | PASS | You contribute your own randomness to outcomes. |
+| Nonce sequencing | PASS | Every bet stays unique, even when seeds are unchanged. |
+| Deterministic output | PASS | Any result can be independently verified and reproduced. |
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: How It Works (4 sections)</summary>
+  <h4>Server seed commitment</h4>
+  <p>
+    Before you place a bet, the casino generates a secret server seed and commits to it by showing its SHA-256 hash.
+    After seed rotation, the revealed server seed must hash to the previously shown commitment.
+  </p>
+
+  <p><strong>Code implementation</strong></p>
+
+  ```ts
+  it("Server seed reveal matches commit", () => {
+    for (let i = 0; i < gameAuditData.length; i++) {
+      const randomSeed256Hash = crypto.createHash("sha256").update(gameAuditData[i].serverSeed, "hex").digest("hex");
+      expect(randomSeed256Hash).to.eql(gameAuditData[i].hashedServerSeed);
+    }
+  });
+  ```
+
+  <p><strong>Verified live data example</strong></p>
+
+  ```json
+  {
+    "clientSeed": "G3blCQBWQdVfM8sx",
+    "serverSeedHashed": "bb009c347e8fa7d14ac88edeeda028e4fab86294067646e4c06098b6f26b0ae3",
+    "serverSeed": "808eaef57ae9f272ab01a1209b509948fb242fe1f14e135547bd10006e6196f3",
+    "nonce": 0
+  }
+  ```
+
+  <p><strong>Independent verification snippet</strong></p>
+
+  ```js
+  const crypto = require("crypto");
+  const serverSeed = "808eaef57ae9f272ab01a1209b509948fb242fe1f14e135547bd10006e6196f3";
+  const hashedServerSeed = crypto.createHash("sha256").update(serverSeed, "hex").digest("hex");
+  console.log(hashedServerSeed);
+  // bb009c347e8fa7d14ac88edeeda028e4fab86294067646e4c06098b6f26b0ae3
+  ```
+
+  <h4>Player client seed control</h4>
+  <p>
+    You can view, modify, or randomize your client seed before betting. Because final outcomes depend on this player
+    input, the casino cannot unilaterally predict or control results.
+  </p>
+  <p><strong>Observed client seeds in live data</strong></p>
+  <ul>
+    <li><code>G3blCQBWQdVfM8sx</code></li>
+    <li><code>13aS4FO1Iz</code></li>
+    <li><code>32GD7vC9fH</code></li>
+    <li><code>ewGBx04VbY</code></li>
+    <li><code>0ygEXdJyQm</code></li>
+  </ul>
+  <p>[MISSING_INFO: Duel UI screenshot showing client seed control]</p>
+
+  <h4>Nonce incrementation</h4>
+  <p>
+    The nonce starts at <code>0</code> and increments by <code>1</code> for each bet in a seed session. When seeds
+    rotate, nonce resets to <code>0</code>. Audit checks confirm nonce values do not skip, decrement, or reuse within
+    the same session.
+  </p>
+  <p>[MISSING_INFO: publish nonce sequence sample from live dataset]</p>
+
+  <h4>Deterministic mapping</h4>
+  <p>
+    Given the same server seed, client seed, and nonce, Dice output is identical on every recomputation. This enables
+    independent replay and long-term verification of historical bets.
+  </p>
+  <p>[MISSING_INFO: canonical live bet count for deterministic replay matches]</p>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Technical Evidence and Verification (3 sections)</summary>
+  <p>This index maps the evidence used to validate seed handling, nonce behavior, and deterministic replay.</p>
+
+  <p><strong>Generated:</strong> 2026-02-06</p>
+  <p><strong>Audit status:</strong> All tests passed (13/13)</p>
+
+  <h4>Evidence coverage</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Verification category</th>
+        <th>Status</th>
+        <th>Evidence location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Server seed commit verification</td>
+        <td>Verified</td>
+        <td><code>tests/dice/DiceAuditExecutionChecklistTests.ts:24-29</code></td>
+      </tr>
+      <tr>
+        <td>Client seed user control</td>
+        <td>Verified</td>
+        <td><code>tests/dice/DiceAuditExecutionChecklistTests.ts:32-34</code></td>
+      </tr>
+      <tr>
+        <td>Nonce increment logic</td>
+        <td>Verified</td>
+        <td><code>tests/dice/DiceAuditExecutionChecklistTests.ts:36-45</code></td>
+      </tr>
+      <tr>
+        <td>Deterministic mapping</td>
+        <td>Verified</td>
+        <td><code>tests/dice/DiceAuditExecutionChecklistTests.ts:47-52</code></td>
+      </tr>
+      <tr>
+        <td>HMAC-SHA256 implementation</td>
+        <td>Verified</td>
+        <td><code>src/DuelNumbersGenerator.ts:19-34</code></td>
+      </tr>
+      <tr>
+        <td>Nonce reset on seed rotation</td>
+        <td>Verified</td>
+        <td>Dataset evidence</td>
+      </tr>
+      <tr>
+        <td>Nonce never decrements or skips</td>
+        <td>Verified</td>
+        <td>Dataset evidence</td>
+      </tr>
+      <tr>
+        <td>Full dataset determinism</td>
+        <td>Verified</td>
+        <td>[MISSING_INFO: canonical replay count, for example N/N bets matched]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Code references</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Source</th>
+        <th>Area</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>tests/dice/DiceAuditExecutionChecklistTests.ts</code></td>
+        <td>24-52</td>
+        <td>Commit hash checks, client seed checks, nonce sequencing, deterministic replay checks</td>
+      </tr>
+      <tr>
+        <td><code>src/dice/DiceNumbersGenerator.ts</code></td>
+        <td>11-32</td>
+        <td><code>generateDiceResult(serverSeed, clientSeed, nonce)</code> implementation</td>
+      </tr>
+      <tr>
+        <td><code>src/dice/DiceNumbersGenerator.ts</code></td>
+        <td>5-9</td>
+        <td>Mapping constants: <code>MAX_UINT32</code>, <code>RANGE</code>, <code>MAX_FAIR</code></td>
+      </tr>
+      <tr>
+        <td><code>src/dice/DiceNumbersGenerator.ts</code></td>
+        <td>3-33</td>
+        <td>Complete class definition for Dice number generation</td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+## 2. RNG & Entropy Integrity
+
+**Player question:** Is the randomness unbiased, or could it be rigged?
+
+### Layer 1: Player Summary
+
+- RNG model: HMAC-SHA256 with rejection sampling
+- Outcomes are statistically uniform in the tested dataset
+- Explicit no-external-source claim for Dice: external randomness beacon fields are null
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: How Dice Randomness and Entropy Works (4 sections)</summary>
+  <ul>
+    <li>RNG implementation: HMAC-SHA256 output maps to Dice roll values.</li>
+    <li>Entropy sources: server seed, client seed, and nonce only.</li>
+    <li>Bias elimination: rejection sampling avoids modulo bias.</li>
+    <li>RNG isolation: each bet derives output independently from its own inputs.</li>
+  </ul>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Technical Evidence and Verification (10 sections)</summary>
+  <ul>
+    <li>Purpose: validate unbiased randomness and deterministic behavior.</li>
+    <li>Evidence summary: source code, tests, and simulation outputs.</li>
+    <li>Code references: Dice number generation and shared number generator classes.</li>
+    <li>Datasets: live and simulated outcomes from audit runs.</li>
+    <li>RNG dependency checks: no hidden randomness source used in Dice.</li>
+    <li>Entropy checks: only disclosed inputs influence outcome generation.</li>
+    <li>Bias checks: rejection sampling preserves uniformity across valid range.</li>
+    <li>Isolation checks: outcomes cannot be predicted from unrelated bets.</li>
+    <li>Verified invariants: deterministic replay with identical inputs.</li>
+    <li>Reproduction: rerun tests and compare with generated audit outputs.</li>
+  </ul>
+</details>
+
+## 3. Live ↔ Verifier Parity
+
+**Player question:** Does what the casino shows you match what really happened?
+
+### Layer 1: Player Summary
+
+- Live game outcomes match independent verifier re-computation in tested samples
+- Backend game logic aligns with verifier logic
+- No tested discrepancy is reported in the client-provided content
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: How It Works - Parity Verification (3 sections)</summary>
+  <ul>
+    <li>Collect live bet inputs and displayed outcomes.</li>
+    <li>Recompute outcomes using verifier logic and disclosed inputs.</li>
+    <li>Compare computed and displayed results for deterministic parity.</li>
+  </ul>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Technical Evidence - Parity (3 sections)</summary>
+  <ul>
+    <li>Evidence source: production bet samples and verifier replay outputs.</li>
+    <li>Validation result: tested outcomes match under identical input sets.</li>
+    <li>[MISSING_INFO: canonical parity totals and sample count]</li>
+  </ul>
+</details>
+
+## 4. RTP & Payout Validation
+
+**Player question:** Does the house edge match what is advertised?
+
+### Layer 1: Player Summary
+
+- Theoretical RTP target is 99.9%
+- Observed RTP converges toward advertised RTP in simulation
+- Payout logic is deterministic for tested bet configurations
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: How It Works - RTP Validation (3 sections)</summary>
+  <ul>
+    <li>Map generated Dice outcomes to win/loss states by rule.</li>
+    <li>Apply multiplier and payout formulas across bet directions and targets.</li>
+    <li>Compare observed RTP trends with advertised RTP over large sample sizes.</li>
+  </ul>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Technical Evidence - RTP (3 sections)</summary>
+  <ul>
+    <li>Evidence source: simulation outputs and payout verification tests.</li>
+    <li>Validation result: no abnormal payout bias observed in tested conditions.</li>
+    <li>[MISSING_INFO: canonical simulation totals and final observed RTP values]</li>
+  </ul>
+</details>
+
+## 5. Fairness Integrity Testing
+
+**Player question:** Can anyone cheat the system, players or casino?
+
+### Layer 1: Player Summary
+
+- Coverage includes prediction resistance, tamper resistance, seed commitment, nonce sequencing, isolation, and payout integrity
+- No tested exploit class produced unfair advantage in scope
+- Outcomes and payouts remain bound to disclosed inputs and game rules
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: How Fairness Integrity Testing Works (5 sections)</summary>
+  <ul>
+    <li>Test attempts to predict outcomes before bet placement.</li>
+    <li>Test attempts to manipulate outcomes after bet placement.</li>
+    <li>Test implementation edge cases for unfair advantage vectors.</li>
+    <li>Verify seed commitment and nonce sequencing under repeated runs.</li>
+    <li>Verify payout integrity under varied game parameters.</li>
+  </ul>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Evidence and Coverage Index (3 sections)</summary>
+  <ul>
+    <li>Evidence source: exploit test suites and execution checklist outputs.</li>
+    <li>Validation result: no successful exploit path observed in tested scenarios.</li>
+    <li>[MISSING_INFO: canonical exploit test totals and named cases]</li>
+  </ul>
+</details>
+
+## 6. Player Verification Guide
+
+**Player question:** How can you verify any result yourself?
+
+### Layer 1: Player Summary
+
+- Every Dice outcome can be independently reproduced with disclosed inputs.
+- Inputs needed: server seed, client seed, nonce, and displayed result.
+- Most players can verify through the Duel UI verifier flow.
+- Advanced users can run manual and code-based verification locally.
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: Visual Walkthrough (Instruction Layer)</summary>
+  <ol>
+    <li>Open Duel Dice and locate a completed bet.</li>
+    <li>Copy server seed, client seed, nonce, and displayed result.</li>
+    <li>Use the Verify Now feature in the Duel UI to recompute the result.</li>
+    <li>Confirm computed and displayed results match exactly.</li>
+  </ol>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Manual Verification (Advanced)</summary>
+  <ol>
+    <li>Clone the public repository and checkout the audited commit.</li>
+    <li>Run Dice test suites and compare computed outcomes with sample bets.</li>
+    <li>Use local scripts to replay outcomes from (server seed, client seed, nonce).</li>
+    <li>Confirm deterministic parity between local output and recorded game results.</li>
+  </ol>
+</details>
+
+## 7. Reproducibility & Artifacts
+
+**Player question:** Can you clone, run, and reproduce the audit end to end?
+
+### Layer 1: Player Summary
+
+- Open-source repository declared in template
+- Pinned commit declared in template
+- Reproducibility commands declared in template
+
+<details className="diceLayerExpand">
+  <summary>Layer 2: Reproduction Walkthrough</summary>
+  <ul>
+    <li>Clone repository</li>
+    <li>Install dependencies</li>
+    <li>Run tests</li>
+    <li>Generate report artifacts</li>
+  </ul>
+</details>
+
+<details className="diceLayerExpand">
+  <summary>Layer 3: Technical Artifacts Index</summary>
+  <ul>
+    <li>
+      Repository structure (provided by client): `src/dice/` (generator, calculator, profiles, simulator), shared
+      number generator, `tests/dice/`, `dataScripts/dice/`, and `outputs/audit-results/`.
+    </li>
+    <li>Report artifact path: `outputs/audit-results/audit-results.json`.</li>
+    <li>Dataset path pattern: `dataScripts/dice/duel-dice-sim-[timestamp].json`.</li>
+  </ul>
+</details>
+
+## Audit Reproducibility Pinning
+
+<div className="auditPinningGrid">
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Git commit</div>
+    <code className="auditPinningValue">fa913ab94883d06950d3c63bbb7007f927648131</code>
+  </section>
+
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Node package manager version</div>
+    <div className="auditPinningValue">11.3.0 (minimum 8.x)</div>
+  </section>
+
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Node version</div>
+    <div className="auditPinningValue">v22.11.0 (minimum v16.x)</div>
+  </section>
+
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Dataset hash (SHA-256)</div>
+    <code className="auditPinningValue">ba3ae70517c7f77e07eaced46900a5f94ebc02bf11c41502fac894f142efb799</code>
+  </section>
+</div>
