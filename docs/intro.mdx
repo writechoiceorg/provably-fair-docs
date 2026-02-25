@@ -1,0 +1,211 @@
+---
+sidebar_position: 1
+---
+
+import CertBanner from '@site/src/components/CertBanner';
+import PassPill from '@site/src/components/PassPill';
+import StatBlock from '@site/src/components/StatBlock';
+import StatBlockGroup from '@site/src/components/StatBlockGroup';
+import VerdictTable from '@site/src/components/VerdictTable';
+import GameValidation from '@site/src/components/GameValidation';
+import TagRow from '@site/src/components/TagRow';
+import SectionHeading from '@site/src/components/SectionHeading';
+import AuditTimeline from '@site/src/components/AuditTimeline';
+
+
+# Tutorial Intro
+
+
+
+
+<CertBanner
+  casino="Duel.com"
+  subtitle="Provably Fair System Audit"
+  certifiedBy="ProvablyFair.org"
+  auditId="PF-2026-001"
+  issued="Feb 12, 2026"
+  nextReview="Feb 2027"
+  status="CERTIFIED"
+/>
+
+
+
+<TagRow tags={[
+  { label: '✓ Certified',   variant: 'green'  },
+  { label: 'Open Source',   variant: 'orange' },
+  { label: 'PF Audit v1.0', variant: 'blue'   },
+]} />
+
+
+<AuditTimeline steps={[
+  { title: 'Initiated',         date: 'Jan 28' },
+  { title: 'Data Capture',      date: 'Feb 4'  },
+  { title: 'Parity Testing',    date: 'Feb 6'  },
+  { title: 'RTP Simulation',    date: 'Feb 8'  },
+  { title: 'Integrity Testing', date: 'Feb 12' },
+  { title: 'Certification',     date: 'Feb 12' },
+]} />
+
+<SectionHeading label="System Integrity Snapshot" title="Audit Verdict"       /> 
+<SectionHeading label="Game Testing"              title="Game Validation Matrix"/>
+<SectionHeading label="Process"                   title="Audit Timeline"        />
+<SectionHeading label="Open Source"               title="Transparency and Verification" />
+
+<PassPill />
+<PassPill label="Verified" />
+
+---
+
+<StatBlockGroup>
+  <StatBlock value="30,742"      label="Live Bets Verified"      variant="default" />
+  <StatBlock value="80,000,000+" label="Simulation Rounds"       variant="default" />
+  <StatBlock value="120"         label="Game Integrity Checks"   variant="accent"  />
+  <StatBlock value="8 / 8"       label="Games Fully Validated"   variant="green"   />
+</StatBlockGroup>
+
+
+<VerdictTable auditVerdict={[
+  {
+    id: '01',
+    name: 'Determinism',
+    evidence: 'HMAC-SHA256 with rejection sampling. Nonce starts at 0, increments by 1, never reused. Player controls client seed. 100% deterministic.'
+  },
+  {
+    id: '02',
+    name: 'RNG Integrity',
+    evidence: 'No external entropy sources. Chi-squared uniformity: p = 0.472 across 980K simulated rounds. Rejection sampling eliminates modulo bias.'
+  },
+  {
+    id: '03',
+    name: 'Live ↔ Verifier Parity',
+    evidence: '30,742 real bets verified. 100% match rate — zero discrepancies between live results and independently computed outcomes.'
+  },
+  {
+    id: '04',
+    name: 'RTP Validation',
+    evidence: 'Theoretical RTP verified across all game configurations. Simulated RTP converges within expected variance over 80M+ rounds.'
+  },
+  {
+    id: '05',
+    name: 'Fairness Integrity',
+    evidence: '15 integrity checks passed per game: nonce sequencing, seed commitment, outcome determinism, round isolation, payout integrity.'
+  },
+]} />
+
+<GameValidation games={[
+  {
+    name:            'Dice',
+    href:            '/games/dice',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Crash',
+    href:            '/games/crash',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Plinko',
+    href:            '/games/plinko',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Blackjack',
+    href:            '/games/blackjack',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Roulette',
+    href:            '/games/roulette',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Keno',
+    href:            '/games/keno',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Mines',
+    href:            '/games/mines',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+  {
+    name:            'Cross Road',
+    href:            '/games/cross-road',
+    rng:             'HMAC-SHA256',
+    parity:          '1,009 bets',
+    rtp:             '10M sim',
+    integrity:       '15 checks',
+    validationScope: '400 seed sessions',
+  },
+]} />
+
+
+Let's discover **Docusaurus in less than 5 minutes**.
+
+## Getting Started
+
+Get started by **creating a new site**.
+
+Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+
+### What you'll need
+
+- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
+  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+
+## Generate a new site
+
+Generate a new Docusaurus site using the **classic template**.
+
+The classic template will automatically be added to your project after you run the command:
+
+```bash
+npm init docusaurus@latest my-website classic
+```
+
+You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+
+The command also installs all necessary dependencies you need to run Docusaurus.
+
+## Start your site
+
+Run the development server:
+
+```bash
+cd my-website
+npm run start
+```
+
+The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+
+The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+
+Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
