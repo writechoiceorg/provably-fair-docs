@@ -161,6 +161,130 @@
   border: 1px solid rgba(34, 197, 94, 0.34);
 }
 
+.auditVerdictCardsGrid {
+  --auditVerdictGap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--auditVerdictGap);
+  margin: 0.85rem 0 1.2rem;
+}
+
+.auditVerdictCardsGrid > .auditVerdictCard:first-child {
+  grid-column: 1 / -1;
+  width: calc(50% - (var(--auditVerdictGap) / 2));
+  max-width: none;
+  justify-self: center;
+}
+
+.auditVerdictCard {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+  background: radial-gradient(circle at 80% 20%, rgba(232, 89, 12, 0.22), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  color: #f3f4f6;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+}
+
+.auditVerdictCard h4 {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.auditVerdictCard .gameAuditStatus {
+  margin-top: 0.45rem;
+}
+
+.auditVerdictTitleLink {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.auditVerdictTitleLink:hover {
+  text-decoration: underline;
+}
+
+.auditVerdictRef {
+  margin: 0.42rem 0 0.1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.35;
+}
+
+
+.summaryVerdictCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.summaryVerdictCardPrimary {
+  grid-column: 1 / -1;
+  max-width: 24rem;
+  width: 100%;
+  justify-self: center;
+}
+
+.summaryVerdictCard .auditVerdictRef a {
+  color: #ffffff;
+}
+
+.summaryVerdictCard .auditVerdictRef a:hover {
+  color: #ffb38a;
+}
+
+.verdictCardRows {
+  margin: 0.55rem 0 1rem;
+}
+
+.verdictCardRows table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.55rem;
+}
+
+.verdictCardRows thead th {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ifm-color-emphasis-700);
+  border: 0;
+  padding: 0 0.75rem 0.2rem;
+}
+
+.verdictCardRows tbody td {
+  background: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  padding: 0.68rem 0.75rem;
+  vertical-align: middle;
+}
+
+.verdictCardRows tbody td:first-child {
+  border-left: 1px solid var(--ifm-color-emphasis-300);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-weight: 600;
+}
+
+.verdictCardRows tbody td:last-child {
+  border-right: 1px solid var(--ifm-color-emphasis-300);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.verdictCardRows tbody tr:hover td {
+  background: color-mix(in srgb, var(--ifm-background-surface-color) 86%, var(--ifm-color-primary) 14%);
+}
+
 .auditTimeline {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -218,6 +342,23 @@
   color: var(--ifm-color-emphasis-700);
 }
 
+.parityMetricsTimeline {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 0.65rem;
+}
+
+.parityMetricsTimeline .auditTimelineStep {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.parityMetricsTimeline .auditTimelineStep::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .auditPinningGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -256,11 +397,13 @@
 }
 
 .diceCoverageCard {
-  border: 1px solid var(--ifm-color-emphasis-300);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 11px;
   padding: 0.92rem 0.98rem 1rem;
-  background: var(--ifm-background-surface-color);
-  box-shadow: none;
+  background: radial-gradient(circle at 82% 18%, rgba(232, 89, 12, 0.24), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  color: #f3f4f6;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
 }
 
 .diceCoverageHead {
@@ -274,7 +417,7 @@
   width: 0.9rem;
   height: 0.9rem;
   flex: 0 0 auto;
-  color: #ff6b1a;
+  color: #ff8a4a;
 }
 
 .diceCoverageIcon svg {
@@ -289,19 +432,21 @@
   line-height: 1.32;
   letter-spacing: -0.01em;
   font-weight: 700;
+  color: #ffffff;
 }
 
 .diceCoverageDesc {
   margin: 0;
-  color: var(--ifm-color-emphasis-700);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.42;
   font-size: 0.97rem;
 }
 
 [data-theme='dark'] .diceCoverageCard {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: #121316;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at 82% 18%, rgba(232, 89, 12, 0.28), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
 }
 
 [data-theme='dark'] .diceCoverageTitle {
@@ -313,7 +458,7 @@
 }
 
 [data-theme='dark'] .diceCoverageIcon {
-  color: #ff6a13;
+  color: #ff8a4a;
 }
 
 .diceAssuranceGrid {
@@ -363,6 +508,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.45rem;
   padding: 0.45rem 0.8rem;
   border-radius: 8px;
   border: 1px solid #3a6acc;
@@ -373,6 +519,28 @@
   font-weight: 600;
   line-height: 1.2;
   transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.dicePublicLinkIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.dicePublicLinkIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dicePublicLinkLabel {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.1;
 }
 
 .dicePublicLinkButton:hover {
@@ -397,11 +565,36 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .auditVerdictCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .auditVerdictCardsGrid > .auditVerdictCard:first-child {
+    grid-column: 1 / -1;
+    max-width: 34rem;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .summaryVerdictCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summaryVerdictCardPrimary {
+    grid-column: 1 / -1;
+    max-width: 30rem;
+  }
+
+
   .auditTimeline {
     grid-template-columns: 1fr;
     gap: 0.5rem;
     padding-top: 0;
     padding-left: 1.6rem;
+  }
+
+  .parityMetricsTimeline {
+    grid-template-columns: 1fr;
   }
 
   .auditTimeline::before {
@@ -440,6 +633,85 @@
 @media (max-width: 640px) {
   .gameAuditCardsGrid {
     grid-template-columns: 1fr;
+  }
+
+  .auditVerdictCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .auditVerdictCardsGrid > .auditVerdictCard:first-child {
+    grid-column: auto;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .summaryVerdictCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryVerdictCardPrimary {
+    grid-column: auto;
+    max-width: none;
+  }
+
+
+  .verdictCardRows table {
+    border-spacing: 0 0.5rem;
+  }
+
+  .verdictCardRows thead {
+    display: none;
+  }
+
+  .verdictCardRows tbody tr {
+    display: block;
+  }
+
+  .verdictCardRows tbody td {
+    display: block;
+    border-left: 1px solid var(--ifm-color-emphasis-300);
+    border-right: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 0;
+    padding: 0.5rem 0.68rem;
+  }
+
+  .verdictCardRows tbody td:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid var(--ifm-color-emphasis-300);
+    border-right: 1px solid var(--ifm-color-emphasis-300);
+  }
+
+  .verdictCardRows tbody td:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 0;
+    border-right: 1px solid var(--ifm-color-emphasis-300);
+  }
+
+  .verdictCardRows tbody td:nth-child(1)::before,
+  .verdictCardRows tbody td:nth-child(2)::before,
+  .verdictCardRows tbody td:nth-child(3)::before {
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--ifm-color-emphasis-700);
+    font-weight: 700;
+  }
+
+  .verdictCardRows tbody td:nth-child(1)::before {
+    content: "Test";
+  }
+
+  .verdictCardRows tbody td:nth-child(2)::before {
+    content: "Status";
+  }
+
+  .verdictCardRows tbody td:nth-child(3)::before {
+    content: "What this means for you";
   }
 }
 
@@ -494,4 +766,78 @@
 .diceLayerExpand > div {
   margin: 0;
   padding: 0.2rem 0.9rem 0.9rem;
+}
+
+.docStepper {
+  margin: 0.35rem 0 0.9rem;
+}
+
+.docStepperStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.7rem;
+  padding-bottom: 0.9rem;
+}
+
+.docStepperStep:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  top: 2rem;
+  bottom: 0.15rem;
+  width: 2px;
+  background: var(--ifm-color-emphasis-300);
+}
+
+.docStepperIndex {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 89, 12, 0.7);
+  background: radial-gradient(circle at 30% 28%, #ff9f6a 0%, #e8590c 58%, #b6490b 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 0.05rem;
+  z-index: 1;
+  box-shadow: 0 0 0 2px rgba(232, 89, 12, 0.22);
+}
+
+.docStepperContent h4 {
+  margin: 0 0 0.45rem;
+  font-size: 0.96rem;
+}
+
+.docStepperContent p {
+  margin: 0.4rem 0;
+}
+
+.docStepperContent pre {
+  margin: 0.4rem 0 0.6rem;
+}
+
+[data-theme='dark'] .docStepperStep:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .docStepperIndex {
+  border-color: rgba(255, 143, 87, 0.85);
+  background: radial-gradient(circle at 30% 28%, #ff9f6a 0%, #e8590c 58%, #a4400d 100%);
+  box-shadow: 0 0 0 2px rgba(232, 89, 12, 0.3);
+}
+
+@media (max-width: 640px) {
+  .docStepperStep {
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    gap: 0.58rem;
+  }
+
+  .docStepperStep:not(:last-child)::after {
+    left: 0.85rem;
+  }
 }
