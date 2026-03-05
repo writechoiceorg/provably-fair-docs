@@ -15,7 +15,7 @@ import AuditTimeline from "@site/src/components/AuditTimeline";
   casino="Duel.com"
   subtitle="Provably Fair System Audit"
   certifiedBy="ProvablyFair.org"
-  auditId="PF-2026-001"
+  auditId="PF-2026-002"
   issued="Feb 12, 2026"
   nextReview="Feb 2027"
   status="CERTIFIED"
@@ -31,7 +31,7 @@ import AuditTimeline from "@site/src/components/AuditTimeline";
 
 Complete analysis of the audit methodology, technical findings, and final certification is available in the Executive Summary.
 
-<SectionHeading label="System Integrity Snapshot" title="Audit Verdict" />
+<SectionHeading label="Audit Verdict" title="System Integrity Snapshot" />
 
 To guarantee complete cryptographic transparency, the following key performance indicators (KPIs) show the total volume of live data and stress-testing simulations verified during this audit period.
 
@@ -47,15 +47,23 @@ To guarantee complete cryptographic transparency, the following key performance 
 Comprehensive audit results for individual game modules, including hashing algorithms and simulation densities.
 
 <GameValidation
+  columnTemplate="1.1fr 1.5fr 1fr 0.9fr 1fr"
+  columns={[
+    { id: "game", label: "Game" },
+    { id: "rng", label: "RNG Model", mono: true },
+    { id: "simulation", label: "Simulation", mono: true },
+    { id: "rtp", label: "RTP", mono: true },
+    { id: "status", label: "Status" },
+  ]}
   games={[
-    { name: "Dice", href: "/games/dice", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Crash", href: "/games/crash", rng: "HMAC-SHA256 + drand", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Plinko", href: "/games/plinko", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Blackjack", href: "/games/blackjack", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Roulette", href: "/games/roulette", rng: "HMAC-SHA256 + drand", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Keno", href: "/games/keno", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Mines", href: "/games/mines", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
-    { name: "Cross Road", href: "/games/cross-road", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Dice", href: "./dice-audit", rng: "HMAC-SHA256", simulation: "100M sim", rtp: "99.9%", status: "PASS" },
+    { name: "Crash", href: "#", rng: "HMAC-SHA256 + drand", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Plinko", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Blackjack", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Roulette", href: "#", rng: "HMAC-SHA256 + drand", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Keno", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Mines", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Cross Road", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
   ]}
 />
 
