@@ -1,4 +1,29 @@
-export default function CertBanner({ casino, subtitle, certifiedBy, auditId, issued, nextReview, status = 'CERTIFIED' }) {
+export default function CertBanner({
+  casino,
+  subtitle,
+  certifiedBy,
+  auditId,
+  issued,
+  nextReview,
+  status = 'CERTIFIED',
+  metadataItems,
+}) {
+  const defaultMetadataItems = [
+    { label: "Certified by", value: certifiedBy, tone: "accent" },
+    { label: "Issued:", value: issued },
+    { label: "Audit ID:", value: auditId },
+    { label: "Next Review:", value: nextReview },
+    { label: "Status:", value: status, tone: "success" },
+  ];
+
+  const items = Array.isArray(metadataItems) && metadataItems.length > 0 ? metadataItems : defaultMetadataItems;
+
+  const getValueClassName = (tone) => {
+    if (tone === "accent") return "pf-cert-banner__cert-by";
+    if (tone === "success") return "pf-cert-banner__status";
+    return "pf-cert-banner__val";
+  };
+
   return (
     <div className="pf-cert-banner">
       <div className="pf-cert-banner__inner">
@@ -16,26 +41,12 @@ export default function CertBanner({ casino, subtitle, certifiedBy, auditId, iss
         </div>
 
         <div className="pf-cert-banner__meta">
-          <div className="pf-cert-banner__field">
-            <span className="pf-cert-banner__key">Certified by</span>
-            <span className="pf-cert-banner__cert-by">{certifiedBy}</span>
-          </div>
-          <div className="pf-cert-banner__field">
-            <span className="pf-cert-banner__key">Issued:</span>
-            <span className="pf-cert-banner__val">{issued}</span>
-          </div>
-          <div className="pf-cert-banner__field">
-            <span className="pf-cert-banner__key">Audit ID:</span>
-            <span className="pf-cert-banner__val">{auditId}</span>
-          </div>
-          <div className="pf-cert-banner__field">
-            <span className="pf-cert-banner__key">Next Review:</span>
-            <span className="pf-cert-banner__val">{nextReview}</span>
-          </div>
-          <div className="pf-cert-banner__field">
-            <span className="pf-cert-banner__key">Status:</span>
-            <span className="pf-cert-banner__status">{status}</span>
-          </div>
+          {items.map((item) => (
+            <div className="pf-cert-banner__field" key={`${item.label}-${String(item.value)}`}>
+              <span className="pf-cert-banner__key">{item.label}</span>
+              <span className={getValueClassName(item.tone)}>{item.value}</span>
+            </div>
+          ))}
         </div>
 
       </div>

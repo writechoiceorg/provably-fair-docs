@@ -4,15 +4,14 @@ description: Independent validation of Duel.com Dice across deterministic outcom
 diataxis: reference
 ---
 
-import AuditVerdictCards from "@site/src/components/audit/AuditVerdictCards";
-import SummaryVerdictCards from "@site/src/components/audit/SummaryVerdictCards";
 import VerdictTable from "@site/src/components/audit/VerdictTable";
 import PinningCards from "@site/src/components/audit/PinningCards";
 import DocStepper from "@site/src/components/audit/DocStepper";
 import PublicLinksRow from "@site/src/components/audit/PublicLinksRow";
+import AuditTimeline from "@site/src/components/AuditTimeline";
+import SectionHeading from "@site/src/components/SectionHeading";
+import CertBanner from "@site/src/components/CertBanner";
 import {
-  auditVerdictItems,
-  summaryVerdictItems,
   sectionVerdictRows,
   publicLinks,
   pinningItems,
@@ -27,55 +26,61 @@ import {
 
 Provably Fair audit of the Duel Dice game
 
-## Audit Metadata
+<SectionHeading label="Overview" title="Audit Metadata" />
 
-(image metadata)
+<CertBanner
+  casino="Duel.com"
+  subtitle="Dice Audit Metadata"
+  metadataItems={[
+    { label: "Audit version", value: "1.0" },
+    { label: "Audit date", value: "January 25, 2026" },
+    { label: "Repository", value: "https://github.com/ProvablyFair-org/duel-audit" },
+    { label: "Commit audited", value: "fa913ab" },
+    { label: "Public certification", value: "https://www.provablyfair.org/audits/Duel" },
+    { label: "Audit ID", value: "PF-2026-001", tone: "success" },
+  ]}
+/>
 
-| Field | Value |
-| --- | --- |
-| Audit version | 1.0 |
-| Audit date | January 25, 2026 |
-| Repository | `https://github.com/ProvablyFair-org/duel-audit` |
-| Commit audited | `fa913ab` |
-| Public certification | `https://www.provablyfair.org/audits/Duel` |
-| Audit ID | PF-2026-001 |
-
-## Audit Verdict
-
-<AuditVerdictCards items={auditVerdictItems} />
-
-## Dice Audit Overview
+## Dice Overview
 
 This audit evaluates the Dice game operated by Duel Casino under the ProvablyFair.org Audit Framework v1.0.
 Dice is a prediction game where you bet on whether a randomly generated number (`0.00` to `100.00`) lands above or
 below a target you choose.
 
-### Purpose
+<SectionHeading label="Context" title="Purpose" />
 
 This audit determines whether outcomes are cryptographically reproducible, statistically fair, and resistant to
 manipulation by either players or the casino.
 
-### What This Audit Evaluates
+<div className="diceAuditOverviewGrid">
+  <section className="diceAuditOverviewCard">
+    <h3>What This Audit Evaluates</h3>
+    <ul>
+      <li>Deterministic outcome generation</li>
+      <li>Entropy integrity</li>
+      <li>Live-to-verifier parity</li>
+      <li>RTP mathematical accuracy</li>
+      <li>Fairness integrity testing</li>
+    </ul>
+  </section>
 
-- Deterministic outcome generation
-- Entropy integrity
-- Live-to-verifier parity
-- RTP mathematical accuracy
-- Fairness integrity testing
+  <section className="diceAuditOverviewCard">
+    <h3>What Was Audited</h3>
+    <ul>
+      <li>RNG algorithm determinism and verifiability</li>
+      <li>Server seed commitment timing and reveal</li>
+      <li>Client seed control</li>
+      <li>Nonce lifecycle and uniqueness</li>
+      <li>Payout logic and multipliers</li>
+      <li>Theoretical RTP target (99.9%)</li>
+      <li>Provably fair outcome generation</li>
+      <li>Independent player verification path</li>
+      <li>Commit-reveal cryptographic integrity</li>
+    </ul>
+  </section>
+</div>
 
-### What Was Audited
-
-- RNG algorithm determinism and verifiability
-- Server seed commitment timing and reveal
-- Client seed control
-- Nonce lifecycle and uniqueness
-- Payout logic and multipliers
-- Theoretical RTP target (99.9%)
-- Provably fair outcome generation
-- Independent player verification path
-- Commit-reveal cryptographic integrity
-
-### What Audit Covers
+<SectionHeading label="Scope" title="What Audit Covers" />
 
 The following pillars define the scope of the analysis and map directly to the audited Dice components.
 
@@ -180,13 +185,69 @@ The following pillars define the scope of the analysis and map directly to the a
   </section>
 </div>
 
-<span id="summary-verdict-section"></span>
+<SectionHeading label="System Integrity Snapshot" title="Audit Verdict" />
 
-### Summary Verdict
+<VerdictTable
+  meaningHeader="Reference"
+  rows={[
+    {
+      id: "overall",
+      test: "Overall Status",
+      status: "PASS",
+      meaning: "See Summary Verdict for the full consolidated result.",
+    },
+    {
+      id: "rtp",
+      test: "RTP Verified",
+      status: "PASS",
+      meaning: "99.9% +/-0.1% house edge",
+    },
+    {
+      id: "parity",
+      test: "Live to Verifier Parity",
+      status: "PASS",
+      meaning: "100% all test rounds matched",
+    },
+    {
+      id: "commitReveal",
+      test: "Commit-Reveal System",
+      status: "PASS",
+      meaning: "SHA-256 verified",
+    },
+    {
+      id: "seedHandling",
+      test: "Seed Handling",
+      status: "PASS",
+      meaning: "Player control verified",
+    },
+    {
+      id: "rng",
+      test: "RNG Analysis",
+      status: "PASS",
+      meaning: "Unbiased via rejection sampling",
+    },
+    {
+      id: "payout",
+      test: "Payout Logic",
+      status: "PASS",
+      meaning: "All payouts verified correct",
+    },
+    {
+      id: "fairness",
+      test: "Fairness Guarantees Tested",
+      status: "PASS",
+      meaning: "7 of 7 fairness guarantees verified",
+    },
+    {
+      id: "determinism",
+      test: "Determinism",
+      status: "PASS",
+      meaning: "Full reproducibility confirmed",
+    },
+  ]}
+/>
 
-<SummaryVerdictCards items={summaryVerdictItems} />
-
-### Public links
+<SectionHeading label="Resources" title="Public links" />
 
 To facilitate independent reproduction of our findings, the full audit repository and verification resources are public.
 
@@ -194,7 +255,7 @@ To facilitate independent reproduction of our findings, the full audit repositor
 
 For full reproduction instructions, see [Section 7: Reproducibility &amp; Artifacts](#7-reproducibility--artifacts).
 
-### References
+<SectionHeading label="Appendix" title="References" />
 
 <details className="diceLayerExpand">
   <summary>Dice - Game Rules</summary>
@@ -394,7 +455,47 @@ For full reproduction instructions, see [Section 7: Reproducibility &amp; Artifa
   </ul>
 </details>
 
+<span id="summary-verdict-section"></span>
+
+<SectionHeading label="Results" title="Summary Verdict" />
+
+<VerdictTable
+  meaningHeader="Reference"
+  rows={[
+    {
+      id: "summary-overall",
+      test: "Overall Status",
+      status: "PASS",
+      meaning: "All audited fairness controls passed across evaluated sections.",
+    },
+    {
+      id: "summary-rtp",
+      test: "RTP Verified",
+      status: "PASS",
+      meaning: "99.9% theoretical RTP (0.1% house edge)",
+    },
+    {
+      id: "summary-parity",
+      test: "Live ↔ Verifier Parity",
+      status: "PASS",
+      meaning: "100% (6,200/6,200 live bets matched)",
+    },
+    {
+      id: "summary-exploits",
+      test: "Known Exploits Tested",
+      status: "PASS",
+      meaning: (
+        <>
+          (7/7 categories passed) <a href="#5-fairness-integrity-testing">Section 5</a>
+        </>
+      ),
+    },
+  ]}
+/>
+
 <span id="section-seed-nonce-determinism"></span>
+
+---
 
 ## 1. Seed, Nonce & Determinism
 
@@ -407,7 +508,7 @@ These inputs make outcomes independently verifiable and reproducible.
 This section validates whether Duel seed handling meets provably fair standards and whether the implementation is
 deterministic and tamper-resistant.
 
-### Verdict summary
+<SectionHeading label="Section 1" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section1} />
 
@@ -745,7 +846,7 @@ This section tests whether the RNG produces unbiased results and whether each be
 
 (image: 5 steps to verify a dice roll)
 
-### Verdict summary
+<SectionHeading label="Section 2" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section2} />
 
@@ -1144,30 +1245,20 @@ altered the result.
 This section tests whether Duel live Dice outcomes match independent verifier recomputation across a full dataset of
 real production bets. A single mismatch would invalidate the fairness guarantee.
 
-### Parity metrics
+<SectionHeading label="Section 3" title="Parity metrics" />
 
-<div className="auditTimeline parityMetricsTimeline">
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Bets verified</div>
-    <div className="auditTimelineDate">6,200</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Matches</div>
-    <div className="auditTimelineDate">6,200 / 6,200</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Mismatches</div>
-    <div className="auditTimelineDate">0</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">External entropy</div>
-    <div className="auditTimelineDate">None detected</div>
-  </div>
-</div>
+<AuditTimeline
+  steps={[
+    { title: "Bets verified", date: "6,200" },
+    { title: "Matches", date: "6,200 / 6,200" },
+    { title: "Mismatches", date: "0" },
+    { title: "External entropy", date: "None detected" },
+  ]}
+/>
 
 (image: parity metrics flow)
 
-### Verdict summary
+<SectionHeading label="Section 3" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section3} />
 
@@ -1487,7 +1578,7 @@ gameplay behavior and that outcomes cannot be altered post-bet.
 This section validates that Duel Dice payout logic is mathematically correct and that observed RTP converges to the
 advertised <code>99.9%</code>, with no hidden payout distortion.
 
-### Verdict summary
+<SectionHeading label="Section 4" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section4} />
 
@@ -2076,7 +2167,7 @@ abnormal bias or payout manipulation was observed.
 This section tests whether any party, player or casino, can predict outcomes, alter results, or gain an unfair
 advantage through weaknesses in the provably fair implementation under realistic gameplay conditions.
 
-### Verdict summary
+<SectionHeading label="Section 5" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section5} />
 
@@ -2404,7 +2495,7 @@ realistic gameplay conditions.
 Every Dice outcome can be independently reproduced using publicly disclosed inputs. If your recomputed result matches
 the displayed result, the game is provably fair.
 
-### Verdict summary
+<SectionHeading label="Section 6" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section6} />
 
@@ -2524,17 +2615,17 @@ the displayed result, the game is provably fair.
 Yes. This audit is fully reproducible end to end using the public repository, pinned commit and dataset hash, and the
 published commands in this section.
 
-### Verdict summary
+<SectionHeading label="Section 7" title="Verdict summary" />
 
 <VerdictTable rows={sectionVerdictRows.section7} />
 
-### GitHub repository
+<SectionHeading label="Section 7" title="GitHub repository" />
 
 ```text
 https://github.com/ProvablyFair-org/duel-audit
 ```
 
-### Repository structure
+<SectionHeading label="Section 7" title="Repository structure" />
 
 ```text
 duel-audit/
@@ -2563,7 +2654,7 @@ duel-audit/
         └── audit-results.json -> Pass/fail summary
 ```
 
-### Commands to reproduce
+<SectionHeading label="Section 7" title="Commands to reproduce" />
 
 #### Prerequisites
 
@@ -2573,6 +2664,6 @@ duel-audit/
 
 <DocStepper steps={reproducibilityCommandSteps} />
 
-### Audit Reproducibility Pinning
+<SectionHeading label="Section 7" title="Audit Reproducibility Pinning" />
 
 <PinningCards items={pinningItems} />

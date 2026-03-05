@@ -65,16 +65,58 @@ const GAME_ICONS = {
   ),
 };
 
-const COLUMNS = ['Game', 'RNG Model', 'Parity', 'RTP', 'Integrity', 'Validation Scope', 'Status'];
+const DEFAULT_COLUMNS = [
+  { id: 'game', label: 'Game' },
+  { id: 'rng', label: 'RNG Model', mono: true },
+  { id: 'parity', label: 'Parity', mono: true },
+  { id: 'rtp', label: 'RTP', mono: true },
+  { id: 'integrity', label: 'Integrity', mono: true },
+  { id: 'validationScope', label: 'Validation Scope', mono: true },
+  { id: 'status', label: 'Status' },
+];
 
-export default function GameValidation({ games = [] }) {
+const LEGACY_COLUMN_MAP = {
+  Game: { id: 'game', label: 'Game' },
+  'RNG Model': { id: 'rng', label: 'RNG Model', mono: true },
+  Parity: { id: 'parity', label: 'Parity', mono: true },
+  RTP: { id: 'rtp', label: 'RTP', mono: true },
+  Integrity: { id: 'integrity', label: 'Integrity', mono: true },
+  'Validation Scope': { id: 'validationScope', label: 'Validation Scope', mono: true },
+  Status: { id: 'status', label: 'Status' },
+};
+
+function normalizeColumns(columns = DEFAULT_COLUMNS) {
+  return columns.map((column) => {
+    if (typeof column === 'string') {
+      return LEGACY_COLUMN_MAP[column] ?? { id: column, label: column };
+    }
+
+    return {
+      mono: false,
+      ...column,
+    };
+  });
+}
+
+function renderLinkedValue(value) {
+  if (value && typeof value === 'object' && typeof value.href === 'string') {
+    return <a href={value.href}>{value.label ?? value.href}</a>;
+  }
+
+  return value;
+}
+
+export default function GameValidation({ games = [], columns = DEFAULT_COLUMNS, columnTemplate }) {
+  const normalizedColumns = normalizeColumns(columns);
+  const gridStyle = columnTemplate ? { gridTemplateColumns: columnTemplate } : undefined;
+
   return (
     <div className="pf-gm">
 
       {/* Header */}
-      <div className="pf-gm__header">
-        {COLUMNS.map((col) => (
-          <div key={col} className="pf-gm__th">{col}</div>
+      <div className="pf-gm__header" style={gridStyle}>
+        {normalizedColumns.map((column) => (
+          <div key={column.id} className="pf-gm__th">{column.label}</div>
         ))}
       </div>
 
@@ -83,19 +125,36 @@ export default function GameValidation({ games = [] }) {
         <div
           key={game.name}
           className={`pf-gm__row ${index === games.length - 1 ? 'pf-gm__row--last' : ''}`}
+          style={gridStyle}
         >
-          <div className="pf-gm__td">
-            <div className="pf-gm__name">
-              <span className="pf-gm__icon">{GAME_ICONS[game.name]}</span>
-              <a href={game.href ?? '#'}>{game.name}</a>
-            </div>
-          </div>
-          <div className="pf-gm__td"><span className="pf-gm__mono">{game.rng}</span></div>
-          <div className="pf-gm__td"><span className="pf-gm__mono">{game.parity}</span></div>
-          <div className="pf-gm__td"><span className="pf-gm__mono">{game.rtp}</span></div>
-          <div className="pf-gm__td"><span className="pf-gm__mono">{game.integrity}</span></div>
-          <div className="pf-gm__td"><span className="pf-gm__mono">{game.validationScope}</span></div>
-          <div className="pf-gm__td"><PassPill /></div>
+          {normalizedColumns.map((column) => {
+            if (column.id === 'game') {
+              return (
+                <div key={column.id} className="pf-gm__td">
+                  <div className="pf-gm__name">
+                    <span className="pf-gm__icon">{GAME_ICONS[game.name]}</span>
+                    <a href={game.href ?? '#'}>{game.name}</a>
+                  </div>
+                </div>
+              );
+            }
+
+            if (column.id === 'status') {
+              return (
+                <div key={column.id} className="pf-gm__td">
+                  <PassPill label={game.status ?? 'Pass'} />
+                </div>
+              );
+            }
+
+            const value = renderLinkedValue(game[column.id]);
+
+            return (
+              <div key={column.id} className="pf-gm__td">
+                {column.mono ? <span className="pf-gm__mono">{value}</span> : value}
+              </div>
+            );
+          })}
         </div>
       ))}
 

@@ -748,3 +748,696 @@
   }
 }
 
+/* ── Dashboard Transparency + Pinning (legacy dashboard blocks) ── */
+.dashboardTransparencyGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.dashboardTransparencyCard {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.25rem;
+  background: radial-gradient(circle at 80% 20%, rgba(232, 89, 12, 0.25), rgba(232, 89, 12, 0) 50%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  color: #f3f4f6;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+.dashboardTransparencyCard h3 {
+  margin-bottom: 0.2rem;
+  color: #ffffff;
+}
+
+.dashboardTransparencySubtitle {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dashboardTransparencyCard p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.85rem;
+}
+
+.dashboardTransparencyActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.2rem;
+}
+
+.dashboardTransparencyButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: transform 0.15s ease, filter 0.15s ease, background-color 0.15s ease;
+}
+
+.dashboardTransparencyButton:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.dashboardTransparencyButtonPrimary {
+  background: var(--pf-accent);
+  color: #ffffff;
+}
+
+.dashboardTransparencyButtonPrimary:hover {
+  color: #ffffff;
+}
+
+.dashboardTransparencyButtonGhost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f3f4f6;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.dashboardTransparencyButtonGhost:hover {
+  color: #ffffff;
+}
+
+.dashboardTransparencyUrl {
+  margin-top: 0.7rem;
+  margin-bottom: 0;
+  font-size: 0.72rem;
+  color: #ffb38a;
+  word-break: break-word;
+}
+
+.auditPinningGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0 1.2rem;
+}
+
+.auditPinningCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.auditPinningLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 0.35rem;
+  font-weight: 700;
+}
+
+.auditPinningValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  word-break: break-all;
+}
+
+@media (max-width: 996px) {
+  .dashboardTransparencyGrid,
+  .auditPinningGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Dice audit page styles (staging compatibility) ── */
+.gameAuditStatus {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.55rem;
+  padding: 0.18rem 0.52rem;
+  border-radius: 999px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.14);
+  border: 1px solid rgba(34, 197, 94, 0.34);
+}
+
+.auditVerdictCardsGrid {
+  --auditVerdictGap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--auditVerdictGap);
+  margin: 0.85rem 0 1.2rem;
+}
+
+.auditVerdictCardsGrid > .auditVerdictCard:first-child {
+  grid-column: 1 / -1;
+  width: calc(50% - (var(--auditVerdictGap) / 2));
+  max-width: none;
+  justify-self: center;
+}
+
+.auditVerdictCard {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 0.95rem;
+  background: radial-gradient(circle at 80% 20%, rgba(232, 89, 12, 0.22), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  color: #f3f4f6;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+}
+
+.auditVerdictCard h4 {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.auditVerdictCard .gameAuditStatus {
+  margin-top: 0.45rem;
+}
+
+.auditVerdictTitleLink {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.auditVerdictTitleLink:hover {
+  text-decoration: underline;
+}
+
+.auditVerdictRef {
+  margin: 0.42rem 0 0.1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.35;
+}
+
+.summaryVerdictCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.summaryVerdictCardPrimary {
+  grid-column: 1 / -1;
+  max-width: 24rem;
+  width: 100%;
+  justify-self: center;
+}
+
+.summaryVerdictCard .auditVerdictRef a {
+  color: #ffffff;
+}
+
+.summaryVerdictCard .auditVerdictRef a:hover {
+  color: #ffb38a;
+}
+
+.auditTimeline {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem;
+  position: relative;
+  margin: 1rem 0 1.5rem;
+  padding-top: 1.9rem;
+}
+
+.auditTimeline::before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  top: 0.78rem;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff8f57 0%, #e8590c 50%, #ff8f57 100%);
+  opacity: 0.65;
+}
+
+.auditTimelineStep {
+  position: relative;
+  padding-top: 0.9rem;
+}
+
+.auditTimelineStep::before {
+  content: "";
+  position: absolute;
+  top: -0.44rem;
+  left: 0.1rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #e8590c;
+  border: 2px solid var(--ifm-background-color);
+  box-shadow: 0 0 0 2px rgba(232, 89, 12, 0.25);
+}
+
+.auditTimelineTitle {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.auditTimelineTitle span {
+  display: block;
+  line-height: 1.2;
+}
+
+.auditTimelineDate {
+  margin-top: 0.2rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.parityMetricsTimeline {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 0.65rem;
+}
+
+.parityMetricsTimeline .auditTimelineStep {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.parityMetricsTimeline .auditTimelineStep::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.diceCoverageGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.88rem;
+  margin: 0.9rem 0 1.2rem;
+}
+
+.diceCoverageCard {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+  padding: 0.92rem 0.98rem 1rem;
+  background: radial-gradient(circle at 82% 18%, rgba(232, 89, 12, 0.24), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  color: #f3f4f6;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+}
+
+.diceCoverageHead {
+  display: flex;
+  align-items: center;
+  gap: 0.48rem;
+  margin-bottom: 0.42rem;
+}
+
+.diceCoverageIcon {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  color: #ff8a4a;
+}
+
+.diceCoverageIcon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.diceCoverageTitle {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.diceCoverageDesc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.42;
+  font-size: 0.97rem;
+}
+
+[data-theme='dark'] .diceCoverageCard {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at 82% 18%, rgba(232, 89, 12, 0.28), rgba(232, 89, 12, 0) 52%),
+    linear-gradient(140deg, #0d111b 0%, #141b28 100%);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+}
+
+[data-theme='dark'] .diceCoverageTitle {
+  color: #fbfbfc;
+}
+
+[data-theme='dark'] .diceCoverageDesc {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+[data-theme='dark'] .diceCoverageIcon {
+  color: #ff8a4a;
+}
+
+.diceAssuranceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0.35rem 0 1.15rem;
+}
+
+.diceAuditOverviewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0.5rem 0 1.15rem;
+}
+
+.diceAuditOverviewCard h3 {
+  margin: 0 0 0.55rem;
+}
+
+.diceAuditOverviewCard ul {
+  margin: 0;
+  padding-left: 1.22rem;
+}
+
+.diceAuditOverviewCard li {
+  margin: 0.3rem 0;
+  line-height: 1.34;
+}
+
+.diceAssuranceCard {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.diceAssuranceTitle {
+  margin: 0 0 0.55rem;
+  font-size: 1.03rem;
+  line-height: 1.25;
+  font-weight: 800;
+}
+
+.diceAssuranceList {
+  margin: 0;
+  padding-left: 1.22rem;
+}
+
+.diceAssuranceList li {
+  margin: 0.3rem 0;
+  line-height: 1.34;
+}
+
+[data-theme='dark'] .diceAssuranceTitle,
+[data-theme='dark'] .diceAssuranceList li {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dicePublicLinksRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.55rem 0 0.8rem;
+}
+
+.dicePublicLinkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #3a6acc;
+  background: #376ad0;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.dicePublicLinkIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.dicePublicLinkIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dicePublicLinkLabel {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.dicePublicLinkButton:hover {
+  color: #ffffff;
+  text-decoration: none;
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .dicePublicLinkButton {
+  border-color: #3f72dc;
+  background: #3d73df;
+  color: #ffffff;
+}
+
+.diceLayerExpand {
+  margin: 0.7rem 0 0.9rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+  overflow: hidden;
+}
+
+.diceLayerExpand > summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.75rem 0.9rem 0.75rem 1.9rem;
+  list-style: none;
+  display: block;
+  position: relative;
+}
+
+.diceLayerExpand > summary::-webkit-details-marker {
+  display: none;
+}
+
+.diceLayerExpand > summary::marker {
+  content: "";
+  display: none;
+}
+
+.diceLayerExpand > summary::before {
+  content: "";
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid #6dd3ff;
+  transform: translateY(-50%);
+  transform-origin: 35% 50%;
+  transition: transform 0.15s ease;
+}
+
+.diceLayerExpand[open] > summary::before {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.diceLayerExpand > p,
+.diceLayerExpand > ul,
+.diceLayerExpand > div {
+  margin: 0;
+  padding: 0.2rem 0.9rem 0.9rem;
+}
+
+.docStepper {
+  margin: 0.35rem 0 0.9rem;
+}
+
+.docStepperStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.7rem;
+  padding-bottom: 0.9rem;
+}
+
+.docStepperStep:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  top: 2rem;
+  bottom: 0.15rem;
+  width: 2px;
+  background: var(--ifm-color-emphasis-300);
+}
+
+.docStepperIndex {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(232, 89, 12, 0.7);
+  background: radial-gradient(circle at 30% 28%, #ff9f6a 0%, #e8590c 58%, #b6490b 100%);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 0.05rem;
+  z-index: 1;
+  box-shadow: 0 0 0 2px rgba(232, 89, 12, 0.22);
+}
+
+.docStepperContent h4 {
+  margin: 0 0 0.45rem;
+  font-size: 0.96rem;
+}
+
+.docStepperContent p {
+  margin: 0.4rem 0;
+}
+
+.docStepperContent pre {
+  margin: 0.4rem 0 0.6rem;
+}
+
+[data-theme='dark'] .docStepperStep:not(:last-child)::after {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .docStepperIndex {
+  border-color: rgba(255, 143, 87, 0.85);
+  background: radial-gradient(circle at 30% 28%, #ff9f6a 0%, #e8590c 58%, #a4400d 100%);
+  box-shadow: 0 0 0 2px rgba(232, 89, 12, 0.3);
+}
+
+@media (max-width: 996px) {
+  .auditVerdictCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .auditVerdictCardsGrid > .auditVerdictCard:first-child {
+    grid-column: 1 / -1;
+    max-width: 34rem;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .summaryVerdictCardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summaryVerdictCardPrimary {
+    grid-column: 1 / -1;
+    max-width: 30rem;
+  }
+
+  .auditTimeline {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding-top: 0;
+    padding-left: 1.6rem;
+  }
+
+  .parityMetricsTimeline {
+    grid-template-columns: 1fr;
+  }
+
+  .auditTimeline::before {
+    top: 0.4rem;
+    bottom: 0.4rem;
+    left: 0.5rem;
+    right: auto;
+    width: 3px;
+    height: auto;
+    background: linear-gradient(180deg, #ff8f57 0%, #e8590c 50%, #ff8f57 100%);
+  }
+
+  .auditTimelineStep {
+    padding-top: 0.05rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .auditTimelineStep::before {
+    top: 0.2rem;
+    left: -1.36rem;
+  }
+
+  .diceCoverageGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .diceAssuranceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .diceAuditOverviewGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .auditVerdictCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .auditVerdictCardsGrid > .auditVerdictCard:first-child {
+    grid-column: auto;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .summaryVerdictCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryVerdictCardPrimary {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .docStepperStep {
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    gap: 0.58rem;
+  }
+
+  .docStepperStep:not(:last-child)::after {
+    left: 0.85rem;
+  }
+}
+

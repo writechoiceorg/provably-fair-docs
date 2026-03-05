@@ -3,6 +3,9 @@ title: Executive Summary
 description: Independent validation of Duel.com provably fair architecture across determinism, entropy integrity, parity, RTP accuracy, and exploit surface testing for 8 core games.
 ---
 
+import GameValidation from "@site/src/components/GameValidation";
+import PinningCards from "@site/src/components/audit/PinningCards";
+
 This audit evaluated Duel.com's provably fair architecture across eight core games: Dice, Crash, Plinko, Blackjack, Roulette, Keno, Mines, and Cross Road. The objective was to determine whether game outcomes are cryptographically reproducible, statistically sound, and resistant to structural manipulation.
 
 Validation was conducted across five domains: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and structured exploit surface testing. Assessment combined source-level review, independent deterministic recomputation, large-scale statistical simulation, and controlled adversarial testing.
@@ -124,98 +127,106 @@ Future code modifications or entropy architecture changes may require revalidati
 
 Under the ProvablyFair.org Audit Framework v1.0, Duel.com satisfies all required validation domains across the 8 reviewed games.
 
-| Field | Value |
-| --- | --- |
-| Certification Status | <span className="gameAuditStatus">VERIFIED</span> |
-| Audit ID | PF-2026-002 |
-| Issued | 12 Feb 2026 |
-| Next Recommended Review | Feb 2027 |
+<PinningCards
+  items={[
+    { label: "Certification Status", value: <span className="gameAuditStatus">VERIFIED</span> },
+    { label: "Audit ID", value: "PF-2026-002" },
+    { label: "Issued", value: "12 Feb 2026" },
+    { label: "Next Recommended Review", value: "Feb 2027" },
+  ]}
+/>
 
 ## Per-Game Validation Overview
 
 Each game was independently evaluated under the ProvablyFair.org Audit Framework. The summary below highlights validation depth per game.
 
-<div className="gameAuditCardsGrid">
-  <section className="gameAuditCard">
-    <h3>🎲 Dice</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: 6.2K bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: 99.9%</p>
-    <p className="gameAuditMeta">Simulation: 100M sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [View Full Audit ->](./dice-audit)</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🚀 Crash</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
-    <p className="gameAuditMeta">Parity: [TDB: Crash bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Crash RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Crash simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Crash full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🔵 Plinko</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: [TDB: Plinko bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Plinko RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Plinko simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Plinko full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🂡 Blackjack</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: [TDB: Blackjack bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Blackjack RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Blackjack simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Blackjack full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🎡 Roulette</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
-    <p className="gameAuditMeta">Parity: [TDB: Roulette bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Roulette RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Roulette simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Roulette full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🔢 Keno</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: [TDB: Keno bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Keno RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Keno simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Keno full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>💣 Mines</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: [TDB: Mines bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Mines RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Mines simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Mines full audit URL]</p>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>🛣 Cross Road</h3>
-    <p className="gameAuditMeta">Status: <span className="gameAuditStatus">VERIFIED</span></p>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Parity: [TDB: Cross Road bets count] bets · 100% match</p>
-    <p className="gameAuditMeta">RTP: [TDB: Cross Road RTP]</p>
-    <p className="gameAuditMeta">Simulation: [TDB: Cross Road simulation rounds] sim rounds</p>
-    <p className="gameAuditMeta">Audit link: [TDB: Cross Road full audit URL]</p>
-  </section>
-</div>
+<GameValidation
+  columnTemplate="1.15fr 0.95fr 1.1fr 1.05fr 0.75fr 1.15fr 0.95fr"
+  columns={[
+    { id: "game", label: "Game" },
+    { id: "status", label: "Status" },
+    { id: "rng", label: "RNG model", mono: true },
+    { id: "parity", label: "Parity", mono: true },
+    { id: "rtp", label: "RTP", mono: true },
+    { id: "simulation", label: "Simulation", mono: true },
+    { id: "auditLink", label: "Audit link" },
+  ]}
+  games={[
+    {
+      name: "Dice",
+      href: "./dice-audit",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "6.2K bets · 100% match",
+      rtp: "99.9%",
+      simulation: "100M sim rounds",
+      auditLink: { label: "View Full Audit ->", href: "./dice-audit" },
+    },
+    {
+      name: "Crash",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256 + drand",
+      parity: "[TDB: Crash bets count] bets · 100% match",
+      rtp: "[TDB: Crash RTP]",
+      simulation: "[TDB: Crash simulation rounds] sim rounds",
+      auditLink: "[TDB: Crash full audit URL]",
+    },
+    {
+      name: "Plinko",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "[TDB: Plinko bets count] bets · 100% match",
+      rtp: "[TDB: Plinko RTP]",
+      simulation: "[TDB: Plinko simulation rounds] sim rounds",
+      auditLink: "[TDB: Plinko full audit URL]",
+    },
+    {
+      name: "Blackjack",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "[TDB: Blackjack bets count] bets · 100% match",
+      rtp: "[TDB: Blackjack RTP]",
+      simulation: "[TDB: Blackjack simulation rounds] sim rounds",
+      auditLink: "[TDB: Blackjack full audit URL]",
+    },
+    {
+      name: "Roulette",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256 + drand",
+      parity: "[TDB: Roulette bets count] bets · 100% match",
+      rtp: "[TDB: Roulette RTP]",
+      simulation: "[TDB: Roulette simulation rounds] sim rounds",
+      auditLink: "[TDB: Roulette full audit URL]",
+    },
+    {
+      name: "Keno",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "[TDB: Keno bets count] bets · 100% match",
+      rtp: "[TDB: Keno RTP]",
+      simulation: "[TDB: Keno simulation rounds] sim rounds",
+      auditLink: "[TDB: Keno full audit URL]",
+    },
+    {
+      name: "Mines",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "[TDB: Mines bets count] bets · 100% match",
+      rtp: "[TDB: Mines RTP]",
+      simulation: "[TDB: Mines simulation rounds] sim rounds",
+      auditLink: "[TDB: Mines full audit URL]",
+    },
+    {
+      name: "Cross Road",
+      status: "VERIFIED",
+      rng: "HMAC-SHA256",
+      parity: "[TDB: Cross Road bets count] bets · 100% match",
+      rtp: "[TDB: Cross Road RTP]",
+      simulation: "[TDB: Cross Road simulation rounds] sim rounds",
+      auditLink: "[TDB: Cross Road full audit URL]",
+    },
+  ]}
+/>
 
 :::tip Reproducibility and Public Verification
 All datasets, tooling, scripts, simulations, and verification logic referenced in this report are publicly accessible. Third parties can independently recompute and verify the reported outcomes without trusting either ProvablyFair.org or the operator.

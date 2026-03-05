@@ -3,120 +3,78 @@ title: Dashboard
 description: Independent verification of RNG integrity, live game parity, RTP convergence, and fairness integrity across 8 games.
 ---
 
-(image Duel.com Provably Fair System Audit)
+import CertBanner from "@site/src/components/CertBanner";
+import StatBlock from "@site/src/components/StatBlock";
+import StatBlockGroup from "@site/src/components/StatBlockGroup";
+import GameValidation from "@site/src/components/GameValidation";
+import TagRow from "@site/src/components/TagRow";
+import SectionHeading from "@site/src/components/SectionHeading";
+import AuditTimeline from "@site/src/components/AuditTimeline";
+
+<CertBanner
+  casino="Duel.com"
+  subtitle="Provably Fair System Audit"
+  certifiedBy="ProvablyFair.org"
+  auditId="PF-2026-001"
+  issued="Feb 12, 2026"
+  nextReview="Feb 2027"
+  status="CERTIFIED"
+/>
+
+<TagRow
+  tags={[
+    { label: "✓ Certified", variant: "green" },
+    { label: "Open Source", variant: "orange" },
+    { label: "PF Audit v1.0", variant: "blue" },
+  ]}
+/>
 
 Complete analysis of the audit methodology, technical findings, and final certification is available in the Executive Summary.
 
-## System Integrity Snapshot
+<SectionHeading label="System Integrity Snapshot" title="Audit Verdict" />
 
 To guarantee complete cryptographic transparency, the following key performance indicators (KPIs) show the total volume of live data and stress-testing simulations verified during this audit period.
 
-(image of snapshot)
+<StatBlockGroup>
+  <StatBlock value="30,742" label="Live Bets Verified" variant="default" />
+  <StatBlock value="80,000,000+" label="Simulation Rounds" variant="default" />
+  <StatBlock value="147" label="Game Integrity Checks" variant="accent" />
+  <StatBlock value="8 / 8" label="Games Fully Validated" variant="green" />
+</StatBlockGroup>
 
-| KPI                   | Value       |
-| --------------------- | ----------- |
-| Live bets verified    | 30,742      |
-| Simulation rounds     | 80,000,000+ |
-| Game integrity checks | 147         |
-| Games fully validated | 8 / 8       |
-
-## Games Audited
+<SectionHeading label="Game Testing" title="Games Audited" />
 
 Comprehensive audit results for individual game modules, including hashing algorithms and simulation densities.
 
-<div className="gameAuditCardsGrid">
-  <section className="gameAuditCard">
-    <h3>Dice</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
+<GameValidation
+  games={[
+    { name: "Dice", href: "/games/dice", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Crash", href: "/games/crash", rng: "HMAC-SHA256 + drand", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Plinko", href: "/games/plinko", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Blackjack", href: "/games/blackjack", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Roulette", href: "/games/roulette", rng: "HMAC-SHA256 + drand", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Keno", href: "/games/keno", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Mines", href: "/games/mines", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+    { name: "Cross Road", href: "/games/cross-road", rng: "HMAC-SHA256", parity: "N/A", rtp: "10M sim", integrity: "PASS", validationScope: "N/A" },
+  ]}
+/>
 
-  <section className="gameAuditCard">
-    <h3>Crash</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Plinko</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Blackjack</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Roulette</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256 + drand</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Keno</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Mines</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-
-  <section className="gameAuditCard">
-    <h3>Cross Road</h3>
-    <p className="gameAuditMeta">RNG model: HMAC-SHA256</p>
-    <p className="gameAuditMeta">Simulation density: 10M sim</p>
-    <span className="gameAuditStatus">PASS</span>
-  </section>
-</div>
-
-## Audit Timeline
+<SectionHeading label="Process" title="Audit Timeline" />
 
 The following milestones delineate the entire certification process, from initial data collection to final system validation.
 
-<div className="auditTimeline">
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Audit Initiated</div>
-    <div className="auditTimelineDate">Jan 28</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">
-      <span>Data Capture</span>
-      <span>Completed</span>
-    </div>
-    <div className="auditTimelineDate">Feb 4</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Parity Testing Completed</div>
-    <div className="auditTimelineDate">Feb 6</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">RTP Simulation Completed</div>
-    <div className="auditTimelineDate">Feb 8</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Exploit Testing Completed</div>
-    <div className="auditTimelineDate">Feb 12</div>
-  </div>
-  <div className="auditTimelineStep">
-    <div className="auditTimelineTitle">Certification Issued</div>
-    <div className="auditTimelineDate">Feb 12</div>
-  </div>
-</div>
+<AuditTimeline
+  steps={[
+    { title: "Audit Initiated", date: "Jan 28" },
+    { title: "Data Capture Completed", date: "Feb 4" },
+    { title: "Parity Testing Completed", date: "Feb 6" },
+    { title: "RTP Simulation Completed", date: "Feb 8" },
+    { title: "Exploit Testing Completed", date: "Feb 12" },
+    { title: "Certification Issued", date: "Feb 12" },
+  ]}
+/>
 
-## Transparency and Verification
+<SectionHeading label="Open Source" title="Transparency and Verification" />
 
 In line with our commitment to open-source integrity, the following resources enable third parties to independently reproduce our findings and verify the cryptographic authenticity of any game result.
 
@@ -158,7 +116,7 @@ In line with our commitment to open-source integrity, the following resources en
 If your computed result matches the displayed result, the game is provably fair.
 :::
 
-### Audit Pinning
+<SectionHeading label="Open Source" title="Audit Pinning" />
 
 <div className="auditPinningGrid">
   <section className="auditPinningCard">
