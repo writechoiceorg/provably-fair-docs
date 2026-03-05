@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
+  --ifm-color-primary: #ff6600;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
@@ -19,7 +19,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: #ff6600;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -841,3 +841,126 @@
     left: 0.85rem;
   }
 }
+
+/* sidebar */
+
+.sidebar-title-orange .menu__link--sublist {
+  color: #ff6600 !important; 
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.sidebar-title-orange .menu__caret {
+  display: none;
+}
+
+.sidebar-icon-docs,
+.sidebar-icon-api,
+.sidebar-icon-contact {
+  display: flex !important;
+  align-items: center;
+  flex-direction: row; 
+}
+
+.sidebar-icon-docs::before,
+.sidebar-icon-api::before,
+.sidebar-icon-contact::before {
+  content: '';
+  display: inline-block;
+  width: 25px; 
+  height: 25px;
+  margin-left: 10px;
+  background-image: url('/svg-icons/open-book.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.sidebar-icon-api::before {
+  background-image: url('/svg-icons/api.svg'); 
+  width: 35px;  
+  height: 35px;
+  margin-left: 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.sidebar-icon-contact::before {
+  background-image: url('/svg-icons/contact-us.svg'); 
+  width: 35px;  
+  height: 35px;
+  margin-left: 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.sidebar-title-orange > .menu__link,
+.sidebar-title-orange > .menu__link--active,
+.sidebar-title-orange > .menu__link:hover {
+  color: #ff6600 !important; 
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin-top: 15px;
+  background-color: transparent !important; 
+}
+
+.sidebar-title-orange > .menu__link::after {
+  display: none !important;
+}
+
+.sidebar-title-orange > .menu__link {
+  padding-right: var(--ifm-menu-link-padding-horizontal);
+}
+
+
+.navbar__brand {
+  display: none !important;
+}
+
+/* 2. Faz a Sidebar ocupar toda a altura desde o topo */
+.theme-doc-sidebar-container {
+  top: 0 !important;
+  height: 100vh !important;
+}
+
+/* 3. Estilização do Container do Logo dentro da Sidebar */
+.sidebar-brand-container {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  gap: 10px;
+}
+
+.sidebar-logo-img {
+  height: 30px; 
+  width: auto;
+}
+
+.sidebar-logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+/* 4. Remove o padding superior padrão do menu para o logo encostar no topo */
+.theme-doc-sidebar-menu {
+  padding-top: 0 !important;
+}
+
+/* 5. Ajuste da Navbar (opcional) */
+/* Se quiser que a barra de busca ou outros itens continuem na direita */
+.navbar {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none; /* Permite clicar no que está atrás se necessário */
+}
+
