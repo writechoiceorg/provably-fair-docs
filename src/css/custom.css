@@ -861,6 +861,13 @@
   }
 }
 
+/* Estiliza apenas o título da categoria e não os sub-itens */
+.sidebar-title-orange > .menu__list-item-collapsible > .menu__link,
+.sidebar-title-orange > .menu__link {
+  color: #E25B2D !important; /* Substitua por seu tom de laranja exato, caso necessário */
+  font-weight: 600; /* Opcional: deixa o texto um pouco mais destacado */
+}
+
 /* ==========================================
    NOVA ESTRUTURA: SIDEBAR 100VH & TOPBAR NA DIREITA
    ========================================== */
