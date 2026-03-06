@@ -24,7 +24,7 @@
 
   --ifm-navbar-height: 80px;
 
-  --sidebar-icon-size: 30px;          /* Tamanho X e Y do ícone */
+  --sidebar-icon-size: 27px;          /* Tamanho X e Y do ícone */
   --sidebar-icon-translate-x: 7px;    /* Translação no eixo X */
   --sidebar-icon-translate-y: 2px;    /* Translação no eixo Y (ajuste fino de alinhamento) */
   --sidebar-icon-spacing: 12px;
@@ -925,7 +925,7 @@
 
 /* Tamanho customizado da imagem da logo */
 .navbar__logo {
-  height: 32px !important; 
+  height: 27px !important; 
   width: auto;
   transform: translateY(-2px); /* Ajuste fino vertical */
   transform: translatex(9px);
