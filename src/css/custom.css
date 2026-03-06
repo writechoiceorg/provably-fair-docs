@@ -24,10 +24,7 @@
 
   --ifm-navbar-height: 80px;
 
-  --sidebar-icon-size: 27px;          /* Tamanho X e Y do ícone */
-  --sidebar-icon-translate-x: 7px;    /* Translação no eixo X */
-  --sidebar-icon-translate-y: 2px;    /* Translação no eixo Y (ajuste fino de alinhamento) */
-  --sidebar-icon-spacing: 12px;
+ 
 
   
 }
@@ -879,6 +876,7 @@
 
 /* 1. Sidebar vai até o topo absoluto da página */
 .theme-doc-sidebar-container {
+  position: sticky !important;
   top: 0 !important;
   height: 100vh !important;
   z-index: 1005 !important; /* Camada inferior */
@@ -978,48 +976,3 @@
   align-items: center;
 }
 
-.sidebar-icon-docs .menu__link::before,
-.sidebar-icon-api .menu__link::before,
-.sidebar-icon-contact .menu__link::before {
-  content: '';
-  display: inline-block;
-  flex-shrink: 0; /* Impede que o ícone seja esmagado se o texto for muito longo */
-
-  /* Aplicação das variáveis de Tamanho e Translação */
-  width: var(--sidebar-icon-size);
-  height: var(--sidebar-icon-size);
-  transform: translate(var(--sidebar-icon-translate-x), var(--sidebar-icon-translate-y));
-  margin-right: var(--sidebar-icon-spacing);
-
-  /* Comportamento da Imagem/SVG */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-}
-
-/* ==========================================
-   MAPEAMENTO DOS ARQUIVOS SVG
-   ========================================== */
-/* Importante: Coloque seus arquivos .svg dentro da pasta estática do seu projeto (ex: /static/img/) 
-  O Docusaurus resolverá o caminho a partir da raiz.
-*/
-
-.sidebar-icon-docs .menu__link::before {
-  background-image: url('/svg-icons/open-book.svg'); 
-}
-
-.sidebar-icon-api .menu__link::before {
-  background-image: url('/svg-icons/api.svg');
-}
-
-.sidebar-icon-contact .menu__link::before {
-  background-image: url('/svg-icons/contact-us.svg');
-}
-
-/* Opcional: Efeito de translação extra ao passar o mouse */
-.sidebar-icon-docs .menu__link:hover::before,
-.sidebar-icon-api .menu__link:hover::before,
-.sidebar-icon-contact .menu__link:hover::before {
-  transform: translate(var(--sidebar-icon-translate-x), calc(var(--sidebar-icon-translate-y) - 2px));
-}

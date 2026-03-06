@@ -17,45 +17,6 @@
 const sidebars = {
   tutorialSidebar: [
     {
-      type: 'link',
-      label: 'Documentation',
-      href: '/docs/intro',
-      className: 'sidebar-icon-docs',
-    },
-    {
-      type: 'link',
-      label: 'API Reference',
-      href: '#', 
-      className: 'sidebar-icon-api',
-    },
-    {
-      type: 'link',
-      label: 'Contact Us',
-      href: '/contact',
-      className: 'sidebar-icon-contact', 
-    },    
-    {
-      type: 'category',
-      label: 'Introduction',
-      collapsible: false,
-      className: 'sidebar-title-orange',
-      items: [
-        'intro', 
-        'tutorial-basics/create-a-document', 
-      ],
-    },
-    {
-      type: 'category',
-      label: 'SDKs',
-      collapsible: false,
-      className: 'sidebar-title-orange',
-      items: [
-        'intro', 
-        'tutorial-basics/create-a-document', 
-      ],
-    },
-    
-    {
       type: 'category',
       label: 'Dashboard',
       collapsible: false,
