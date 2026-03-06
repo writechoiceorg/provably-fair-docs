@@ -15,6 +15,16 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --custom-surface-color-light: #FBFBFB; /* Cor da Sidebar e Topbar */
+
+  /* Aplicando às variáveis nativas do Infima */
+  --ifm-background-surface-color: var(--custom-surface-color-light);
+  --ifm-navbar-background-color: var(--custom-surface-color-light);
+
+  --ifm-navbar-height: 80px;
+
+  
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,6 +37,15 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* --- Refatoração de Layout: Cores de Fundo (Modo Escuro) --- */
+  --custom-bg-color: #0b0b0e;      /* Cor da Documentação */
+  --custom-surface-color: #141519; /* Cor da Sidebar e Topbar */
+
+  /* Sobrescrevendo as variáveis nativas do Infima */
+  --ifm-background-color: var(--custom-bg-color);
+  --ifm-background-surface-color: var(--custom-surface-color);
+  --ifm-navbar-background-color: var(--custom-surface-color);
 }
 
 .dashboardTransparencyGrid {
@@ -862,14 +881,16 @@
     margin-left: var(--doc-sidebar-width, 300px) !important;
     width: calc(100% - var(--doc-sidebar-width, 300px)) !important;
     z-index: 1010 !important; /* CAMADA SUPERIOR à Sidebar */
-    background-color: var(--ifm-background-color) !important;
+    /* Agora ela respeitará a variável de navbar definida no data-theme */
+    background-color: var(--ifm-navbar-background-color) !important; 
     border-bottom: 1px solid var(--ifm-toc-border-color);
+  
   }
 
   /* 3. A Logo, sendo filha da Navbar, agora aparece tranquilamente por cima */
   .navbar__brand {
     position: fixed;
-    top: 0;
+    top: 0px;
     left: 0;
     width: var(--doc-sidebar-width, 300px);
     height: var(--ifm-navbar-height);

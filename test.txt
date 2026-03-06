@@ -1,0 +1,15 @@
+Correct version(dark):
+layout colo: #0b0b0e
+side-topbar: #141519
+
+actual version(dark):
+layout colo: #1B1B1D
+side-topbar: #242526
+
+Correct version(light):
+layout colo: #FBFBFB
+side-topbar: #FFFFFF
+
+actual version(light):
+layout colo: #FFFFFF
+side-topbar: #FFFFFF
