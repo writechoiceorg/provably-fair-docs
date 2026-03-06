@@ -65,21 +65,20 @@ export default function NavbarContent() {
   const items = useNavbarItems();
   const [leftItems, rightItems] = splitNavbarItems(items);
   const searchBarItem = items.find((item) => item.type === 'search');
-  return (
+ return (
     <NavbarContentLayout
       left={
         <>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
-          {/* Removi o NavbarLogo daqui pois você já o colocou na Sidebar via CSS/Customização */}
+          {/* Restaure o NavbarLogo aqui */}
+          <NavbarLogo />
           <NavbarItems items={leftItems} />
         </>
       }
       right={
         <>
-          {/* Itens da direita vindos do config (ex: GitHub) */}
           <NavbarItems items={rightItems} />
           
-          {/* Barra de busca */}
           {!searchBarItem && (
             <NavbarSearch>
               <SearchBar />

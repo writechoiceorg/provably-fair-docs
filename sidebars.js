@@ -17,17 +17,6 @@
 const sidebars = {
   tutorialSidebar: [
     {
-      type: 'html',
-      value: `
-        <div class="sidebar-brand-container">
-          <img src="/img/logodark.png" alt="Logo" class="sidebar-logo-img" />
-          
-        </div>
-      `,
-      defaultStyle: true,
-      className: 'sidebar-logo-item',
-    },
-    {
       type: 'link',
       label: 'Documentation',
       href: '/docs/intro',

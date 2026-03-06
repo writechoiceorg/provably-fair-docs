@@ -842,173 +842,95 @@
   }
 }
 
-/* sidebar */
+/* ==========================================
+   NOVA ESTRUTURA: SIDEBAR 100VH & TOPBAR NA DIREITA
+   ========================================== */
 
-.sidebar-title-orange .menu__link--sublist {
-  color: #ff6600 !important; 
-  font-weight: bold;
-  text-transform: capitalize;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
-
-.sidebar-title-orange .menu__caret {
-  display: none;
-}
-
-.sidebar-icon-docs,
-.sidebar-icon-api,
-.sidebar-icon-contact {
-  display: flex !important;
-  align-items: center;
-  flex-direction: row; 
-}
-
-.sidebar-icon-docs::before,
-.sidebar-icon-api::before,
-.sidebar-icon-contact::before {
-  content: '';
-  display: inline-block;
-  width: 25px; 
-  height: 25px;
-  margin-left: 10px;
-  background-image: url('/svg-icons/open-book.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.sidebar-icon-api::before {
-  background-image: url('/svg-icons/api.svg'); 
-  width: 35px;  
-  height: 35px;
-  margin-left: 10px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.sidebar-icon-contact::before {
-  background-image: url('/svg-icons/contact-us.svg'); 
-  width: 35px;  
-  height: 35px;
-  margin-left: 10px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.sidebar-title-orange > .menu__link,
-.sidebar-title-orange > .menu__link--active,
-.sidebar-title-orange > .menu__link:hover {
-  color: #ff6600 !important; 
-  font-weight: bold !important;
-  text-transform: uppercase !important;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  margin-top: 15px;
-  background-color: transparent !important; 
-}
-
-.sidebar-title-orange > .menu__link::after {
-  display: none !important;
-}
-
-.sidebar-title-orange > .menu__link {
-  padding-right: var(--ifm-menu-link-padding-horizontal);
-}
-
-
-.navbar__brand {
-  display: none !important;
-}
-
-/* 2. Faz a Sidebar ocupar toda a altura desde o topo */
+/* 1. Sidebar vai até o topo absoluto da página */
 .theme-doc-sidebar-container {
   top: 0 !important;
   height: 100vh !important;
-  position: sticky !important;
-  z-index: var(--ifm-z-index-fixed) !important;
+  z-index: 1005 !important; /* Camada inferior */
   border-right: 1px solid var(--ifm-toc-border-color);
+  background-color: var(--ifm-background-surface-color);
 }
 
-/* 3. Estilização do Container do Logo dentro da Sidebar */
-.sidebar-brand-container {
-  display: flex;
-  align-items: flex-start; /* Altera de 'center' para 'flex-start' */
-  padding: 0 0.5rem 0.5rem 0.5rem; /* Garante que o padding superior seja zero */
-  margin-bottom: 1rem;
-  margin-top: -25px; /* Aumentamos a subida (ajuste conforme o gosto) */
-  text-decoration: none;
-  gap: 10px;
-}
-
-.sidebar-logo-img {
-  height: 30px; 
-  width: auto;
-  margin-top: 5px;
-}
-
-.sidebar-logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.5px;
-  
-}
-
-/* 4. Remove o padding superior padrão do menu para o logo encostar no topo */
-.theme-doc-sidebar-menu {
-  padding-top: 0 !important;
-}
-
-/* ==========================================
-   5. AJUSTE DA NAVBAR & TOGGLE DE TEMA
-   ========================================== */
-
-/* Corrige a largura da Topbar usando a variável correta do Docusaurus (--doc-sidebar-width) */
-.navbar {
-  margin-left: var(--doc-sidebar-width, 300px) !important;
-  width: calc(100% - var(--doc-sidebar-width, 300px)) !important;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid #2e2e2e;
-}
-
+/* 2. Topbar encolhe e começa DEPOIS da Sidebar no Desktop */
 @media (min-width: 997px) {
+  /* 2. A Navbar ganha uma camada superior para "libertar" a logo */
   .navbar {
-    background-color: #1B1B1D !important;
-    pointer-events: auto !important;
+    margin-left: var(--doc-sidebar-width, 300px) !important;
+    width: calc(100% - var(--doc-sidebar-width, 300px)) !important;
+    z-index: 1010 !important; /* CAMADA SUPERIOR à Sidebar */
+    background-color: var(--ifm-background-color) !important;
+    border-bottom: 1px solid var(--ifm-toc-border-color);
+  }
+
+  /* 3. A Logo, sendo filha da Navbar, agora aparece tranquilamente por cima */
+  .navbar__brand {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--doc-sidebar-width, 300px);
+    height: var(--ifm-navbar-height);
+    display: flex !important;
+    align-items: center;
+    padding-left: 1.5rem;
+    margin: 0 !important;
+    z-index: 1015 !important; /* Acima de todos */
+    background-color: var(--ifm-background-surface-color);
+    border-right: 1px solid var(--ifm-toc-border-color);
   }
 }
 
-@media screen and (max-width: 996px) {
+
+/* Empurra os links da sidebar para baixo, liberando espaço para a logo fixa */
+.theme-doc-sidebar-menu {
+  margin-top: var(--ifm-navbar-height) !important;
+  padding-top: 1rem !important;
+}
+
+/* Tamanho customizado da imagem da logo */
+.navbar__logo {
+  height: 32px !important; 
+  width: auto;
+  transform: translateY(-2px); /* Ajuste fino vertical */
+}
+
+/* ==========================================
+   COMPORTAMENTO MOBILE (RESPONSIVIDADE)
+   ========================================== */
+
+@media (max-width: 996px) {
   .navbar {
     margin-left: 0 !important;
     width: 100% !important;
   }
+  .navbar__brand {
+    position: static; /* No mobile, a logo volta a se comportar normalmente na Topbar */
+    width: auto;
+    border-right: none;
+    background-color: transparent;
+  }
+  .theme-doc-sidebar-container {
+    top: var(--ifm-navbar-height) !important;
+    height: calc(100vh - var(--ifm-navbar-height)) !important;
+  }
+  .theme-doc-sidebar-menu {
+    margin-top: 0 !important;
+  }
 }
 
-.navbar__inner {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  position: relative; /* Crucial para o botão ficar ancorado aqui */
-}
-
-/* ------------------------------------------
+/* ==========================================
    LÓGICA DO BOTÃO DE TEMA (DARK/LIGHT)
-   ------------------------------------------ */
+   ========================================== */
 
-/* 1. Aniquila o botão "fantasma" esquerdo e os botões nativos da Sidebar */
 .theme-doc-sidebar-container .navbar__color-mode-toggle,
 .navbar__items:not(.navbar__items--right) .navbar__color-mode-toggle,
 .navbar-sidebar .navbar__color-mode-toggle {
   display: none !important;
 }
 
-/* 2. Força o seu botão a ficar cravado na direita da Topbar */
 .custom-right-toggle {
   display: flex !important;
   position: absolute !important;
@@ -1020,24 +942,4 @@
   min-height: 40px;
   justify-content: center;
   align-items: center;
-}
-
-/* ------------------------------------------
-   AJUSTES FINAIS DE ESTRUTURA
-   ------------------------------------------ */
-
-/* Garante que o conteúdo não fique escondido sob a navbar fixa */
-.main-wrapper {
-  margin-top: 60px;
-}
-
-/* Oculta o logo original da Navbar (já que o seu está na Sidebar) */
-.navbar__brand {
-  display: none !important;
-}
-
-/* Remove margens extras do menu da Sidebar */
-.theme-doc-sidebar-menu.menu__list {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
 }
