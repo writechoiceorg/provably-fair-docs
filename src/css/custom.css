@@ -916,6 +916,7 @@
   height: 32px !important; 
   width: auto;
   transform: translateY(-2px); /* Ajuste fino vertical */
+  transform: translatex(9px);
 }
 
 /* ==========================================
