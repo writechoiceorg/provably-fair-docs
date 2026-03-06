@@ -88,13 +88,7 @@ const config = {
           alt: 'My Site Logo',
           src: 'img/logodark.png',
         },
-        items: [
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
-        ],
+
       },
       footer: {
         style: 'dark',

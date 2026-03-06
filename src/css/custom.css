@@ -927,14 +927,18 @@
 .theme-doc-sidebar-container {
   top: 0 !important;
   height: 100vh !important;
+  position: sticky !important;
+  z-index: var(--ifm-z-index-fixed) !important;
+  border-right: 1px solid var(--ifm-toc-border-color);
 }
 
 /* 3. Estilização do Container do Logo dentro da Sidebar */
 .sidebar-brand-container {
   display: flex;
-  align-items: center;
-  padding: 1rem 0.5rem;
+  align-items: flex-start; /* Altera de 'center' para 'flex-start' */
+  padding: 0 0.5rem 0.5rem 0.5rem; /* Garante que o padding superior seja zero */
   margin-bottom: 1rem;
+  margin-top: -25px; /* Aumentamos a subida (ajuste conforme o gosto) */
   text-decoration: none;
   gap: 10px;
 }
@@ -942,6 +946,7 @@
 .sidebar-logo-img {
   height: 30px; 
   width: auto;
+  margin-top: 5px;
 }
 
 .sidebar-logo-text {
@@ -949,6 +954,7 @@
   font-weight: 700;
   color: #fff;
   letter-spacing: -0.5px;
+  
 }
 
 /* 4. Remove o padding superior padrão do menu para o logo encostar no topo */
@@ -956,11 +962,82 @@
   padding-top: 0 !important;
 }
 
-/* 5. Ajuste da Navbar (opcional) */
-/* Se quiser que a barra de busca ou outros itens continuem na direita */
+/* ==========================================
+   5. AJUSTE DA NAVBAR & TOGGLE DE TEMA
+   ========================================== */
+
+/* Corrige a largura da Topbar usando a variável correta do Docusaurus (--doc-sidebar-width) */
 .navbar {
-  background-color: transparent !important;
-  box-shadow: none !important;
-  pointer-events: none; /* Permite clicar no que está atrás se necessário */
+  margin-left: var(--doc-sidebar-width, 300px) !important;
+  width: calc(100% - var(--doc-sidebar-width, 300px)) !important;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #2e2e2e;
 }
 
+@media (min-width: 997px) {
+  .navbar {
+    background-color: #1B1B1D !important;
+    pointer-events: auto !important;
+  }
+}
+
+@media screen and (max-width: 996px) {
+  .navbar {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+.navbar__inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative; /* Crucial para o botão ficar ancorado aqui */
+}
+
+/* ------------------------------------------
+   LÓGICA DO BOTÃO DE TEMA (DARK/LIGHT)
+   ------------------------------------------ */
+
+/* 1. Aniquila o botão "fantasma" esquerdo e os botões nativos da Sidebar */
+.theme-doc-sidebar-container .navbar__color-mode-toggle,
+.navbar__items:not(.navbar__items--right) .navbar__color-mode-toggle,
+.navbar-sidebar .navbar__color-mode-toggle {
+  display: none !important;
+}
+
+/* 2. Força o seu botão a ficar cravado na direita da Topbar */
+.custom-right-toggle {
+  display: flex !important;
+  position: absolute !important;
+  right: 1.5rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1001 !important;
+  min-width: 40px;
+  min-height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ------------------------------------------
+   AJUSTES FINAIS DE ESTRUTURA
+   ------------------------------------------ */
+
+/* Garante que o conteúdo não fique escondido sob a navbar fixa */
+.main-wrapper {
+  margin-top: 60px;
+}
+
+/* Oculta o logo original da Navbar (já que o seu está na Sidebar) */
+.navbar__brand {
+  display: none !important;
+}
+
+/* Remove margens extras do menu da Sidebar */
+.theme-doc-sidebar-menu.menu__list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
