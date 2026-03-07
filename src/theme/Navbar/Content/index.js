@@ -70,7 +70,7 @@ export default function NavbarContent() {
       left={
         <>
           {!mobileSidebar.disabled && <NavbarMobileSidebarToggle />}
-          {/* Restaure o NavbarLogo aqui */}
+          {/* Restore the NavbarLogo here */}
           <NavbarLogo />
           <NavbarItems items={leftItems} />
         </>
@@ -85,7 +85,7 @@ export default function NavbarContent() {
             </NavbarSearch>
           )}
 
-          {/* Toggle de Tema perfeitamente posicionado */}
+          {/* Theme Toggle perfectly positioned */}
           <NavbarColorModeToggle className="custom-right-toggle" />
         </>
       }
