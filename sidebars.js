@@ -17,16 +17,17 @@
 const sidebars = {
   tutorialSidebar: [
     {
-      type: 'doc',
-      id: 'dashboard',
+      type: 'category',
       label: 'Dashboard',
-    },
-    {
-      type: 'doc',
-      id: 'executive-summary',
-      label: 'Executive Summary',
+      collapsible: false,
+      className: 'sidebar-title-orange',
+      items: [
+        'dashboard',
+        'dice-audit',
+        'executive-summary',
+      ],
     },
   ],
 };
-
 export default sidebars;
+

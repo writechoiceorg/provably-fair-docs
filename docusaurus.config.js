@@ -87,7 +87,8 @@ const config = {
         title: 'Provably Fair',
         logo: {
           alt: 'Provably Fair Logo',
-          src: 'img/logo.svg',
+          src: '/logo/logo-light.png',
+          srcDark: '/logo/logo-dark.png',
         },
         items: [
           {
