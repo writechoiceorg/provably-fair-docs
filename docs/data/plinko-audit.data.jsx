@@ -6,43 +6,43 @@ export const auditVerdictItems = [
     id: "rtp",
     title: "RTP Verified",
     href: "#section-rtp-payout",
-    reference: "Reference: [TBD: house edge]",
+    reference: "Reference: 99.9% theoretical, 0.1% house edge (bracket 0)",
   },
   {
     id: "parity",
     title: "Live to Verifier Parity",
     href: "#section-live-verifier-parity",
-    reference: "Reference: [TBD: parity stats]",
+    reference: "Reference: 100% (7,600/7,600 live bets matched)",
   },
   {
     id: "commitReveal",
     title: "Commit-Reveal System",
     href: "#section-seed-nonce-determinism",
-    reference: "Reference: SHA-256 verified",
+    reference: "Reference: SHA-256 verified, 152/152 seeds",
   },
   {
     id: "seedHandling",
     title: "Seed Handling",
     href: "#section-seed-nonce-determinism",
-    reference: "Reference: Player control verified",
+    reference: "Reference: Player control verified, client seed changes 84.3% of outcomes",
   },
   {
     id: "rng",
     title: "RNG Analysis",
     href: "#section-rng-entropy",
-    reference: "Reference: [TBD: RNG method]",
+    reference: "Reference: HMAC-SHA256, unbiased (2³² mod 2 = 0), serial independence confirmed",
   },
   {
     id: "payout",
     title: "Payout Logic",
     href: "#section-rtp-payout",
-    reference: "Reference: [TBD: payout verification]",
+    reference: "Reference: All 7,600 payouts verified within 1e-8 tolerance",
   },
   {
     id: "fairness",
     title: "Fairness Guarantees Tested",
     href: "#section-fairness-integrity",
-    reference: "Reference: [TBD: fairness count] categories verified",
+    reference: "Reference: 20/20 verification steps passed",
   },
   {
     id: "determinism",
@@ -57,19 +57,19 @@ export const summaryVerdictItems = [
   {
     id: "summary-rtp",
     title: "RTP Verified",
-    reference: "Reference: [TBD: theoretical RTP]",
+    reference: "Reference: 99.9% theoretical, 99.890% simulated (27M rounds)",
   },
   {
     id: "summary-parity",
     title: "Live ↔ Verifier Parity",
-    reference: "Reference: [TBD: live bets matched]",
+    reference: "Reference: 100% (7,600/7,600 live bets matched)",
   },
   {
     id: "summary-exploits",
     title: "Known Exploits Tested",
     reference: (
       <>
-        Reference: <a href="#section-fairness-integrity">Section 5</a> ([TBD: X]/[TBD: X] categories passed)
+        Reference: <a href="#section-fairness-integrity">Section 5</a> (20/20 verification steps passed)
       </>
     ),
   },
@@ -90,12 +90,22 @@ export const sectionVerdictRows = {
     {
       id: "s1-nonce",
       test: "Nonce sequencing",
-      meaning: "Every bet stays unique, even when seeds are unchanged.",
+      meaning: "Nonce increments from 0 and is not reused within a seed pair.",
+    },
+    {
+      id: "s1-hash-consistency",
+      test: "Hash consistency within epoch",
+      meaning: "The committed server-seed hash remains constant within each seed pair.",
     },
     {
       id: "s1-determinism",
       test: "Deterministic output",
       meaning: "Any result can be independently verified and reproduced.",
+    },
+    {
+      id: "s1-client-seed-influence",
+      test: "Client seed influence",
+      meaning: "Wrong client seed changes 6,409/7,600 slots (84.3%), confirming active RNG participation.",
     },
   ],
   section2: [
@@ -107,103 +117,167 @@ export const sectionVerdictRows = {
     {
       id: "s2-entropy",
       test: "Entropy purity",
-      meaning: "No timestamps, server state, or external inputs are used.",
+      meaning: "No timestamps, external APIs, or server-side mutable state are used.",
     },
     {
-      id: "s2-uniformity",
-      test: "Path/slot uniformity",
-      meaning: "[TBD: Plinko-specific uniformity description]",
+      id: "s2-modulo-bias",
+      test: "Modulo bias",
+      meaning: "2³² mod 2 = 0, giving exact 50/50 per row with no rejection sampling.",
     },
     {
-      id: "s2-leakage",
-      test: "No state leakage",
-      meaning: "Previous bets do not influence future results.",
+      id: "s2-drand",
+      test: "drand absent from Plinko RNG",
+      meaning: "7,600/7,600 bets recompute correctly without drand input.",
+    },
+    {
+      id: "s2-serial",
+      test: "Serial independence",
+      meaning: "Lag-1 autocorrelation and runs test both pass.",
+    },
+    {
+      id: "s2-live-chi",
+      test: "Chi-squared (live bets, 27 configs)",
+      meaning: "27/27 configurations pass at α=0.01.",
+    },
+    {
+      id: "s2-sim-chi",
+      test: "Chi-squared (simulation, 27 configs)",
+      meaning: "27/27 configurations pass at Bonferroni-corrected α/27 ≈ 0.00037.",
+    },
+    {
+      id: "s2-anti-circularity",
+      test: "Anti-circularity (Step 20)",
+      meaning: "Independent binomial probabilities match config for all 27 configurations.",
     },
   ],
   section3: [
     {
       id: "s3-recompute",
-      test: "Live result recomputation",
-      meaning: "The verifier recalculates your exact outcomes.",
+      test: "Slot recomputation",
+      meaning: "Independent HMAC-SHA256 rebuild matches every live slot.",
     },
     {
-      id: "s3-alignment",
-      test: "RNG logic alignment",
-      meaning: "The same RNG logic runs in the live game and verifier.",
+      id: "s3-payout",
+      test: "Payout math",
+      meaning: "win_amount = amount × multiplier for all 7,600 bets.",
     },
     {
-      id: "s3-deterministic",
-      test: "Deterministic parity",
-      meaning: "No divergence between systems.",
+      id: "s3-provenance",
+      test: "Multiplier table provenance",
+      meaning: "All bets match scaling_edge[0].multipliers reference table.",
     },
     {
-      id: "s3-production",
-      test: "Production data tested",
-      meaning: "Real bets from live gameplay, not simulated data.",
+      id: "s3-symmetry",
+      test: "Multiplier symmetry",
+      meaning: "table[k] == table[rows − k] verified for all 27 configs.",
+    },
+    {
+      id: "s3-phasec",
+      test: "Phase C code-path equivalence",
+      meaning: "200/200 $10 bets recomputed correctly, same table as $0.01.",
+    },
+    {
+      id: "s3-structure",
+      test: "Edge slot and center floor",
+      meaning: "Slot 0 = slot N for all configs; 16r/high center ≥ 0.2×.",
     },
   ],
   section4: [
     {
-      id: "s4-winloss",
-      test: "Win/loss mapping by rules",
-      meaning: "Wins and losses are calculated exactly as documented game rules define.",
+      id: "s4-payout-formula",
+      test: "Payout formula",
+      meaning: "win_amount = amount × multiplier for all 7,600 bets.",
     },
     {
-      id: "s4-payout",
-      test: "Payout formula correctness",
-      meaning: "Payouts cannot be altered after path/slot generation.",
+      id: "s4-table-integrity",
+      test: "Multiplier table integrity",
+      meaning: "All live payouts match scaling_edge[0].multipliers.",
     },
     {
-      id: "s4-rtp",
-      test: "Advertised RTP alignment",
-      meaning: "House edge remains consistent and transparent across bets.",
+      id: "s4-theoretical",
+      test: "Theoretical RTP",
+      meaning: "99.900% across all 27 configs, proven analytically.",
     },
     {
-      id: "s4-risk-consistency",
-      test: "Cross-risk-level consistency",
-      meaning: "Results remain stable across risk levels and row configurations.",
+      id: "s4-anticircular",
+      test: "Anti-circularity",
+      meaning: "Independent binomial probabilities match config exactly.",
     },
     {
-      id: "s4-convergence",
-      test: "Observed RTP convergence",
-      meaning: "Over time, returns converge toward advertised RTP as expected for fair Plinko.",
+      id: "s4-sim-convergence",
+      test: "Simulated RTP convergence",
+      meaning: "27M rounds, average 99.890%, within expected variance.",
+    },
+    {
+      id: "s4-scaling-edge",
+      test: "Scaling edge structure",
+      meaning: "Bracket 0 house_edge = 0.001; both test amounts within bracket.",
+    },
+    {
+      id: "s4-zero-edge",
+      test: "Zero edge audit",
+      meaning: "All effective_edge groups use the same multiplier table.",
+    },
+    {
+      id: "s4-bet-size",
+      test: "No payout distortion by bet size",
+      meaning: "$10 bets use same table as $0.01 bets.",
     },
   ],
   section5: [
     {
       id: "s5-prediction",
       test: "Outcome prediction",
+      status: "PASS",
       meaning: "Outcomes cannot be predicted before betting.",
     },
     {
       id: "s5-tamper",
       test: "Post-bet tamper resistance",
+      status: "PASS",
       meaning: "Results cannot be altered after a bet is placed.",
     },
     {
       id: "s5-commit",
       test: "Seed commitment integrity",
-      meaning: "Commit-reveal protocol cannot be bypassed.",
+      status: "PASS",
+      meaning: "Commit-reveal protocol verified across 152 seed pairs.",
     },
     {
       id: "s5-nonce",
       test: "Nonce uniqueness and sequencing",
+      status: "PASS",
       meaning: "Each bet uses unique, sequential input.",
     },
     {
       id: "s5-entropy",
       test: "Entropy isolation",
+      status: "PASS",
       meaning: "No hidden, mixed, or predictable entropy sources are used.",
     },
     {
-      id: "s5-isolation",
-      test: "Round and user isolation",
-      meaning: "Outcomes are isolated across rounds and users.",
+      id: "s5-round-isolation",
+      test: "Round isolation",
+      status: "PASS",
+      meaning: "No serial correlation in outcomes.",
+    },
+    {
+      id: "s5-player-isolation",
+      test: "Player isolation",
+      status: "TBD",
+      meaning: "Requires concurrent multi-account seed rotation test.",
     },
     {
       id: "s5-payout",
       test: "Payout integrity",
-      meaning: "Game parameters and payouts cannot be manipulated client-side.",
+      status: "PASS",
+      meaning: "All payouts match formula and published table.",
+    },
+    {
+      id: "s5-api-enforcement",
+      test: "API parameter enforcement",
+      status: "TBD",
+      meaning: "Requires active API probing.",
     },
   ],
   section6: [
@@ -256,34 +330,49 @@ export const sectionVerdictRows = {
     },
     {
       id: "s7-pinning",
-      test: "Pinned reproducibility metadata",
-      meaning: "Commit and dataset hash pinning support consistent reruns.",
+      test: "Reproducibility metadata (partial)",
+      meaning: "Dataset hash is source-backed; audited commit pin: TBD.",
     },
   ],
 };
 
 export const publicLinks = [
-  { id: "repo", label: "GitHub Repository", href: "#", icon: "github" },
+  {
+    id: "repo",
+    label: "GitHub Repository",
+    href: "https://github.com/ProvablyFair-org/duel-audit",
+    icon: "github",
+  },
   {
     id: "commit",
-    label: "Commit Audited: [TBD]",
-    href: "#",
+    label: "Commit Audited: TBD",
+    href: "https://github.com/ProvablyFair-org/duel-audit",
     icon: "commit",
   },
-  { id: "verifier", label: "Public Verifier", href: "#", icon: "verifier" },
-  { id: "player-guide", label: "Player Verification Guide", href: "#6-player-verification-guide", icon: "guide" },
+  {
+    id: "verifier",
+    label: "Public Verifier",
+    href: "https://duel.com/plinko",
+    icon: "verifier",
+  },
+  {
+    id: "player-guide",
+    label: "Player Verification Guide",
+    href: "#section-player-verification",
+    icon: "guide",
+  },
 ];
 
 export const pinningItems = [
-  { id: "commit", label: "Git commit", value: "[TBD: commit hash]", code: true },
+  { id: "commit", label: "Git commit", value: "TBD", code: false },
   {
     id: "dataset",
     label: "Dataset hash (SHA-256)",
-    value: "[TBD: dataset hash]",
+    value: "8382e45f8cdf4d439a8866669d15e6f4be543f4b926fb64c67e09d9da7d6b2db",
     code: true,
   },
-  { id: "npm", label: "Node package manager version", value: "[TBD: npm version]" },
-  { id: "node", label: "Node version", value: "[TBD: node version]" },
+  { id: "npm", label: "Node package manager version", value: "TBD" },
+  { id: "node", label: "Node version", value: "TBD" },
 ];
 
 export const highLevelFlowSteps = [
@@ -292,7 +381,7 @@ export const highLevelFlowSteps = [
   {
     id: "flow-3",
     title: "RNG output generated",
-    description: "[TBD: RNG method] generates the ball path or final slot.",
+    description: "HMAC-SHA256 produces one bit per row (left or right); final slot = sum of right-turns.",
   },
   { id: "flow-4", title: "Game logic evaluated", description: "Game logic determines path/slot and applies multiplier." },
   { id: "flow-5", title: "Payout resolved", description: "Payout resolves based on landing slot and multiplier table." },
@@ -320,7 +409,7 @@ export const parityTestMethodSteps = [
     title: "Recompute outcomes",
     description: (
       <>
-        Recompute outcomes with independent verifier logic: <code>[TBD: Plinko generator method]</code>.
+        Recompute outcomes with independent verifier logic: <code>computeSlot</code> (HMAC-SHA256 per row).
       </>
     ),
   },
@@ -329,7 +418,7 @@ export const parityTestMethodSteps = [
     title: "Compare values",
     description: (
       <>
-        Compare verifier output against <code>[TBD: result field]</code> from the live game.
+        Compare verifier output against <code>final_slot</code> from the live game.
       </>
     ),
   },
@@ -370,7 +459,7 @@ export const verifyBetSteps = [
     title: "Review your seeds",
     bullets: [
       <>
-        <strong>Client seed:</strong> player-controlled seed (example: <code>[TBD]</code>).
+        <strong>Client seed:</strong> player-controlled seed (example: <code>kJbhRHVAg4lh_OY7</code>).
       </>,
       <><strong>Server seed:</strong> revealed server seed (64 hex characters).</>,
       <><strong>Server seed hash:</strong> pre-committed hash shown before the bet.</>,
@@ -406,7 +495,8 @@ export const reproducibilityCommandSteps = [
     codeBlocks: [
       {
         language: "bash",
-        code: `git clone [TBD: Plinko audit repo URL]\ncd [TBD: repo name]`,
+        code: `git clone https://github.com/ProvablyFair-org/duel-audit.git
+cd duel-audit`,
       },
     ],
   },
@@ -418,24 +508,43 @@ export const reproducibilityCommandSteps = [
   },
   {
     id: "repro-3",
-    title: "Run tests",
+    title: "Run verification and simulation",
     codeBlocks: [
-      { label: "Run all tests:", language: "bash", code: "npm test" },
-      { label: "Run Plinko-specific tests:", language: "bash", code: 'npm test -- --grep "Plinko"' },
+      {
+        label: "Run verification suite (20 steps):",
+        language: "bash",
+        code: "npx ts-node tests/verify.ts",
+      },
+      {
+        label: "Run 27M-round simulation:",
+        language: "bash",
+        code: "npx ts-node src/simulate.ts",
+      },
       {
         label: "Expected output:",
         language: "text",
-        code: `[TBD: Expected test output]`,
+        code: `[PASS] Step 1: Seed Hash Integrity
+[PASS] Step 2: Commitment Linkage
+... (20 steps, 0 hard fails)
+27 configs, chi-squared pass, avg RTP ≈ 99.890%`,
       },
     ],
   },
   {
     id: "repro-4",
-    title: "Generate audit report",
-    codeBlocks: [{ language: "bash", code: "[TBD: audit report command]" }],
+    title: "View generated outputs",
+    codeBlocks: [
+      {
+        label: "Verification and simulation results:",
+        language: "bash",
+        code: `cat outputs/verification-results.json
+cat outputs/simulation-results.json
+cat outputs/determinism-log.json`,
+      },
+    ],
     note: (
       <>
-        This generates a Plinko audit report at <code>[TBD: output path]</code>.
+        Outputs are written to <code>outputs/</code> (verification-results.json, simulation-results.json, determinism-log.json).
       </>
     ),
   },

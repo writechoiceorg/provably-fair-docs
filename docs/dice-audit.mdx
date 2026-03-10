@@ -2,6 +2,7 @@
 title: Dice Audit
 description: Independent validation of Duel.com Dice across deterministic outcome generation, entropy integrity, live parity, RTP accuracy, and fairness integrity testing.
 diataxis: reference
+displayed_sidebar: tutorialSidebar
 ---
 
 import VerdictTable from "@site/src/components/audit/VerdictTable";
@@ -670,7 +671,6 @@ it("Client seed can be manually changed by the user", () => {
   <summary>Technical Evidence and Verification</summary>
   <p>This index maps the evidence used to validate seed handling, nonce behavior, and deterministic replay.</p>
 
-  <p><strong>Generated:</strong> 2026-02-06</p>
   <p><strong>Audit status:</strong> All tests passed (13/13)</p>
 
   <h4>Evidence coverage</h4>
@@ -1018,7 +1018,6 @@ This section tests whether the RNG produces unbiased results and whether each be
     This section indexes the technical artifacts used to verify the Dice RNG implementation, entropy sources, bias
     elimination, and isolation properties. All evidence is reproducible using the linked scripts and datasets.
   </p>
-  <p><strong>Generated:</strong> 2026-02-06</p>
   <p><strong>Audit status:</strong> All RNG tests passed (4/4)</p>
 
   <h4>Evidence coverage</h4>
@@ -1373,7 +1372,6 @@ real production bets. A single mismatch would invalidate the fairness guarantee.
     This section indexes the technical artifacts used to verify that the independent Dice verifier produces identical
     outcomes to the live game. All evidence is reproducible using linked scripts and datasets.
   </p>
-  <p><strong>Generated:</strong> 2026-02-11</p>
   <p>
     <strong>Audit status:</strong> All tests passed (1/1 verifier parity test + (LIVE_BETS_COUNT) live
     game verifications)
