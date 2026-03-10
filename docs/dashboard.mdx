@@ -1,0 +1,140 @@
+---
+title: Dashboard
+slug: /
+description: Independent verification of RNG integrity, live game parity, RTP convergence, and fairness integrity across 8 games.
+---
+
+import CertBanner from "@site/src/components/CertBanner";
+import StatBlock from "@site/src/components/StatBlock";
+import StatBlockGroup from "@site/src/components/StatBlockGroup";
+import GameValidation from "@site/src/components/GameValidation";
+import TagRow from "@site/src/components/TagRow";
+import SectionHeading from "@site/src/components/SectionHeading";
+import AuditTimeline from "@site/src/components/AuditTimeline";
+
+<CertBanner
+  casino="Duel.com"
+  subtitle="Provably Fair System Audit"
+  certifiedBy="ProvablyFair.org"
+  auditId="PF-2026-002"
+  issued="Feb 12, 2026"
+  nextReview="Feb 2027"
+  status="CERTIFIED"
+/>
+
+<TagRow
+  tags={[
+    { label: "✓ Certified", variant: "green" },
+    { label: "Open Source", variant: "orange" },
+    { label: "PF Audit v1.0", variant: "blue" },
+  ]}
+/>
+
+Complete analysis of the audit methodology, technical findings, and final certification is available in the [Executive Summary](./executive-summary).
+
+<SectionHeading label="Audit Verdict" title="System Integrity Snapshot" />
+
+To guarantee complete cryptographic transparency, the following key performance indicators (KPIs) show the total volume of live data and stress-testing simulations verified during this audit period.
+
+<StatBlockGroup>
+  <StatBlock value="30,742" label="Live Bets Verified" variant="default" />
+  <StatBlock value="80,000,000+" label="Simulation Rounds" variant="default" />
+  <StatBlock value="147" label="Game Integrity Checks" variant="accent" />
+  <StatBlock value="8 / 8" label="Games Fully Validated" variant="green" />
+</StatBlockGroup>
+
+<SectionHeading label="Game Testing" title="Games Audited" />
+
+Comprehensive audit results for individual game modules, including hashing algorithms and simulation densities.
+
+<GameValidation
+  columnTemplate="1.1fr 1.5fr 1fr 0.9fr 1fr"
+  columns={[
+    { id: "game", label: "Game" },
+    { id: "rng", label: "RNG Model", mono: true },
+    { id: "simulation", label: "Simulation", mono: true },
+    { id: "rtp", label: "RTP", mono: true },
+    { id: "status", label: "Status" },
+  ]}
+  games={[
+    { name: "Dice", href: "./dice-audit", rng: "HMAC-SHA256", simulation: "100M sim", rtp: "99.9%", status: "PASS" },
+    { name: "Crash", href: "#", rng: "HMAC-SHA256 + drand", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Plinko", href: "./plinko-audit", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Blackjack", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Roulette", href: "#", rng: "HMAC-SHA256 + drand", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Keno", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Mines", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+    { name: "Cross Road", href: "#", rng: "HMAC-SHA256", simulation: "10M sim", rtp: "N/A", status: "PASS" },
+  ]}
+/>
+
+<SectionHeading label="Process" title="Audit Timeline" />
+
+The following milestones delineate the entire certification process, from initial data collection to final system validation.
+
+<AuditTimeline
+  steps={[
+    { title: "Audit Initiated", date: "Jan 28" },
+    { title: "Data Capture Completed", date: "Feb 4" },
+    { title: "Parity Testing Completed", date: "Feb 6" },
+    { title: "RTP Simulation Completed", date: "Feb 8" },
+    { title: "Exploit Testing Completed", date: "Feb 12" },
+    { title: "Certification Issued", date: "Feb 12" },
+  ]}
+/>
+
+<SectionHeading label="Open Source" title="Transparency and Verification" />
+
+In line with our commitment to open-source integrity, the following resources enable third parties to independently reproduce our findings and verify the cryptographic authenticity of any game result.
+
+<div className="dashboardTransparencyGrid">
+  <section className="dashboardTransparencyCard">
+    <h3>Public Transparency</h3>
+    <p className="dashboardTransparencySubtitle">Open and reproducible audit</p>
+    <p>
+      This audit is fully reproducible and open source. All datasets, simulations, and verification logic used in this report are publicly available.
+    </p>
+    <div className="dashboardTransparencyActions">
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonPrimary" href="#">
+        Reproduce This Audit
+      </a>
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonGhost" href="#">
+        View Audit Repository
+      </a>
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonGhost" href="#">
+        View Dataset &amp; Simulation Logs
+      </a>
+    </div>
+    <p className="dashboardTransparencyUrl">[TDB: Add canonical URLs for each resource]</p>
+  </section>
+
+  <section className="dashboardTransparencyCard">
+    <h3>Player Verification</h3>
+    <p className="dashboardTransparencySubtitle">Verify any bet yourself</p>
+    <p>Every game result can be independently recomputed using publicly disclosed inputs.</p>
+    <div className="dashboardTransparencyActions">
+      <a className="dashboardTransparencyButton dashboardTransparencyButtonPrimary" href="#">
+        Open Independent Public Verifier
+      </a>
+    </div>
+    <p className="dashboardTransparencyUrl">[TDB: Link for "Open Independent Public Verifier"]</p>
+  </section>
+</div>
+
+:::tip Verification Rule
+If your computed result matches the displayed result, the game is provably fair.
+:::
+
+<SectionHeading label="Open Source" title="Audit Pinning" />
+
+<div className="auditPinningGrid">
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Audit commit</div>
+    <code className="auditPinningValue">fa913ab94883d06950d3c63bbb7007f927648131</code>
+  </section>
+
+  <section className="auditPinningCard">
+    <div className="auditPinningLabel">Framework version</div>
+    <div className="auditPinningValue">ProvablyFair v1.0</div>
+  </section>
+</div>

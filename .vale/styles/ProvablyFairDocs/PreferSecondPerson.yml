@@ -1,0 +1,9 @@
+extends: substitution
+message: "Prefer second person ('you') for instructional content."
+level: suggestion
+ignorecase: true
+swap:
+  \busers\b: you
+  \bthe user\b: you
+  \bdevelopers\b: you
+  \bone can\b: you can

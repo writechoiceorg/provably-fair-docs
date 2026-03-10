@@ -1,0 +1,7 @@
+extends: existence
+message: "Prefer present tense. Replace future tense when possible."
+level: warning
+ignorecase: true
+tokens:
+  - \bwill\b
+  - \bgoing to\b

@@ -1,0 +1,7 @@
+extends: substitution
+message: "Use `[MISSING_INFO: ...]` for undocumented or blocked details."
+level: suggestion
+ignorecase: true
+swap:
+  \bTODO\b: "[MISSING_INFO: describe the missing source detail]"
+  \bTBD\b: "[MISSING_INFO: describe the missing source detail]"
