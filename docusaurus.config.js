@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Provably Fair Audits',
   tagline: 'Independent game fairness verification',
-  favicon: 'img/favicon.ico',
+  favicon: 'logo/favicon.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
