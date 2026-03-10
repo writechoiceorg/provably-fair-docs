@@ -84,7 +84,6 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'Provably Fair',
         logo: {
           alt: 'Provably Fair Logo',
           src: '/logo/logo-light.png',

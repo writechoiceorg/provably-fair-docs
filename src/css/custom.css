@@ -6,6 +6,8 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --doc-sidebar-width: 250px;
+
   /* ── Docusaurus Primary (maps to links, navbar, etc.) ── */
   --ifm-color-primary:          #e8590c;
   --ifm-color-primary-dark:     #d14f0a;
@@ -1482,16 +1484,15 @@
 
 /* Pushes the sidebar links down, clearing space for the fixed logo */
 .theme-doc-sidebar-menu {
-  margin-top: calc(var(--ifm-navbar-height) - 100px) !important;
-  padding-top: 1rem !important;
+  margin-top: 0 !important;
+  padding-top: calc(var(--ifm-navbar-height) + 0.5rem) !important;
 }
 
 /* Custom logo size */
 .navbar__logo {
   height: 27px !important; 
   width: auto;
-  transform: translateY(-2px); /* Vertical adjustment */
-  transform: translatex(9px);
+  transform: translate(9px, -2px);
 }
 
 /* ==========================================
@@ -1525,17 +1526,4 @@
 .navbar__items:not(.navbar__items--right) .navbar__color-mode-toggle,
 .navbar-sidebar .navbar__color-mode-toggle {
   display: none !important;
-}
-
-.custom-right-toggle {
-  display: flex !important;
-  position: absolute !important;
-  right: 1.5rem !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 1001 !important;
-  min-width: 40px;
-  min-height: 40px;
-  justify-content: center;
-  align-items: center;
 }

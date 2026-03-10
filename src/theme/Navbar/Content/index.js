@@ -85,8 +85,7 @@ export default function NavbarContent() {
             </NavbarSearch>
           )}
 
-          {/* Theme Toggle perfectly positioned */}
-          <NavbarColorModeToggle className="custom-right-toggle" />
+          <NavbarColorModeToggle />
         </>
       }
     />

@@ -15,19 +15,7 @@
  @type {import('@docusaurus/plugin-content-docs').SidebarsConfig}
  */
 const sidebars = {
-  tutorialSidebar: [
-    {
-      type: 'category',
-      label: 'Dashboard',
-      collapsible: false,
-      className: 'sidebar-title-orange',
-      items: [
-        'dashboard',
-        'dice-audit',
-        'executive-summary',
-      ],
-    },
-  ],
+  tutorialSidebar: ['dashboard', 'executive-summary', 'dice', 'plinko'],
 };
 export default sidebars;
 
