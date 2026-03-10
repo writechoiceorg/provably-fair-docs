@@ -647,7 +647,9 @@
   display: flex;
   position: relative;
   margin: 0.5rem 0 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.2rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 /* horizontal line connecting all dots */
@@ -670,8 +672,16 @@
 .pf-timeline__step {
   flex: 1;
   position: relative;
-  padding-top: 36px;
-  min-width: 100px;
+  padding-top: 40px;
+  min-width: 150px;
+}
+
+.pf-timeline__content {
+  padding-right: 0.55rem;
+}
+
+.pf-timeline__step--last .pf-timeline__content {
+  padding-right: 0;
 }
 
 /* dot */
@@ -696,7 +706,8 @@
 .pf-timeline__title {
   font-size: 0.8rem;
   font-weight: 700;
-  margin-bottom: 1px;
+  line-height: 1.35;
+  margin-bottom: 3px;
 }
 
 [data-theme='light'] .pf-timeline__title { color: #111118; }
@@ -704,6 +715,7 @@
 
 .pf-timeline__date {
   font-size: 0.68rem;
+  line-height: 1.3;
   color: var(--pf-text-3);
 }
 
@@ -717,6 +729,7 @@
     flex-direction: column;
     padding-left: 36px;
     padding-bottom: 0;
+    overflow-x: visible;
   }
 
   /* vertical line on mobile */
