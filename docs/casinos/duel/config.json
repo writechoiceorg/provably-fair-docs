@@ -1,0 +1,90 @@
+{
+  "name": "Duel.com",
+  "domain": "duel.com",
+  "auditId": "PF-2026-001",
+  "certDate": "Feb 12, 2026",
+  "nextReview": "Feb 2027",
+  "status": "CERTIFIED",
+  "certifiedBy": "ProvablyFair.org",
+  "intro": "Independent verification of RNG integrity, live game parity, RTP convergence, and fairness integrity across 8 games.",
+  "stats": {
+    "liveBetsVerified": "30,742",
+    "simulationRounds": "80,000,000+",
+    "integrityChecks": "120",
+    "gamesValidated": "8 / 8"
+  },
+  "architecture": {
+    "accentColor": "#e8590c",
+    "casinoName": "Duel",
+    "rngLabel": "HMAC-SHA256 / drand",
+    "leftSteps": [
+      "Seed Inputs",
+      "HMAC-SHA256 / drand",
+      "Deterministic Outcome",
+      "Payout Applied",
+      "Live Result Recorded"
+    ],
+    "rightSections": [
+      { "label": "Seed & Determinism Check", "sub": "Section 1" },
+      { "label": "RNG & Entropy Validation",  "sub": "Section 2" },
+      { "label": "Verifier Parity",           "sub": "Section 3" }
+    ]
+  },
+  "timeline": [
+    { "title": "Initiated",         "date": "Jan 28" },
+    { "title": "Data Capture",      "date": "Feb 4"  },
+    { "title": "Parity Testing",    "date": "Feb 6"  },
+    { "title": "RTP Simulation",    "date": "Feb 8"  },
+    { "title": "Integrity Testing", "date": "Feb 12" },
+    { "title": "Certification",     "date": "Feb 12" }
+  ],
+  "verdicts": [
+    {
+      "number": "01",
+      "area": "Determinism",
+      "status": "pass",
+      "evidence": "HMAC-SHA256 with rejection sampling. Nonce starts at 0, increments by 1, never reused. Player controls client seed. 100% deterministic."
+    },
+    {
+      "number": "02",
+      "area": "RNG Integrity",
+      "status": "pass",
+      "evidence": "No external entropy sources. Chi-squared uniformity: p = 0.472 across 980K simulated rounds. Rejection sampling eliminates modulo bias."
+    },
+    {
+      "number": "03",
+      "area": "Live ↔ Verifier Parity",
+      "status": "pass",
+      "evidence": "30,742 real bets verified. 100% match rate — zero discrepancies between live results and independently computed outcomes."
+    },
+    {
+      "number": "04",
+      "area": "RTP Validation",
+      "status": "pass",
+      "evidence": "Theoretical RTP verified across all game configurations. Simulated RTP converges within expected variance over 80M+ rounds."
+    },
+    {
+      "number": "05",
+      "area": "Fairness Integrity",
+      "status": "pass",
+      "evidence": "15 integrity checks passed per game: nonce sequencing, seed commitment, outcome determinism, round isolation, payout integrity."
+    }
+  ],
+  "games": [
+    { "name": "Dice",      "slug": "dice",      "icon": "dice",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Crash",     "slug": "crash",     "icon": "crash",     "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Plinko",    "slug": "plinko",    "icon": "plinko",    "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Blackjack", "slug": "blackjack", "icon": "blackjack", "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Roulette",  "slug": "roulette",  "icon": "roulette",  "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Keno",      "slug": "keno",      "icon": "keno",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Mines",     "slug": "mines",     "icon": "mines",     "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Beef",      "slug": "beef",      "icon": "beef",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" }
+  ],
+  "transparency": {
+    "auditRepoUrl": "https://github.com/provablyfair/audits",
+    "datasetUrl": "https://github.com/provablyfair/audits/datasets",
+    "verifierUrl": "https://provablyfair.org/verify/duel",
+    "commitHash": "fa913ab94883d06950d3c63bbb7007f927648131",
+    "frameworkVersion": "ProvablyFair v1.0"
+  }
+}

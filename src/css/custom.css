@@ -366,6 +366,15 @@
 [data-theme='light'] .pf-vt__evidence { color: var(--pf-text-2); }
 [data-theme='dark']  .pf-vt__evidence { color: rgba(255, 255, 255, 0.55); }
 
+/* ── pf-vt--verdict (3-column override) ────────
+   Add this alongside the existing .pf-vt block
+   in custom.css
+   ─────────────────────────────────────────────*/
+.pf-vt--verdict .pf-vt__header,
+.pf-vt--verdict .pf-vt__row {
+  grid-template-columns: 1.2fr 0.55fr 3fr;
+}
+
 /* ── VerdictTable responsive ────────────────── */
 @media (max-width: 768px) {
   .pf-vt {
@@ -1526,4 +1535,1029 @@
 .navbar__items:not(.navbar__items--right) .navbar__color-mode-toggle,
 .navbar-sidebar .navbar__color-mode-toggle {
   display: none !important;
+}
+
+/* ── Sidebar spacing fix ─────────────────────── */
+.theme-doc-sidebar-menu {
+  padding-top: 0.5rem !important;
+}
+
+/* ── Sidebar icon alignment fix ─────────────── */
+.menu__link {
+  display: flex !important;
+  align-items: center !important;
+}
+
+
+/* ═══════════════════════════════════════════════
+   EXEC-SUMMARY COMPONENTS
+   ═══════════════════════════════════════════════ */
+
+/* ── Page eyebrow ───────────────────────────── */
+.pf-page-eyebrow {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--pf-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Page lead paragraph ────────────────────── */
+.pf-page-lead {
+  font-size: 0.96rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  max-width: 700px;
+}
+
+/* ── Muted text ─────────────────────────────── */
+.pf-muted {
+  font-size: 0.84rem;
+  color: var(--pf-text-3);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* ── Architecture diagram wrapper ───────────── */
+.pf-arch-wrap {
+  background: #fff;
+  border: 1px solid var(--pf-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem 0 1.5rem;
+}
+
+[data-theme='dark'] .pf-arch-wrap {
+  background: #16161e;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── StatsGrid ──────────────────────────────── */
+.pf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--pf-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.pf-stats-grid__cell {
+  background: #fff;
+  padding: 0.85rem 0.7rem;
+  text-align: center;
+}
+
+[data-theme='dark'] .pf-stats-grid__cell {
+  background: #1c1c2a;
+}
+
+.pf-stats-grid__value {
+  font-family: var(--pf-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111118;
+}
+
+[data-theme='dark'] .pf-stats-grid__value {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pf-stats-grid__value--green  { color: var(--pf-green) !important; }
+.pf-stats-grid__value--orange { color: var(--pf-accent) !important; }
+
+[data-theme='dark'] .pf-stats-grid__value--green  { color: var(--pf-green-bright) !important; }
+
+.pf-stats-grid__label {
+  font-size: 0.6rem;
+  color: var(--pf-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+}
+
+@media (max-width: 640px) {
+  .pf-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Note / Callout ─────────────────────────── */
+.pf-note {
+  background: #f6f7f9;
+  border-left: 3px solid var(--pf-border);
+  border-radius: 4px;
+  padding: 0.65rem 1rem;
+  margin: 0.5rem 0 1rem;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.pf-note strong {
+  font-weight: 600;
+}
+
+.pf-note--ok   { border-left-color: var(--pf-green); }
+.pf-note--warn { border-left-color: var(--pf-accent); }
+
+[data-theme='dark'] .pf-note {
+  background: #1e1e2e;
+  border-left-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+[data-theme='dark'] .pf-note--ok   { border-left-color: var(--pf-green-bright); }
+[data-theme='dark'] .pf-note--warn { border-left-color: var(--pf-accent); }
+
+/* ── Checklist ──────────────────────────────── */
+.pf-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 1rem;
+}
+
+.pf-checklist li {
+  position: relative;
+  padding: 3px 0 3px 16px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.pf-checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pf-accent);
+}
+
+/* muted variant — for "not covered" column */
+.pf-checklist--muted li {
+  color: var(--pf-text-3);
+}
+
+.pf-checklist--muted li::before {
+  background: var(--pf-border);
+}
+
+[data-theme='dark'] .pf-checklist li {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme='dark'] .pf-checklist--muted li {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Scope table ────────────────────────────── */
+.pf-scope-table {
+  overflow-x: auto;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid var(--pf-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pf-scope-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pf-scope-table th {
+  background: var(--pf-bg-dark);
+  padding: 0.55rem 1rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+}
+
+.pf-scope-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  border: none;
+}
+
+[data-theme='light'] .pf-scope-table td { background: #fff; }
+[data-theme='dark']  .pf-scope-table td { background: #1c1c2a; }
+
+/* ── ConclusionBlock ────────────────────────── */
+.pf-conclusion {
+  background: var(--pf-bg-dark);
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.pf-conclusion__heading {
+  font-family: var(--pf-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.4rem;
+  border: none !important;
+}
+
+.pf-conclusion__sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 1rem;
+}
+
+.pf-conclusion__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+}
+
+.pf-conclusion__field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pf-conclusion__key {
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pf-conclusion__val {
+  font-family: var(--pf-mono);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
+}
+
+.pf-conclusion__val--green {
+  color: var(--pf-green-bright);
+}
+
+@media (max-width: 640px) {
+  .pf-conclusion {
+    padding: 1rem 1.1rem;
+  }
+  .pf-conclusion__meta {
+    gap: 1rem;
+  }
+}
+
+/* ── GameCards ──────────────────────────────── */
+.pf-game-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.pf-game-card {
+  border: 1px solid var(--pf-border);
+  border-radius: 10px;
+  padding: 0.8rem;
+  text-align: center;
+  transition: border-color 0.12s;
+}
+
+[data-theme='light'] .pf-game-card { background: #fff; }
+[data-theme='dark']  .pf-game-card { background: #1c1c2a; border-color: rgba(255,255,255,0.08); }
+
+.pf-game-card:hover {
+  border-color: var(--pf-text-4);
+}
+
+.pf-game-card__name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-bottom: 6px;
+}
+
+[data-theme='dark'] .pf-game-card__name {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pf-game-card__icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--pf-text-3);
+}
+
+.pf-game-card__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pf-game-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--pf-green);
+  background: var(--pf-green-bg);
+  border: 1px solid var(--pf-green-border);
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+[data-theme='dark'] .pf-game-card__badge {
+  color: var(--pf-green-bright);
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.pf-game-card__badge svg {
+  width: 10px;
+  height: 10px;
+}
+
+.pf-game-card__row {
+  font-size: 0.7rem;
+  color: var(--pf-text-3);
+  padding: 1px 0;
+  line-height: 1.5;
+}
+
+.pf-game-card__row span {
+  font-family: var(--pf-mono);
+  font-size: 0.67rem;
+  color: #2a2a2e;
+}
+
+[data-theme='dark'] .pf-game-card__row span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pf-game-card__link {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--pf-border-light);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--pf-accent) !important;
+  text-decoration: none !important;
+}
+
+.pf-game-card__link:hover {
+  text-decoration: underline !important;
+}
+
+[data-theme='dark'] .pf-game-card__link {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.pf-game-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 2.5rem 0 1rem;
+}
+
+.pf-game-section-header__num {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+  background: #111318;
+  color: #fff;
+}
+
+.pf-game-section-header__title {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.pf-game-section-header__subtitle {
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.15rem;
+}
+
+.pf-player-brief {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 1rem 0 1.5rem;
+}
+
+.pf-player-brief__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.pf-player-brief__headline {
+  font-weight: 700;
+}
+
+.pf-player-brief__stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.pf-player-brief__stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #16a34a;
+}
+
+.pf-player-brief__stat-label {
+  font-size: 0.78rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.pf-player-brief__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.pf-player-brief__col {
+  padding: 1rem 1.15rem;
+}
+
+.pf-player-brief__col + .pf-player-brief__col {
+  border-left: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.pf-game-list {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pf-game-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  margin: 0.35rem 0;
+}
+
+.pf-game-list--check li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #16a34a;
+  font-weight: 700;
+}
+
+.pf-game-list--dash li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+}
+
+.pf-verdict-box {
+  background: #f0fdf4;
+  border-left: 4px solid #16a34a;
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.pf-verdict-box strong {
+  display: block;
+  color: #15803d;
+  margin-bottom: 0.25rem;
+}
+
+.pf-expandable {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.9rem 0;
+}
+
+.pf-expandable summary {
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pf-expandable__body {
+  padding: 0.25rem 1rem 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.pf-code-card {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.75rem 0 1rem;
+}
+
+.pf-code-card summary {
+  cursor: pointer;
+  padding: 0.7rem 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.pf-code-card__body {
+  display: flex;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.pf-code-card__nums {
+  padding: 0.75rem 0;
+  background: var(--ifm-color-emphasis-100);
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.pf-code-card__nums span {
+  display: block;
+  padding: 0 0.75rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.76rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.pf-code-card__pre {
+  margin: 0;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+.pf-pin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.pf-pin-grid__item {
+  background: var(--ifm-background-surface-color);
+  padding: 0.75rem 0.9rem;
+}
+
+.pf-pin-grid__key {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.pf-pin-grid__value {
+  margin-top: 0.25rem;
+  font-family: var(--ifm-font-family-monospace);
+  word-break: break-word;
+}
+
+.pf-compare-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.pf-compare-strip__side {
+  padding: 0.85rem 1rem;
+  text-align: center;
+}
+
+.pf-compare-strip__middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.9rem;
+  background: #f0fdf4;
+  color: #15803d;
+  font-weight: 800;
+}
+
+.pf-compare-strip__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.pf-compare-strip__value {
+  margin-top: 0.3rem;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+.pf-game-stats {
+  margin-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.st {
+  background: var(--bg);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.st-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.st-val.green {
+  color: var(--green);
+}
+
+.st-val.accent {
+  color: var(--accent);
+}
+
+.st-label {
+  font-size: 0.62rem;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stats-feat {
+  background: var(--dark);
+  border-radius: 0 0 10px 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sf-val {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--green-bright);
+}
+
+.sf-label {
+  font-size: 0.62rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sf-bar {
+  display: flex;
+  gap: 3px;
+  margin-left: 8px;
+  flex-wrap: wrap;
+}
+
+.sf-pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-bright);
+}
+
+.sf-pip.empty {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .stats-feat {
+    padding: 0.6rem 0.8rem;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .sf-val {
+    font-size: 1.1rem;
+  }
+}
+
+/* ── GameStats ──────────────────────────────── */
+.pf-gs {
+  margin-bottom: 1.5rem;
+}
+ 
+/* 2×2 grid */
+.pf-gs__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--pf-border);
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+ 
+.pf-gs__cell {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0.85rem 1rem;
+}
+ 
+[data-theme='light'] .pf-gs__cell { background: var(--ifm-background-surface-color); }
+[data-theme='dark']  .pf-gs__cell { background: #1c1c2a; }
+ 
+.pf-gs__value {
+  font-family: var(--pf-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111118;
+}
+ 
+[data-theme='dark'] .pf-gs__value {
+  color: rgba(255, 255, 255, 0.9);
+}
+ 
+.pf-gs__value--green  { color: var(--pf-green)  !important; }
+.pf-gs__value--accent { color: var(--pf-accent) !important; }
+ 
+[data-theme='dark'] .pf-gs__value--green  { color: var(--pf-green-bright) !important; }
+ 
+.pf-gs__label {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--pf-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+ 
+/* featured "tests passed" bar */
+.pf-gs__feat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.75rem 1rem;
+  background: var(--pf-bg-dark);
+  border-radius: 0 0 10px 10px;
+}
+ 
+.pf-gs__feat-value {
+  font-family: var(--pf-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--pf-green-bright);
+}
+ 
+.pf-gs__feat-label {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+ 
+.pf-gs__pip-bar {
+  display: flex;
+  gap: 3px;
+  margin-left: 8px;
+  flex-wrap: wrap;
+}
+ 
+.pf-gs__pip {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pf-green-bright);
+  flex-shrink: 0;
+}
+ 
+.pf-gs__pip--empty {
+  background: rgba(255, 255, 255, 0.1);
+}
+ 
+/* ── GameStats responsive ───────────────────── */
+@media (max-width: 640px) {
+  .pf-gs__feat {
+    padding: 0.6rem 0.8rem;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+ 
+  .pf-gs__feat-value {
+    font-size: 1.1rem;
+  }
+ 
+  .pf-gs__cell {
+    padding: 0.7rem 0.8rem;
+  }
+}
+ 
+
+
+@media (max-width: 768px) {
+  .pf-game-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .pf-game-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── CheckList ──────────────────────────────── */
+.pf-cl {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1rem 2rem;
+}
+
+.pf-cl__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0.45rem 0;
+}
+
+.pf-cl__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pf-green-bright);
+}
+
+.pf-cl__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pf-cl__text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--pf-text-2);
+}
+
+[data-theme='dark'] .pf-cl__text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── CheckList responsive ───────────────────── */
+@media (max-width: 768px) {
+  .pf-cl {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════
+   AUDIT COVERAGE TABLE
+   ═══════════════════════════════════════════════ */
+ .pf-coverage-wrap {
+    margin: 1rem 0 2rem;
+    overflow-x: auto;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    background: #fff;
+    overflow: hidden;
+  }
+ 
+  .pf-coverage-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+  }
+ 
+  /* Header */
+  .pf-coverage-table thead tr {
+    background: #111111;
+  }
+ 
+  .pf-coverage-table thead th {
+    color: rgba(255, 255, 255, 0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-align: left;
+    padding: 1.05rem 1.5rem;
+    border: none;
+  }
+ 
+  /* Body rows */
+  .pf-coverage-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+  }
+ 
+  .pf-coverage-table tbody tr:last-child {
+    border-bottom: none;
+  }
+ 
+  .pf-coverage-table tbody td {
+    padding: 1.3rem 1.5rem;
+    vertical-align: middle;
+    border: none;
+    background: #fff;
+  }
+ 
+  /* Area column */
+  .pf-coverage-col-area {
+    width: 34%;
+  }
+ 
+  .pf-coverage-col-area strong {
+    font-size: 0.975rem;
+    font-weight: 800;
+    color: #111111;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+ 
+  /* Description column */
+  .pf-coverage-col-desc {
+    font-size: 0.975rem;
+    color: #6b7280;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+ 
+  @media (max-width: 640px) {
+    .pf-coverage-table thead th {
+      font-size: 0.6rem;
+      padding: 0.85rem 1rem;
+    }
+    .pf-coverage-table tbody td {
+      padding: 1rem;
+    }
+    .pf-coverage-col-area strong,
+    .pf-coverage-col-desc {
+      font-size: 0.9rem;
+    }
+    .pf-coverage-col-area {
+      width: 38%;
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+   NoteBlock
+   Add to: src/css/custom.css
+───────────────────────────────────────────── */
+
+.pf-note {
+  background: var(--bg-muted);
+  border-left: 3px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  margin: 0.4rem 0 0.8rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.pf-note strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ok variant — green left border */
+.pf-note--ok {
+  border-left-color: var(--green);
 }

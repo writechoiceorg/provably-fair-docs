@@ -1,0 +1,51 @@
+---
+title: Dashboard
+hide_title: true
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+import config from './config.json';
+import CertBanner from '@site/src/components/casino/CertBanner';
+import TagRow from '@site/src/components/casino/TagRow';
+import StatBlocks from '@site/src/components/casino/StatBlocks';
+import VerdictTable from '@site/src/components/casino/VerdictTable';
+import GameMatrix from '@site/src/components/casino/GameMatrix';
+import AuditTimeline from '@site/src/components/casino/AuditTimeline';
+import TransparencySection from '@site/src/components/casino/TransparencySection';
+import SectionHeading from '@site/src/components/casino/SectionHeading';
+
+
+export const toc = [
+  { value: 'Audit Verdict',           id: 'audit-verdict',            level: 2 },
+  { value: 'Game Validation Matrix',  id: 'game-validation-matrix',   level: 2 },
+  { value: 'Audit Timeline',          id: 'audit-timeline',           level: 2 },
+  { value: 'Transparency and Verification', id: 'transparency-and-verification', level: 2 },
+];
+
+<CertBanner config={config} />
+<TagRow />
+
+{config.intro} Read the [Executive Summary](./exec-summary) for full methodology. In-depth audit reports for each game are accessible via the sidebar.
+
+<SectionHeading id="audit-verdict" label="System Integrity Snapshot" title="Audit Verdict" />
+
+Each control area was independently tested using live production data, Monte Carlo simulations, and adversarial integrity testing. All five checks passed with zero exceptions.
+
+<VerdictTable verdicts={config.verdicts} />
+
+<StatBlocks stats={config.stats} />
+
+<SectionHeading id ="game-validation-matrix" label="Game Testing" title="Game Validation Matrix" />
+
+<GameMatrix games={config.games} />
+
+
+<SectionHeading id="audit-timeline" label="Process" title="Audit Timeline" />
+
+<AuditTimeline timeline={config.timeline} />
+
+
+<SectionHeading id="transparency-and-verification" label="Open Source" title="Transparency and Verification" />
+
+<TransparencySection transparency={config.transparency} />

@@ -1,21 +1,56 @@
-// @ts-check
-
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
-/**
- * Creating a sidebar enables you to:
- - create an ordered group of docs
- - render a sidebar for each doc of that group
- - provide next/previous navigation
-
- The sidebars can be generated from the filesystem, or explicitly defined here.
-
- Create as many sidebars as you want.
-
- @type {import('@docusaurus/plugin-content-docs').SidebarsConfig}
- */
 const sidebars = {
-  tutorialSidebar: ['dashboard', 'executive-summary', 'dice', 'plinko'],
+  tutorialSidebar: [
+    {
+      type: 'category',
+      label: 'Overview',
+      collapsible: false,
+      collapsed: false,
+      className: 'sidebar-title-orange',
+      items: [
+        {
+          type: 'doc',
+          id: 'casinos/duel/dashboard',
+          label: 'Dashboard',
+          customProps: {
+            icon: 'dashboard',
+          },
+        },
+        {
+          type: 'doc',
+          id: 'casinos/duel/exec-summary',
+          label: 'Executive Summary',
+          customProps: {
+            icon: 'summary',
+          },
+        },
+      ],
+    },
+    // {
+    //   type: 'category',
+    //   label: 'Game Audits',
+    //   collapsible: false,
+    //   collapsed: false,
+    //   className: 'sidebar-title-orange',
+    //   items: [
+    //     {
+    //       type: 'doc',
+    //       id: 'casinos/duel/games/dice/overview',
+    //       label: 'Dice',
+    //       customProps: {
+    //         icon: 'dice',
+    //       },
+    //     },
+    //     {
+    //       type: 'doc',
+    //       id: 'casinos/duel/games/plinko/overview',
+    //       label: 'Plinko',
+    //       customProps: {
+    //         icon: 'plinko',
+    //       },
+    //     },
+    //   ],
+    // },
+  ],
 };
-export default sidebars;
 
+export default sidebars;
