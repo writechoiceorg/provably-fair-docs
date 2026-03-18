@@ -25,31 +25,31 @@ const sidebars = {
         },
       ],
     },
-    // {
-    //   type: 'category',
-    //   label: 'Game Audits',
-    //   collapsible: false,
-    //   collapsed: false,
-    //   className: 'sidebar-title-orange',
-    //   items: [
-    //     {
-    //       type: 'doc',
-    //       id: 'casinos/duel/games/dice/overview',
-    //       label: 'Dice',
-    //       customProps: {
-    //         icon: 'dice',
-    //       },
-    //     },
-    //     {
-    //       type: 'doc',
-    //       id: 'casinos/duel/games/plinko/overview',
-    //       label: 'Plinko',
-    //       customProps: {
-    //         icon: 'plinko',
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      type: 'category',
+      label: 'Game Audits',
+      collapsible: false,
+      collapsed: false,
+      className: 'sidebar-title-orange',
+      items: [
+        {
+          type: 'doc',
+          id: 'casinos/duel/games/dice/overview',
+          label: 'Dice',
+          customProps: {
+            icon: 'dice',
+          },
+        },
+        {
+          type: 'doc',
+          id: 'casinos/duel/games/plinko/overview',
+          label: 'Plinko',
+          customProps: {
+            icon: 'plinko',
+          },
+        },
+      ],
+     },
   ],
 };
 

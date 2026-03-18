@@ -8,7 +8,7 @@
 :root {
   --doc-sidebar-width: 250px;
 
-  /* ── Docusaurus Primary (maps to links, navbar, etc.) ── */
+  /* ── Docusaurus Primary ── */
   --ifm-color-primary:          #e8590c;
   --ifm-color-primary-dark:     #d14f0a;
   --ifm-color-primary-darker:   #c54b0a;
@@ -37,8 +37,20 @@
   --pf-mono:            'JetBrains Mono', monospace;
   --pf-display:         'Plus Jakarta Sans', sans-serif;
 
+  /* ── HTML source variable bridge (used by components) ── */
+  --bg:           #ffffff;
+  --bg-muted:     #f6f7f9;
+  --border:       #e5e5ea;
+  --border-light: #efefef;
+  --text:         #1d1d1f;
+  --text-body:    #2a2a2e;
+  --text-3:       #777777;
+  --text-4:       #aaaaaa;
+  --accent:       #e8590c;
+  --green:        #16a34a;
+  --green-bright: #22c55e;
+  --dark:         #0e0e14;
 }
-
 
 [data-theme='dark'] {
   --ifm-color-primary:          #ea6a25;
@@ -49,8 +61,18 @@
   --ifm-color-primary-lighter:  #ee8550;
   --ifm-color-primary-lightest: #f0996a;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-}
 
+  /* ── HTML source variable bridge — dark overrides ── */
+  --bg:           #1c1c2a;
+  --bg-muted:     #22223a;
+  --border:       rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.07);
+  --text:         rgba(255, 255, 255, 0.88);
+  --text-body:    rgba(255, 255, 255, 0.75);
+  --text-3:       rgba(255, 255, 255, 0.45);
+  --text-4:       rgba(255, 255, 255, 0.28);
+  --dark:         #0e0e14;
+}
 
 
 /* CERT BANNER STYLES */
@@ -2560,4 +2582,987 @@
 /* ok variant — green left border */
 .pf-note--ok {
   border-left-color: var(--green);
+}
+
+
+/* ═══════════════════════════════════════════════
+   EXCLUDE LIST  (pf-xl)
+   Mirrors .pf-cl (AuditCheckList) but with ✗ and muted gray treatment.
+   Matches HTML .ex-list pattern exactly.
+   ═══════════════════════════════════════════════ */
+
+.pf-xl {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.pf-xl__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 3px 0;
+}
+
+.pf-xl__icon {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pf-text-4);
+  line-height: 1.65;
+  /* align with first line of text */
+  margin-top: 1px;
+}
+
+.pf-xl__text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--pf-text-3);
+}
+
+[data-theme='dark'] .pf-xl__text {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+[data-theme='dark'] .pf-xl__icon {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ═══════════════════════════════════════════════
+   REPRODUCE BLOCK  (pf-reproduce)
+   Wraps the repo/commit/verifier meta, the collapsible
+   commands panel, and the NoteBlock below it.
+   ═══════════════════════════════════════════════ */
+
+.pf-reproduce {
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Meta paragraph links */
+.pf-reproduce__meta {
+  font-size: 0.9rem;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+
+.pf-reproduce__link {
+  color: var(--pf-accent);
+  text-decoration: none;
+}
+
+.pf-reproduce__link:hover {
+  text-decoration: underline;
+}
+
+.pf-reproduce__code {
+  font-family: var(--pf-mono);
+  font-size: 0.82rem;
+  background: var(--pf-border-light);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+[data-theme='dark'] .pf-reproduce__code {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Collapsible wrapper — matches .inner details from HTML */
+.pf-reproduce__expand {
+  border: 1px solid var(--pf-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme='dark'] .pf-reproduce__expand {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.pf-reproduce__summary {
+  cursor: pointer;
+  padding: 0.65rem 1rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.pf-reproduce__summary::-webkit-details-marker {
+  display: none;
+}
+
+.pf-reproduce__summary::before {
+  content: '▶';
+  font-size: 0.6rem;
+  color: var(--pf-text-4);
+  transition: transform 0.15s ease;
+}
+
+details.pf-reproduce__expand[open] .pf-reproduce__summary::before {
+  transform: rotate(90deg);
+}
+
+[data-theme='light'] .pf-reproduce__summary {
+  background: var(--pf-border-light);
+  color: var(--pf-text-2);
+}
+
+[data-theme='dark'] .pf-reproduce__summary {
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.pf-reproduce__summary:hover {
+  background: var(--pf-border);
+}
+
+[data-theme='dark'] .pf-reproduce__summary:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.pf-reproduce__body {
+  padding: 0.5rem 0.75rem 0.75rem;
+  border-top: 1px solid var(--pf-border);
+}
+
+[data-theme='dark'] .pf-reproduce__body {
+  border-top-color: rgba(255, 255, 255, 0.07);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SUB SECTION BLOCKS  (.sub / .sub-hdr / .sub-div / .sub-t / .sub-n)
+   Exact match to HTML source — used inside all expandable panels.
+   ═══════════════════════════════════════════════════════════════ */
+ 
+.sub {
+  margin: 1.5rem 0 0;
+  padding-top: 0.8rem;
+}
+ 
+.sub:first-child {
+  margin-top: 0.3rem;
+  padding-top: 0;
+}
+ 
+.sub-hdr {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 0.4rem;
+}
+ 
+.sub-n {
+  font-family: 'Plus Jakarta Sans', var(--pf-display), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+ 
+.sub-t {
+  font-family: 'Plus Jakarta Sans', var(--pf-display), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+ 
+.sub-div {
+  height: 1px;
+  background: var(--border-light);
+  margin-bottom: 0.6rem;
+}
+ 
+@media (max-width: 640px) {
+  .sub-hdr { gap: 6px; }
+  .sub-n, .sub-t { font-size: 0.88rem; }
+}
+ 
+ 
+/* ═══════════════════════════════════════════════════════════════
+   CHECKLIST  (.ck-list)
+   Matches HTML .ck-list pattern exactly (checkmark bullets).
+   ═══════════════════════════════════════════════════════════════ */
+ 
+.ck-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0.8rem;
+}
+ 
+.ck-list li {
+  padding: 3px 0 3px 20px;
+  font-size: 0.88rem;
+  color: var(--text-body);
+  position: relative;
+  line-height: 1.55;
+  break-inside: avoid;
+}
+ 
+.ck-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+ 
+/* single-column variant */
+.ck-list.single {
+  columns: 1;
+}
+ 
+ 
+/* ═══════════════════════════════════════════════════════════════
+   REFERENCES LIST  (.pf-refs / .pf-ref-panel)
+   Matches HTML .gb-expand exactly.
+   ═══════════════════════════════════════════════════════════════ */
+ 
+.pf-refs {
+  margin: 0.5rem 0 1.5rem;
+}
+ 
+/* Panel (details element) */
+.pf-ref-panel {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 0.8rem 0;
+  overflow: hidden;
+}
+ 
+/* Summary row */
+.pf-ref-panel__summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg);
+  transition: background 0.12s;
+  user-select: none;
+}
+ 
+.pf-ref-panel__summary::-webkit-details-marker { display: none; }
+.pf-ref-panel__summary::marker               { display: none; }
+ 
+.pf-ref-panel__summary:hover {
+  background: var(--bg-muted);
+}
+ 
+/* Icon badge — circular, muted */
+.pf-ref-panel__badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-muted);
+  border: 1px solid var(--border-light);
+  color: var(--text-3);
+}
+ 
+/* Title — fills remaining space */
+.pf-ref-panel__title {
+  flex: 1;
+}
+ 
+/* Count pill */
+.pf-ref-panel__count {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--text-4);
+  background: var(--bg-muted);
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+ 
+/* Arrow — rotates when open */
+.pf-ref-panel__arrow {
+  color: var(--text-4);
+  font-size: 0.55rem;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: transform 0.15s;
+}
+ 
+.pf-ref-panel[open] > .pf-ref-panel__summary .pf-ref-panel__arrow {
+  transform: rotate(90deg);
+}
+ 
+/* Body */
+.pf-ref-panel__body {
+  padding: 0.6rem 1.2rem 1.2rem;
+  border-top: 1px solid var(--border-light);
+}
+ 
+ 
+/* ═══════════════════════════════════════════════════════════════
+   INNER COLLAPSIBLE  (.pf-ref-inner)
+   Used inside a reference panel for the "Checklist Reference"
+   nested collapse. Matches HTML .inner details pattern.
+   ═══════════════════════════════════════════════════════════════ */
+ 
+.pf-ref-inner {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0.4rem 0 1rem;
+  overflow: hidden;
+}
+ 
+.pf-ref-inner__summary {
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+  background: var(--bg-muted);
+  color: var(--text-body);
+  transition: background 0.12s;
+}
+ 
+.pf-ref-inner__summary::-webkit-details-marker { display: none; }
+.pf-ref-inner__summary::marker               { display: none; }
+ 
+.pf-ref-inner__summary::before {
+  content: '▶';
+  font-size: 0.6rem;
+  color: var(--text-4);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+ 
+.pf-ref-inner[open] > .pf-ref-inner__summary::before {
+  transform: rotate(90deg);
+}
+ 
+.pf-ref-inner__summary:hover {
+  background: var(--border-light);
+}
+ 
+.pf-ref-inner__body {
+  padding: 0.5rem 1rem 0.75rem;
+  border-top: 1px solid var(--border-light);
+}
+ 
+ 
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+ 
+@media (max-width: 640px) {
+  .pf-ref-panel__summary {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.84rem;
+    gap: 8px;
+  }
+ 
+  .pf-ref-panel__body {
+    padding: 0.5rem 0.8rem 1rem;
+  }
+ 
+  .pf-ref-panel__badge {
+    width: 24px;
+    height: 24px;
+  }
+}
+ 
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLE WRAPPER  (.tw)
+   Matches HTML .tw exactly — scrollable, with consistent margins.
+   ═══════════════════════════════════════════════════════════════ */
+
+.tw {
+  overflow-x: auto;
+  margin: 0.5rem 0 1.2rem;
+}
+
+.tw table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tw th {
+  background: var(--dark);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  border: none;
+}
+
+.tw td {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg);
+  vertical-align: top;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.tw tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tw td strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .tw {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS PILLS  (.pf-status)
+   Pass = green, Flag = amber, Fail = red, N/A = gray.
+   Matches HTML .pass pattern with ✓ prefix.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pf-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Pass — green */
+.pf-status--pass {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+.pf-status--pass::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+/* Flag — amber */
+.pf-status--flag {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.pf-status--flag::before {
+  content: '⚑';
+  font-weight: 700;
+}
+
+/* Fail — red */
+.pf-status--fail {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.pf-status--fail::before {
+  content: '✗';
+  font-weight: 700;
+}
+
+/* N/A — gray */
+.pf-status--na {
+  background: var(--bg-muted);
+  color: var(--text-4);
+  border: 1px solid var(--border-light);
+}
+
+[data-theme='dark'] .pf-status--pass {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--green-bright);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+[data-theme='dark'] .pf-status--flag {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+[data-theme='dark'] .pf-status--fail {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   DIAGRAM WRAPPER  (.diagram)
+   Matches HTML .diagram exactly.
+   ═══════════════════════════════════════════════════════════════ */
+
+.diagram {
+  margin: 0.8rem 0 1.2rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diagram-cap {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.65rem;
+  color: var(--text-3);
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LEGACY .pass CLASS
+   Keeps backward compatibility with any existing pass spans.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+
+.pass::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLE WRAPPER  (.tw)
+   Matches HTML .tw exactly — scrollable, with consistent margins.
+   ═══════════════════════════════════════════════════════════════ */
+
+.tw {
+  overflow-x: auto;
+  margin: 0.5rem 0 1.2rem;
+}
+
+.tw table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tw th {
+  background: var(--dark);
+  padding: 0.55rem 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  border: none;
+}
+
+.tw td {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg);
+  vertical-align: top;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.tw tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tw td strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .tw {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1rem;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS PILLS  (.pf-status)
+   Pass = green, Flag = amber, Fail = red, N/A = gray.
+   Matches HTML .pass pattern with ✓ prefix.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pf-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Pass — green */
+.pf-status--pass {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+.pf-status--pass::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+/* Flag — amber */
+.pf-status--flag {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fde68a;
+}
+.pf-status--flag::before {
+  content: '⚑';
+  font-weight: 700;
+}
+
+/* Fail — red */
+.pf-status--fail {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.pf-status--fail::before {
+  content: '✗';
+  font-weight: 700;
+}
+
+/* N/A — gray */
+.pf-status--na {
+  background: var(--bg-muted);
+  color: var(--text-4);
+  border: 1px solid var(--border-light);
+}
+
+[data-theme='dark'] .pf-status--pass {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--green-bright);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+[data-theme='dark'] .pf-status--flag {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.25);
+}
+[data-theme='dark'] .pf-status--fail {
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   DIAGRAM WRAPPER  (.diagram)
+   Matches HTML .diagram exactly.
+   ═══════════════════════════════════════════════════════════════ */
+
+.diagram {
+  margin: 0.8rem 0 1.2rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.diagram-cap {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.65rem;
+  color: var(--text-3);
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LEGACY .pass CLASS
+   Keeps backward compatibility with any existing pass spans.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+
+.pass::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CODE CARD  (details.code-card)
+   Exact match to HTML .code-card / .cc-* pattern.
+   Append to: src/css/custom.css
+   ═══════════════════════════════════════════════════════════════ */
+
+details.code-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 0.5rem 0 1rem;
+  overflow: hidden;
+}
+
+details.code-card > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  list-style: none;
+  background: var(--bg-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-3);
+  transition: background 0.12s;
+  user-select: none;
+}
+
+details.code-card > summary::-webkit-details-marker { display: none; }
+details.code-card > summary::marker               { display: none; }
+
+details.code-card > summary:hover { background: #eef0f4; }
+[data-theme='dark'] details.code-card > summary:hover { background: rgba(255,255,255,0.05); }
+
+/* Terminal icon */
+details.code-card > summary .cc-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--text-4);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+details.code-card > summary .cc-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Filename label */
+details.code-card > summary .cc-file {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--text-3);
+}
+
+details.code-card > summary .cc-lines {
+  color: var(--text-4);
+  margin-left: 3px;
+}
+
+/* Badge pill */
+details.code-card > summary .cc-badge {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.56rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] details.code-card > summary .cc-badge {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--green-bright);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+/* Arrow */
+details.code-card > summary .cc-arrow {
+  color: var(--text-4);
+  font-size: 0.55rem;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+details.code-card[open] > summary .cc-arrow { transform: rotate(90deg); }
+details.code-card[open] > summary { border-bottom: 1px solid var(--border-light); }
+
+/* Body */
+.cc-body {
+  display: flex;
+  overflow-x: auto;
+  background: var(--bg);
+}
+
+/* Line numbers column */
+.cc-nums {
+  flex-shrink: 0;
+  padding: 12px 0;
+  text-align: right;
+  user-select: none;
+  background: var(--bg-muted);
+  border-right: 1px solid var(--border-light);
+}
+
+/* CRITICAL — each number must be block-level to stack vertically */
+.cc-nums span {
+  display: block;
+  padding: 0 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  line-height: 1.75;
+  color: var(--text-4);
+}
+
+/* Code pre */
+.cc-pre {
+  flex: 1;
+  margin: 0;
+  padding: 12px 16px;
+  overflow-x: auto;
+  background: var(--bg);
+  border: none;
+  border-radius: 0;
+  white-space: pre;
+}
+
+.cc-pre code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.75;
+  color: var(--text-body);
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  white-space: pre;
+}
+
+/* Each line is a block so it aligns with line numbers */
+.cc-line {
+  display: block;
+  line-height: 1.75;
+  min-height: 1.75em;
+  white-space: pre;
+}
+
+/* Copy button */
+.cc-copy {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-4);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.cc-copy:hover  { color: var(--text-3); border-color: var(--text-4); }
+.cc-copy.copied { color: var(--green);  border-color: var(--green-border); }
+.cc-copy svg    { width: 11px; height: 11px; }
+
+/* ── Syntax token colors (light mode) ──────────────────────────── */
+.cc-pre .kw  { color: #8250df; }                    /* keywords — purple */
+.cc-pre .fn  { color: #0550ae; }                    /* functions — blue */
+.cc-pre .str { color: #0a3069; }                    /* strings — dark blue */
+.cc-pre .cm  { color: #6e7781; font-style: italic; }/* comments — gray italic */
+.cc-pre .nm  { color: #0550ae; }                    /* numbers — blue */
+.cc-pre .tp  { color: #953800; }                    /* types — brown */
+
+/* Dark mode token overrides */
+[data-theme='dark'] .cc-pre .kw  { color: #c792ea; }
+[data-theme='dark'] .cc-pre .fn  { color: #82aaff; }
+[data-theme='dark'] .cc-pre .str { color: #c3e88d; }
+[data-theme='dark'] .cc-pre .cm  { color: #546e7a; font-style: italic; }
+[data-theme='dark'] .cc-pre .nm  { color: #f78c6c; }
+[data-theme='dark'] .cc-pre .tp  { color: #ffcb6b; }
+
+
+/* Remove top navbar completely */
+.navbar {
+  display: none !important;
+}
+
+/* Since navbar is gone, do not reserve space for it */
+:root {
+  --ifm-navbar-height: 0px;
+}
+
+/* Make docs layout start from the very top */
+.theme-doc-sidebar-container {
+  top: 0 !important;
+  height: 100vh !important;
+}
+
+.main-wrapper {
+  padding-top: 0 !important;
 }

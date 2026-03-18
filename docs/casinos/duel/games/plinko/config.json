@@ -1,0 +1,1688 @@
+{
+  "name": "Plinko",
+  "slug": "plinko",
+  "icon": "plinko",
+  "status": "CERTIFIED",
+  "summaryCard": {
+    "rngModel": "HMAC-SHA256",
+    "betsVerified": "7,600",
+    "parityRate": "100%",
+    "simRounds": "27M",
+    "rtp": "99.9%",
+    "integrityChecks": "20 / 20"
+  },
+  "hero": {
+    "title": "Duel: Plinko Audit",
+    "subtitle": "Provably Fair Verification Report",
+    "auditDate": "March 2026",
+    "auditId": "PF-2026-002",
+    "certifiedBy": "ProvablyFair.org",
+    "badges": [
+      {
+        "label": "Certified",
+        "variant": "green"
+      },
+      {
+        "label": "Plinko",
+        "variant": "orange"
+      },
+      {
+        "label": "Last Updated: March 2026",
+        "variant": "neutral"
+      }
+    ]
+  },
+  "statsBlock": {
+    "stats": [
+      {
+        "value": "7,600",
+        "label": "Live Bets Verified"
+      },
+      {
+        "value": "100%",
+        "label": "Parity Rate",
+        "variant": "green"
+      },
+      {
+        "value": "27M",
+        "label": "Simulated Rounds"
+      },
+      {
+        "value": "99.9%",
+        "label": "Theoretical RTP",
+        "variant": "accent"
+      }
+    ],
+    "featured": {
+      "value": "20 / 20",
+      "label": "Tests Passed",
+      "filled": 20,
+      "total": 20
+    }
+  },
+  "auditVerdict": [
+    {
+      "check": "Overall Status",
+      "result": "Pass",
+      "reference": ""
+    },
+    {
+      "check": "RTP Verified",
+      "result": "Pass",
+      "reference": "99.9% theoretical | 99.890% simulated (27M) | 0.1% house edge, bracket 0"
+    },
+    {
+      "check": "Live ↔ Verifier Parity",
+      "result": "Pass",
+      "reference": "100% — 7,600 / 7,600 bets matched"
+    },
+    {
+      "check": "Commit-Reveal System",
+      "result": "Pass",
+      "reference": "SHA-256 verified, 152 / 152 seeds"
+    },
+    {
+      "check": "Seed Handling",
+      "result": "Pass",
+      "reference": "Player control verified, client seed changes 84.3% of outcomes"
+    },
+    {
+      "check": "RNG Analysis",
+      "result": "Pass",
+      "reference": "Unbiased (2³² mod 2 = 0), serial independence confirmed"
+    },
+    {
+      "check": "Payout Logic",
+      "result": "Pass",
+      "reference": "All 7,600 payouts verified within 1e-8 tolerance"
+    },
+    {
+      "check": "Integrity Checks",
+      "result": "Pass",
+      "reference": "20 / 20 verification steps"
+    },
+    {
+      "check": "Determinism",
+      "result": "Pass",
+      "reference": "Full reproducibility confirmed"
+    }
+  ],
+  "overview": {
+    "intro": "This audit independently validates the Plinko game operated by Duel.com across five domains: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and fairness integrity testing.",
+    "whatWasAudited": [
+      "The RNG algorithm is deterministic and independently verifiable",
+      "Server seeds are cryptographically committed before play",
+      "Players can set and change their own client seeds",
+      "Nonces increment correctly and are not reused within the verified dataset",
+      "Each row decision is derived from HMAC-SHA256 output",
+      "Slot landing positions are reproducible from server seed, client seed, and nonce",
+      "Payout logic matches the published multiplier configuration for all 27 configurations",
+      "Theoretical RTP is 99.9% across all configurations at the tested bet amounts",
+      "Bet amount does not alter the slot RNG path",
+      "Players can independently verify every tested bet"
+    ],
+    "coverageTable": {
+      "columns": {
+        "left": "Area",
+        "right": "Description"
+      },
+      "rows": [
+        {
+          "area": "Commit-Reveal System",
+          "description": "Server seed hashing, timing, reveal mechanics"
+        },
+        {
+          "area": "Seed Handling",
+          "description": "Client seed control, nonce lifecycle, epoch rotation"
+        },
+        {
+          "area": "RNG Analysis",
+          "description": "HMAC-SHA256 algorithm verification, bias testing, serial independence"
+        },
+        {
+          "area": "Payout Logic",
+          "description": "Multiplier table accuracy, scaling edge structure, bet-size equivalence"
+        },
+        {
+          "area": "Live Parity",
+          "description": "Independent slot recomputation vs live game results"
+        },
+        {
+          "area": "RTP Validation",
+          "description": "Analytical proof, simulated RTP, chi-squared goodness-of-fit"
+        },
+        {
+          "area": "Fairness Integrity",
+          "description": "Game-level integrity checks under adversarial conditions"
+        }
+      ]
+    },
+    "guarantees": [
+      "Outcomes are deterministic and reproducible from the recorded inputs",
+      "Live game results match independent recomputation for the verified sample (7,600 / 7,600)",
+      "Slot distribution follows the expected binomial B(n, 0.5)",
+      "RTP is proven analytically: independent binomial probabilities × observed multiplier table = 99.900%",
+      "Client seed changes materially influence results",
+      "Published payout logic is consistent with the tested output set",
+      "All fairness integrity checks passed at audit time"
+    ],
+    "excludes": [
+      "Infrastructure or server security",
+      "Wallet, payments, or custody systems",
+      "Operational controls outside game logic",
+      "Bet-size brackets above bracket 0 (bets above ~$335 face higher house edge — documented, not tested)",
+      "Per-player discrimination testing (single-account audit)"
+    ],
+    "reproduce": {
+      "repoUrl": "https://github.com/ProvablyFair-org/duel-audit",
+      "repoLabel": "github.com/ProvablyFair-org/duel-audit",
+      "commit": "[TBD]",
+      "verifierUrl": "https://duel.com/plinko",
+      "verifierLabel": "duel.com/plinko",
+      "note": {
+        "variant": "ok",
+        "strong": "All code, datasets, and simulation scripts are publicly accessible.",
+        "body": "Anyone can independently verify every finding in this audit."
+      },
+      "commands": {
+        "label": "reproduce-audit.sh",
+        "language": "sh",
+        "lines": [
+          "# Clone and setup",
+          "git clone https://github.com/ProvablyFair-org/duel-audit.git",
+          "cd duel-audit",
+          "git checkout [COMMIT_HASH]",
+          "npm install",
+          "",
+          "# Run verification suite (all 20 steps)",
+          "npx ts-node tests/verify.ts",
+          "# Expected output: 20 steps, 0 hard fails",
+          "",
+          "# Run 27M-round Monte Carlo simulation",
+          "npx ts-node src/simulate.ts",
+          "# Expected output: 27 configs, chi-squared results",
+          "",
+          "# View generated reports",
+          "cat outputs/verification-results.json",
+          "cat outputs/simulation-results.json",
+          "cat outputs/determinism-log.json"
+        ]
+      }
+    },
+    "references": [
+      {
+        "title": "Plinko — Game Rules",
+        "count": "8 sections",
+        "icon": "plinko",
+        "intro": "Plinko is a binary-path game where a ball drops through a triangular grid of pegs. At each peg, the ball bounces left or right. The number of rows is player-configurable: 8, 9, 10, 11, 12, 13, 14, 15, or 16. Its transparent mechanics and verifiable math make it ideal for provably fair auditing.",
+        "sections": [
+          {
+            "title": "Game Rules",
+            "content": "Plinko is a binary-path game where players bet on where a ball will land after bouncing through a grid of pegs. The game offers complete control over risk and reward: players who choose high-risk multiplier tables accept more volatile payouts in exchange for higher potential wins, while those preferring low-risk tables receive smoother, more predictable returns."
+          },
+          {
+            "title": "How to Play",
+            "steps": [
+              "Choose row count — Select between 8 and 16 rows. More rows means more pegs, more possible slots, and more extreme edge payouts.",
+              "Choose risk level — Select Low, Medium, or High risk. This determines the multiplier table applied to each slot. Risk level does not affect the ball path.",
+              "Enter bet amount — Choose how much to wager.",
+              "Drop — Click the drop button. The ball falls through the peg grid, bouncing left or right at each row.",
+              "Outcome — The ball lands in a slot (0 to N). Your payout is bet_amount × multiplier for that slot."
+            ],
+            "note": "The game can be played in Manual mode (one drop at a time) or Auto mode (automated sequential drops with configurable parameters)."
+          },
+          {
+            "title": "Win Conditions",
+            "content": "The win condition in Plinko is determined by the landing slot and its corresponding multiplier.",
+            "table": {
+              "columns": [
+                "Outcome",
+                "Condition",
+                "Example (16 rows, High)"
+              ],
+              "rows": [
+                [
+                  "Win (profit)",
+                  "Multiplier > 1.0×",
+                  "Ball lands slot 4 → 4.00× → Profit"
+                ],
+                [
+                  "Partial return",
+                  "Multiplier < 1.0× but > 0×",
+                  "Ball lands slot 8 → 0.20× → 80% loss"
+                ],
+                [
+                  "Break even",
+                  "Multiplier = 1.0×",
+                  "Ball lands on a 1.0× slot → No gain/loss"
+                ]
+              ]
+            },
+            "note": "Important: Unlike Dice where you can lose 100% on a single bet, Plinko always returns something — every slot has a multiplier > 0. However, on High risk, center slots pay as low as 0.20×, meaning you lose 80% of your bet on the most probable outcomes. The expected return across all slots is 99.9% (bracket 0)."
+          },
+          {
+            "title": "Risk vs Reward",
+            "content": "The core mechanic of Plinko is the tradeoff between risk level and payout distribution.",
+            "bullets": [
+              "High risk, high reward: Selecting 16 rows on High risk means center slots pay only 0.2× but edge slots pay up to 1009.33×",
+              "Low risk, low reward: Selecting 8 rows on Low risk means most slots pay near 1× with edge slots paying up to 5.6×",
+              "Players control the math: Unlike slots or other games with fixed odds, Plinko lets players choose their exact risk profile on every bet via row count and risk level"
+            ]
+          },
+          {
+            "title": "Parameters",
+            "table": {
+              "columns": [
+                "Parameter",
+                "Value",
+                "Notes"
+              ],
+              "rows": [
+                [
+                  "Rows",
+                  "8–16",
+                  "Player selects; determines slot count (rows + 1)"
+                ],
+                [
+                  "Risk Levels",
+                  "Low, Medium, High",
+                  "Affects multiplier table only, not ball path"
+                ],
+                [
+                  "Slot Range",
+                  "0 to N",
+                  "N = number of rows. Slot = count of right-turns"
+                ],
+                [
+                  "Slot Distribution",
+                  "Binomial B(N, 0.5)",
+                  "Each row is independent 50/50"
+                ],
+                [
+                  "House Edge",
+                  "0.1% (bracket 0)",
+                  "Progressive: scales to 2% at highest stakes"
+                ],
+                [
+                  "Theoretical RTP",
+                  "99.9% (bracket 0)",
+                  "Verified across all 27 configurations"
+                ],
+                [
+                  "Configurations",
+                  "27",
+                  "9 row counts × 3 risk levels"
+                ],
+                [
+                  "Epoch Size",
+                  "50 bets",
+                  "Server seed rotates every 50 bets"
+                ]
+              ]
+            }
+          },
+          {
+            "title": "Seed Formats",
+            "content": "Every Plinko bet uses three cryptographic inputs to generate the result.",
+            "table": {
+              "columns": [
+                "Seed Type",
+                "Format",
+                "Example",
+                "Purpose"
+              ],
+              "rows": [
+                [
+                  "Server Seed",
+                  "64-char hex (32 bytes)",
+                  "4f775f81301c7fe8…",
+                  "Casino-provided randomness"
+                ],
+                [
+                  "Client Seed",
+                  "Alphanumeric string",
+                  "kJbhRHVAg4lh_OY7",
+                  "Player-controlled randomness"
+                ],
+                [
+                  "Nonce",
+                  "Integer, starts at 0",
+                  "0, 1, 2, …",
+                  "Ensures unique result per bet"
+                ]
+              ]
+            },
+            "note": "The combination of these three inputs, using HMAC-SHA256, produces the ball path. Because the player controls the client seed and the server seed is committed before betting, neither party can manipulate the outcome."
+          },
+          {
+            "title": "Multiplier Calculation",
+            "content": "Payouts in Plinko are determined by a multiplier table that maps each landing slot to a payout ratio. The tables are pre-configured per (rows, risk level) combination. Multipliers are set so that: Expected RTP = Σ [ P(slot) × multiplier(slot) ] = 99.9%. With Duel's 0.1% house edge at bracket 0, the slot probabilities follow the binomial distribution B(N, 0.5) and multipliers are calibrated to produce a theoretical RTP of exactly 99.9% across all 27 configurations."
+          },
+          {
+            "title": "Example: 16 Rows, High Risk",
+            "table": {
+              "columns": [
+                "Slot",
+                "Probability",
+                "Multiplier"
+              ],
+              "rows": [
+                [
+                  "0 or 16 (edge)",
+                  "0.00153%",
+                  "1009.33×"
+                ],
+                [
+                  "1 or 15",
+                  "0.0244%",
+                  "130.78×"
+                ],
+                [
+                  "2 or 14",
+                  "0.183%",
+                  "26.24×"
+                ],
+                [
+                  "3 or 13",
+                  "0.854%",
+                  "9.00×"
+                ],
+                [
+                  "4 or 12",
+                  "2.78%",
+                  "4.00×"
+                ],
+                [
+                  "5 or 11",
+                  "6.67%",
+                  "2.00×"
+                ],
+                [
+                  "6 or 10",
+                  "12.2%",
+                  "0.20×"
+                ],
+                [
+                  "7 or 9",
+                  "17.5%",
+                  "0.20×"
+                ],
+                [
+                  "8 (center)",
+                  "19.6%",
+                  "0.20×"
+                ]
+              ]
+            },
+            "note": "Edge slots (0 and 16) have a probability of approximately 1 in 65,536. They will not appear in most data captures of a few thousand bets."
+          }
+        ]
+      },
+      {
+        "title": "Why Provably Fair Matters",
+        "count": null,
+        "icon": "lock",
+        "intro": "Traditional online casinos require players to trust that games are fair. Provably fair systems eliminate this trust requirement by allowing players to mathematically verify that outcomes were not manipulated. In a Provably Fair system:",
+        "bullets": [
+          "The casino commits to a result before the player bets",
+          "The player contributes randomness that the casino cannot predict",
+          "Anyone can verify the outcome after the fact"
+        ]
+      },
+      {
+        "title": "High-Level Overview",
+        "count": "6 sections",
+        "icon": "list",
+        "sections": [
+          {
+            "title": "Checklist Reference",
+            "collapsible": true,
+            "intro": "Based on the ProvablyFair.org Audit Execution Checklist, here are the tests that are covered under this audit document.",
+            "checklistGroups": [
+              {
+                "heading": "1. Commit-Reveal System & Seed Handling",
+                "table": {
+                  "columns": [
+                    "Test",
+                    "Description"
+                  ],
+                  "rows": [
+                    [
+                      "Server seed commit exists before play",
+                      "Hash shown to player before betting"
+                    ],
+                    [
+                      "Server seed reveal matches commit",
+                      "SHA-256(revealed) = committed hash"
+                    ],
+                    [
+                      "Client seed control",
+                      "Player can set/change client seed"
+                    ],
+                    [
+                      "Nonce increments correctly",
+                      "Starts at 0, +1 per bet, never reused"
+                    ],
+                    [
+                      "Full determinism",
+                      "Same inputs → same result"
+                    ]
+                  ]
+                }
+              },
+              {
+                "heading": "2. Randomness & Entropy Model",
+                "table": {
+                  "columns": [
+                    "Test",
+                    "Description"
+                  ],
+                  "rows": [
+                    [
+                      "RNG depends only on seeds + nonce",
+                      "No external inputs"
+                    ],
+                    [
+                      "No mixed entropy sources",
+                      "No timestamps, Math.random, etc."
+                    ],
+                    [
+                      "Unbiased mapping",
+                      "RNG → game range has equal distribution"
+                    ],
+                    [
+                      "No state leakage",
+                      "RNG isolated per round/user"
+                    ]
+                  ]
+                }
+              },
+              {
+                "heading": "3. Verifier ↔ Live Parity",
+                "table": {
+                  "columns": [
+                    "Test",
+                    "Description"
+                  ],
+                  "rows": [
+                    [
+                      "Live outcomes match verifier",
+                      "100% parity required"
+                    ],
+                    [
+                      "No post-RNG modification",
+                      "Result not altered after generation"
+                    ],
+                    [
+                      "No conditional logic",
+                      "Outcome independent of bet size/timing"
+                    ]
+                  ]
+                }
+              },
+              {
+                "heading": "4. Game Logic & RTP Validation",
+                "table": {
+                  "columns": [
+                    "Test",
+                    "Description"
+                  ],
+                  "rows": [
+                    [
+                      "Deterministic outcome logic",
+                      "Same seeds = same slot"
+                    ],
+                    [
+                      "Payout rules correctness",
+                      "Win amount matches multiplier × bet"
+                    ],
+                    [
+                      "Advertised vs theoretical RTP",
+                      "Must match within tolerance"
+                    ],
+                    [
+                      "Simulated RTP convergence",
+                      "Long-run RTP approaches theoretical"
+                    ]
+                  ]
+                }
+              },
+              {
+                "heading": "5. Player Verification & Public Verifier",
+                "table": {
+                  "columns": [
+                    "Test",
+                    "Description"
+                  ],
+                  "rows": [
+                    [
+                      "Player can reproduce results offline",
+                      "Using seeds + nonce"
+                    ],
+                    [
+                      "Verifier logic matches live logic",
+                      "Same algorithm"
+                    ],
+                    [
+                      "Verifier publicly accessible",
+                      "No login required"
+                    ],
+                    [
+                      "No reliance on private APIs",
+                      "Fully client-side verification"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "title": "High-Level Flow",
+            "content": "To get an overview of how the process works, here is a high-level breakdown:",
+            "steps": [
+              "Player Bets — Selects rows (8–16), risk level (low/medium/high), and bet amount",
+              "Seeds Combined — Combining serverSeed, clientSeed, and nonce",
+              "RNG Output — For each row (cursor 0 to rows-1): HMAC-SHA256(hexDecode(serverSeed), clientSeed:nonce:cursor), first 4 bytes as uint32, mod 2",
+              "Game Logic — Each row produces left (0) or right (1). Final slot = total right-turns across all rows",
+              "Payout Result — win_amount = bet_amount × multiplier[slot] from the configured multiplier table"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Technical Glossary",
+        "count": "7 categories",
+        "icon": "book",
+        "sections": [
+          {
+            "title": "Core Concepts",
+            "terms": [
+              {
+                "term": "Provably Fair",
+                "definition": "A cryptographic system that allows players to mathematically verify that game outcomes were not manipulated. Unlike traditional \"trust-based\" systems, provably fair games provide cryptographic proof of fairness."
+              },
+              {
+                "term": "Commit-Reveal Protocol",
+                "definition": "A two-phase process in which the casino commits to a result (by showing its hash) before the player bets, then reveals the actual value after the bet. This prevents the casino from changing outcomes based on player actions."
+              },
+              {
+                "term": "Determinism",
+                "definition": "The property that identical inputs always produce identical outputs. In provably fair systems, using the same server seed, client seed, and nonce must always generate the same game result."
+              }
+            ]
+          },
+          {
+            "title": "Seed System",
+            "terms": [
+              {
+                "term": "Server Seed",
+                "definition": "A random value generated by the casino, typically 64 hexadecimal characters (32 bytes). The server seed is hashed and shown to players before betting, then revealed after the bet is complete."
+              },
+              {
+                "term": "Client Seed",
+                "definition": "A random value controlled by the player, typically 16 alphanumeric characters. Players can set or change their client seed at any time to ensure they contribute entropy that the casino cannot predict."
+              },
+              {
+                "term": "Nonce",
+                "definition": "A sequential counter (0, 1, 2, 3...) that increments with each bet under the same seed pair. The nonce ensures each bet produces a unique result even when using the same server and client seeds."
+              },
+              {
+                "term": "Seed Pair",
+                "definition": "The combination of a server seed and a client seed. A seed pair remains active across multiple bets, with the nonce incrementing for each round. When a player rotates seeds, a new seed pair begins with the nonce reset to 0."
+              },
+              {
+                "term": "Hashed Server Seed",
+                "definition": "The SHA-256 hash of the server seed, shown to players before betting. After the bet, players can verify that SHA-256(revealed server seed) equals the originally shown hash, proving the casino didn't change the seed."
+              }
+            ]
+          },
+          {
+            "title": "Cryptographic Functions",
+            "terms": [
+              {
+                "term": "HMAC-SHA256",
+                "definition": "Hash-based Message Authentication Code using SHA-256. A cryptographic function that combines the server seed, client seed, and nonce to produce a deterministic, unpredictable hash used for random number generation."
+              },
+              {
+                "term": "SHA-256",
+                "definition": "Secure Hash Algorithm 256-bit. A one-way cryptographic hash function that converts any input into a unique 64-character hexadecimal output. Cannot be reversed to discover the original input."
+              },
+              {
+                "term": "Modulo Operation (mod 2)",
+                "definition": "In Plinko, each row's left/right decision is determined by taking the first 4 bytes of the HMAC output as a uint32 integer, then computing mod 2. Because 2³² mod 2 = 0, there is zero modulo bias — left and right are exactly equiprobable."
+              }
+            ]
+          },
+          {
+            "title": "Verification Terms",
+            "terms": [
+              {
+                "term": "Verifier",
+                "definition": "A tool (usually web-based or code snippet) that independently calculates game outcomes using provided seeds and nonce. A proper verifier should produce identical results to the live game."
+              },
+              {
+                "term": "Parity",
+                "definition": "The degree of matching between verifier results and live game results. 100% parity means every single outcome matches perfectly, which is required for provably fair certification."
+              },
+              {
+                "term": "Reproducibility",
+                "definition": "The ability to regenerate exact game outcomes using the same inputs. Players should be able to reproduce any historical bet result using the revealed seeds and nonce."
+              }
+            ]
+          },
+          {
+            "title": "Game Mechanics",
+            "terms": [
+              {
+                "term": "RNG (Random Number Generator)",
+                "definition": "The algorithm that produces random outcomes. In provably fair systems, the RNG must be deterministic and based only on seeds + nonce (no hidden entropy sources)."
+              },
+              {
+                "term": "RTP (Return to Player)",
+                "definition": "The percentage of wagered money returned to players over time. Calculated as (1 - House Edge) × 100%. For Duel Plinko, RTP = 99.9% at bracket 0."
+              },
+              {
+                "term": "House Edge",
+                "definition": "The casino's mathematical advantage, expressed as a percentage of each bet. For Duel Plinko, house edge = 0.1% at bracket 0, meaning the casino expects to keep 0.1% of all wagers long-term. Higher bet brackets have progressively higher house edges up to 2%."
+              },
+              {
+                "term": "Multiplier",
+                "definition": "The payout ratio for a given landing slot. In Plinko, multipliers are pre-set per (rows, risk level) configuration. For example, slot 0 on 16-row High risk pays 1009.33×, while center slot 8 pays 0.20×."
+              },
+              {
+                "term": "Slot",
+                "definition": "The final landing position of the ball, determined by the total number of right-turns across all rows. For N rows, slots range from 0 (all left) to N (all right). Slot probabilities follow the binomial distribution B(N, 0.5)."
+              },
+              {
+                "term": "Binomial Distribution",
+                "definition": "The probability distribution describing the number of right-turns in N independent rows, each with probability 0.5. The probability of landing in slot k out of N rows is C(N,k) × 0.5^N. Center slots are most probable; edge slots are exponentially rare."
+              }
+            ]
+          },
+          {
+            "title": "Audit Terms",
+            "terms": [
+              {
+                "term": "Fairness Violation",
+                "definition": "A condition where a player or casino could predict, alter, or unfairly influence outcomes. Examples include seed prediction, nonce replay, or hidden entropy injection."
+              },
+              {
+                "term": "Entropy",
+                "definition": "Randomness or unpredictability in a system. In provably fair games, entropy comes from both the casino (server seed) and player (client seed)."
+              },
+              {
+                "term": "Bias",
+                "definition": "Non-uniform probability distribution. An unbiased RNG gives all outcomes equal likelihood. In Plinko, mod 2 on a 32-bit integer produces exactly zero bias for left/right decisions."
+              },
+              {
+                "term": "Edge Case",
+                "definition": "Unusual or extreme scenarios that might behave differently than normal operation. Examples: concurrent betting, nonce overflow, malformed seeds, or maximum bet limits."
+              }
+            ]
+          },
+          {
+            "title": "Data Formats & Abbreviations",
+            "terms": [
+              {
+                "term": "Hexadecimal (Hex)",
+                "definition": "Base-16 number system using digits 0-9 and letters A-F. Server seeds and hashes are typically shown in hex format (e.g., 4f775f81301c7fe8...)."
+              },
+              {
+                "term": "Hash",
+                "definition": "The output of a cryptographic hash function. In provably fair systems, hashes serve as commitments that cannot be reversed but can be verified."
+              },
+              {
+                "term": "Bet ID",
+                "definition": "A unique identifier assigned to each bet (e.g., #308953686). Used to reference specific rounds during verification."
+              }
+            ],
+            "table": {
+              "columns": [
+                "Abbreviation",
+                "Meaning"
+              ],
+              "rows": [
+                [
+                  "PF",
+                  "Provably Fair"
+                ],
+                [
+                  "RNG",
+                  "Random Number Generator"
+                ],
+                [
+                  "RTP",
+                  "Return to Player"
+                ],
+                [
+                  "HMAC",
+                  "Hash-based Message Authentication Code"
+                ],
+                [
+                  "SHA",
+                  "Secure Hash Algorithm"
+                ],
+                [
+                  "CI",
+                  "Confidence Interval"
+                ],
+                [
+                  "N/A",
+                  "Not Applicable / Not Tested"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "number": 1,
+      "id": "s1",
+      "title": "Seed, Nonce & Determinism",
+      "subtitle": "Can the casino change your outcome after you bet?",
+      "intro": "Every Plinko drop on Duel is generated from three inputs: server seed, client seed, and nonce. The casino commits to its seed before you bet, you control your own seed, and the nonce increments automatically. At each row, these inputs are combined via HMAC-SHA256 to produce a single left/right decision — the ball's final slot is the sum of all right-turns across every row.",
+      "playerBrief": {
+        "headline": "Commit-Reveal Cryptographic Guarantee",
+        "statValue": "152 / 152",
+        "statLabel": "seeds verified",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Casino commits to server seed before any bet",
+          "Players can set or change their client seed",
+          "Nonce increments automatically, never reused",
+          "Each row's L/R derived from HMAC-SHA256(serverSeed, clientSeed:nonce:cursor)",
+          "Same inputs always produce same slot position",
+          "Client seed is a verified HMAC input — 84.3% of slots differ when recomputed with an alternate seed"
+        ],
+        "means": [
+          "Casino cannot change outcomes after you bet",
+          "You contribute your own randomness via client seed",
+          "Every bet is unique, even with the same seeds",
+          "Any Plinko result can be verified independently",
+          "Outcomes are tamper-proof, even months later"
+        ]
+      },
+      "verdict": {
+        "title": "Commit-reveal verified",
+        "body": "The audited seed lifecycle matched the expected commit → play → reveal model, with no evidence of post-bet seed substitution in the verified dataset."
+      },
+      "howItWorks": [
+        {
+          "title": "Seed lifecycle",
+          "content": "A server seed is generated and hashed before use. The hash acts as the public commitment. After the seed rotates, the raw seed is revealed so anyone can hash it and compare it to the earlier commitment."
+        },
+        {
+          "title": "Why epoch consistency matters",
+          "content": "If multiple distinct commitment hashes appeared inside one seed epoch, that would indicate mid-session seed substitution. The audit checks for that condition and treats it as a failure mode."
+        },
+        {
+          "title": "Client seed influence",
+          "content": "Changing the client seed while holding the same server seed and nonce should often change the computed path. Some overlap is still expected because identical left/right choices can occur by chance."
+        },
+        {
+          "title": "Nonce progression",
+          "content": "Nonce values provide deterministic ordering. The nonce begins at 0 and increments by 1 for each bet under the same seed pair, ensuring every bet produces a unique RNG input. The nonce resets to 0 only when the player rotates their client seed."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "Evidence coverage summary",
+          "pins": [
+            {
+              "key": "Server seed commit & reveal",
+              "value": "152 seed entries — Pass"
+            },
+            {
+              "key": "Commitment linkage",
+              "value": "3 pre-capture commitments — Pass"
+            },
+            {
+              "key": "Hash consistency within seed pair",
+              "value": "152 seed pairs — Pass"
+            },
+            {
+              "key": "Client seed usage",
+              "value": "152 epochs + Phase D (10 seeds) — Pass"
+            },
+            {
+              "key": "Nonce incrementation",
+              "value": "152 epochs, 7,600 transitions — Pass (5 capture-retry FLAG)"
+            },
+            {
+              "key": "Deterministic recomputation",
+              "value": "7,600 / 7,600 bets — Pass"
+            },
+            {
+              "key": "Client seed influence",
+              "value": "6,409 / 7,600 slots changed — Pass"
+            }
+          ]
+        },
+        {
+          "title": "Commitment linkage snippet",
+          "code": {
+            "label": "tests/verify.ts · Step 2: EC-2",
+            "language": "ts",
+            "lines": [
+              "// Source: tests/verify.ts — Step 2: Commitment Linkage (EC-2)",
+              "for (const pre of preSeeds) {",
+              "  const first = phaseBets.sort((a, b) => a.response.id - b.response.id)[0];",
+              "  const match = first.response.server_seed_hashed === pre.seed.serverSeedHashed;",
+              "}"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Result:",
+            "body": "All 3 pre-capture commitments match the first bet response hash. Server did not switch seeds between commitment and first bet."
+          }
+        },
+        {
+          "title": "Hash consistency within epoch",
+          "code": {
+            "label": "tests/verify.ts · Step 3: EC-26",
+            "language": "ts",
+            "lines": [
+              "// Source: tests/verify.ts — Step 3: Hash Consistency (EC-26)",
+              "for (const [hash, epochBets] of byHash) {",
+              "  const hashes = new Set(epochBets.map(b => b.response.server_seed_hashed));",
+              "  if (hashes.size !== 1) {",
+              "    failures.push(`Epoch ${hash}: ${hashes.size} distinct hashes`);",
+              "  }",
+              "}"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Result:",
+            "body": "152 / 152 seed pairs — server_seed_hashed constant within each. No mid-session seed switches."
+          }
+        },
+        {
+          "title": "Client seed influence",
+          "code": {
+            "label": "tests/verify.ts · Step 6: EC-27",
+            "language": "ts",
+            "lines": [
+              "const correctSlot = computeSlot(serverSeed, client_seed, nonce, rows);",
+              "const wrongSlot   = computeSlot(serverSeed, wrongClientSeed, nonce, rows);",
+              "if (wrongSlot !== correctSlot) changed++;"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Result:",
+            "body": "Recomputing with an alternate client seed produced different slots in 6,409 / 7,600 bets (84.3%) across 152 epochs. Per-epoch divergence ranged from 37/50 to 50/50. The 15.7% overlap is expected — each row has a 50% chance of coincidental match."
+          }
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "s2",
+      "title": "RNG & Entropy Model",
+      "subtitle": "Is the randomness genuinely random, or could it be rigged?",
+      "intro": "This section verifies that Duel's Plinko random number generation produces cryptographically sound, unbiased outputs using HMAC-SHA256 with zero modulo bias. Each row's left/right decision is an exact 50/50 coin flip.",
+      "playerBrief": {
+        "headline": "Cryptographic Randomness Verification",
+        "statValue": "27 / 27",
+        "statLabel": "configs pass chi-squared",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "HMAC-SHA256 produces cryptographically sound output",
+          "Zero modulo bias (2³² mod 2 = 0, exact 50/50)",
+          "No hidden or external entropy sources",
+          "Slot distributions match binomial B(n, 0.5) across 27M rounds",
+          "Serial independence confirmed (no correlated outcomes)"
+        ],
+        "means": [
+          "Plinko outcomes are generated fairly and cannot be skewed",
+          "Each row has an exact 50/50 chance of left or right",
+          "No hidden randomness or server-side tricks influence results",
+          "Consecutive outcomes are not correlated"
+        ]
+      },
+      "verdict": {
+        "title": "RNG implementation verified",
+        "body": "The independent verifier reproduced all tested Plinko outcomes. Zero modulo bias was mathematically proven. Statistical checks were consistent with an unbiased, serially independent process."
+      },
+      "howItWorks": [
+        {
+          "title": "RNG function implementation",
+          "content": "The Duel Plinko RNG uses HMAC-SHA256 with deterministic inputs (serverSeed, clientSeed, nonce, cursor). For each row, the algorithm produces a single bit — left (0) or right (1) — by taking the first 4 bytes of the HMAC output as a 32-bit unsigned integer and computing int % 2. Key encoding: the server seed is hex-decoded to a 32-byte Buffer. Message format: clientSeed:nonce:cursor."
+        },
+        {
+          "title": "Why zero modulo bias matters",
+          "content": "Plinko uses int % 2 to decide left or right. Because 2³² is exactly divisible by 2, every possible uint32 value maps to left or right with exactly equal probability. There is no bias by construction — unlike some games that use larger moduli and require rejection sampling."
+        },
+        {
+          "title": "Why statistical checks are secondary",
+          "content": "The strongest evidence is deterministic recomputation of live bets. Statistical tests (chi-squared, serial independence) are supportive checks that look for obvious anomalies, not the primary fairness proof."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "Evidence coverage summary",
+          "pins": [
+            {
+              "key": "RNG input dependency",
+              "value": "7,600 bets recomputed — Pass"
+            },
+            {
+              "key": "Entropy source isolation",
+              "value": "Code + live data verification — Pass"
+            },
+            {
+              "key": "Modulo bias",
+              "value": "Mathematical proof (2³² mod 2 = 0) — Pass"
+            },
+            {
+              "key": "drand absence",
+              "value": "7,600 recomputation without drand — Pass"
+            },
+            {
+              "key": "Chi-squared (live, 27 configs)",
+              "value": "All configs with n ≥ 100 — Pass"
+            },
+            {
+              "key": "Chi-squared (simulation, 27 configs)",
+              "value": "1M rounds per config — Pass"
+            },
+            {
+              "key": "Serial independence",
+              "value": "Phase B (2,000 bets) + Phase C (200) — Pass"
+            }
+          ]
+        },
+        {
+          "title": "computeSlot implementation",
+          "code": {
+            "label": "src/rng.ts · computeSlot",
+            "language": "ts",
+            "lines": [
+              "export function computeSlot(",
+              "  serverSeed: string, clientSeed: string, nonce: number, rows: number",
+              "): number {",
+              "  const key = Buffer.from(serverSeed, 'hex');",
+              "  let slot = 0;",
+              "  for (let cursor = 0; cursor < rows; cursor++) {",
+              "    const message = `${clientSeed}:${nonce}:${cursor}`;",
+              "    const hmac = crypto.createHmac('sha256', key).update(message).digest('hex');",
+              "    const hex4 = hmac.substring(0, 8);",
+              "    const int  = parseInt(hex4, 16);",
+              "    slot += int % 2;  // odd = right (+1), even = left (+0)",
+              "  }",
+              "  return slot;",
+              "}"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "How we know:",
+            "body": "7,600 / 7,600 bets were recomputed using only the four declared inputs. If any hidden entropy source existed, recomputation would fail. It does not."
+          }
+        },
+        {
+          "title": "Code references",
+          "pins": [
+            {
+              "key": "src/rng.ts",
+              "value": "computeSlot — independent HMAC-SHA256 implementation"
+            },
+            {
+              "key": "src/stats.ts",
+              "value": "chiSquaredTest (pooling + gamma p-values), lag1Autocorrelation, runsTest, binomProb"
+            },
+            {
+              "key": "src/simulate.ts",
+              "value": "Monte Carlo simulation — 1M rounds/config, fresh seeds"
+            },
+            {
+              "key": "tests/verify.ts",
+              "value": "Steps 5 (slot recomputation / drand absent), 11 (serial independence), 12 (chi-squared on live bets)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "s3",
+      "title": "Verifier Parity",
+      "subtitle": "Does the verifier produce the exact same results as the live game?",
+      "intro": "This section validates the most critical requirement of any provably fair system: that the independent verifier produces exactly the same outcomes as the live game. A single mismatch would invalidate the entire fairness guarantee.",
+      "playerBrief": {
+        "headline": "Live ↔ Verifier Parity",
+        "statValue": "7,600 / 7,600",
+        "statLabel": "slots matched",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Live Plinko outcomes versus independent verifier recomputation",
+          "Payout correctness: win_amount = bet × multiplier for every bet",
+          "Multiplier tables match published configuration",
+          "Deterministic parity across real production bets at $0.01 and $10"
+        ],
+        "means": [
+          "The verifier is not a simulation — it produces the exact same result",
+          "Every bet you play can be independently recomputed",
+          "The casino cannot alter outcomes after bets are placed",
+          "Bet amount does not influence the outcome or payout table"
+        ]
+      },
+      "verdict": {
+        "title": "Live game and verifier fully aligned",
+        "body": "All 7,600 live Plinko outcomes matched the independent verifier exactly. Payout math is correct. Multiplier tables are symmetric and consistent across bet sizes."
+      },
+      "howItWorks": [
+        {
+          "title": "Why parity matters",
+          "content": "If the verifier produces results that differ from the live game, players cannot trust the verification — the entire provably fair system becomes meaningless. 100% parity is required because even a single discrepancy would indicate either a bug in the verification logic, manipulation in the live game, or an inconsistent RNG implementation."
+        },
+        {
+          "title": "Replay model",
+          "content": "The verifier loads the recorded live seeds, client seeds, nonces, and configuration values, then recomputes the final slot using an independent implementation. Both systems process identical inputs; outputs must be bit-for-bit identical."
+        },
+        {
+          "title": "Why parity is the strongest evidence",
+          "content": "If live outcomes and independent recomputation match at scale, that directly links the documented fairness model to the production game rather than to a simplified demo implementation."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "Parity evidence summary",
+          "pins": [
+            {
+              "key": "Dataset",
+              "value": "results/merged/plinko-master.json"
+            },
+            {
+              "key": "Total records",
+              "value": "7,600 bets"
+            },
+            {
+              "key": "Seed epochs",
+              "value": "152"
+            },
+            {
+              "key": "Parity result",
+              "value": "7,600 / 7,600 matched — Pass"
+            },
+            {
+              "key": "Mismatches",
+              "value": "0"
+            },
+            {
+              "key": "Bet sizes tested",
+              "value": "$0.01 and $10"
+            }
+          ]
+        },
+        {
+          "title": "Slot recomputation snippet",
+          "code": {
+            "label": "tests/verify.ts · Step 5: EC-6, EC-7",
+            "language": "ts",
+            "lines": [
+              "for (const [hash, epochBets] of byHash) {",
+              "  const seedEntry = findRevealedSeed(seeds, hash);",
+              "  if (!seedEntry) { skipped += epochBets.length; continue; }",
+              "  const serverSeed = seedEntry.seed.serverSeed!;",
+              "  for (const bet of epochBets) {",
+              "    const { client_seed, nonce, final_slot } = bet.response;",
+              "    const computed = computeSlot(serverSeed, client_seed, nonce, bet.request.rows);",
+              "    if (computed !== final_slot) { failures.push(...); }",
+              "    checked++;",
+              "  }",
+              "}"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Result:",
+            "body": "7,600 / 7,600 bets — every computed slot matched final_slot. Zero mismatches. Any player can reproduce this using any language that supports HMAC-SHA256."
+          }
+        },
+        {
+          "title": "Worked example — full parity verification",
+          "compare": {
+            "leftLabel": "Live Game",
+            "leftValue": "final_slot = 12",
+            "middle": "=",
+            "rightLabel": "Verifier",
+            "rightValue": "computed_slot = 12"
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Parity verified:",
+            "body": "final_slot = 12 ✓ · payout_multiplier = 4.03732442 matches scaling_edge[0] for 16r/high slot 12 ✓ · win_amount = 0.01 × 4.03732442 = 0.0403732442 matches within 1e-8 ✓"
+          }
+        },
+        {
+          "title": "Phase C code-path equivalence",
+          "pins": [
+            {
+              "key": "Phase C test",
+              "value": "200 bets at $10, same config as Phase B ($0.01, 16r/high)"
+            },
+            {
+              "key": "Equivalence result",
+              "value": "200 / 200 slots recomputed correctly at $10 — Pass"
+            },
+            {
+              "key": "Multiplier table",
+              "value": "All multipliers match Phase B table — Pass"
+            }
+          ],
+          "note": {
+            "variant": "default",
+            "strong": "Phase C empirical RTP:",
+            "body": "119.0% — two slot-2 hits (26.24× each) in 200 bets. Normal variance for 16r/high. The 95% CI half-width at n=200 for this config is approximately ±92% of theoretical RTP."
+          }
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "s4",
+      "title": "RTP & Payout Logic Validation",
+      "subtitle": "Does the house edge match what's advertised?",
+      "intro": "This section validates that Plinko's payout mechanics are mathematically correct and that the 99.9% RTP is proven analytically — not estimated from sample data. The proof is non-circular: probabilities are independently computed from the binomial distribution, not taken from the casino's configuration.",
+      "playerBrief": {
+        "headline": "Payout Fairness Verification",
+        "statValue": "99.900%",
+        "statLabel": "proven RTP",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Payout formula correct for all 7,600 bets",
+          "Theoretical RTP proven analytically (not estimated)",
+          "27M-round simulation confirms convergence to 99.890%",
+          "House edge transparent and consistent across all 27 configs"
+        ],
+        "means": [
+          "House edge is exactly what's advertised (0.1%)",
+          "Payouts cannot be altered after the slot is determined",
+          "The RTP proof doesn't rely on trusting the casino",
+          "Higher stakes have higher house edge (disclosed)"
+        ]
+      },
+      "verdict": {
+        "title": "RTP behaves as advertised",
+        "body": "The 99.9% RTP is proven mathematically from independently verified binomial probabilities multiplied by the observed multiplier table. This is a mathematical proof, not a statistical estimate."
+      },
+      "howItWorks": [
+        {
+          "title": "Payout formula",
+          "content": "Winning payouts are calculated as bet_amount × multiplier, where the multiplier comes from the configuration's table based on the slot the ball lands in. Every slot has a multiplier — every bet returns some amount."
+        },
+        {
+          "title": "Analytical RTP proof (anti-circularity)",
+          "content": "The 99.900% theoretical RTP is established via a two-step chain. Step 1: the slot probabilities in plinkoConfig.json exactly equal the independent binomial B(rows, 0.5), verified exhaustively across all 27 configs. Step 2: theoreticalRTP = Σ binomProb(rows, k) × scalingEdgeMultiplier(rows, risk, k). The binomProb() function in stats.ts does NOT reference plinkoConfig.json — making this proof non-circular."
+        },
+        {
+          "title": "Scaling-edge structure",
+          "content": "Plinko includes stake brackets that scale the house edge. Bracket 0 = 0.1% house edge (99.9% RTP). Bracket 190 = 2.0% house edge. Both test amounts ($0.01 and $10) remained inside bracket 0. The progressive edge is a disclosed feature, not hidden manipulation."
+        },
+        {
+          "title": "Analytical RTP versus live outcomes",
+          "content": "Plinko live samples are noisy, especially around rare high-multiplier outcomes. The audit therefore treats theoretical RTP and large-scale simulation as the primary evidence and live empirical RTP as a secondary informational view."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "RTP evidence summary",
+          "pins": [
+            {
+              "key": "Theoretical RTP",
+              "value": "99.900% (all 27 configs — analytical proof)"
+            },
+            {
+              "key": "Simulated RTP",
+              "value": "99.890% (27M rounds — within expected variance)"
+            },
+            {
+              "key": "Simulation rounds",
+              "value": "27,000,000 (1M per config)"
+            },
+            {
+              "key": "Bracket",
+              "value": "0 (0.1% house edge)"
+            },
+            {
+              "key": "Test amounts",
+              "value": "$0.01 and $10 — both inside bracket 0"
+            }
+          ]
+        },
+        {
+          "title": "Bracket comparison",
+          "compare": {
+            "leftLabel": "Lowest-stakes bracket",
+            "leftValue": "0.1% edge / 99.9% RTP",
+            "middle": "=",
+            "rightLabel": "Tested amounts",
+            "rightValue": "Inside bracket 0"
+          }
+        },
+        {
+          "title": "Anti-circularity code snippet",
+          "code": {
+            "label": "tests/verify.ts · Step 20: EC-33",
+            "language": "ts",
+            "lines": [
+              "// Step 1: Verify config probabilities = independent binomial",
+              "for (const { rows, risk } of cfg.allConfigs()) {",
+              "  const configProbs = cfg.probabilities(rows, risk);",
+              "  for (let k = 0; k < rows + 1; k++) {",
+              "    const independent = binomProb(rows, k);",
+              "    if (configProbs[k] !== independent) { failures.push(...); }",
+              "  }",
+              "}",
+              "// Step 2: Cross-check RTP from independent probs × multipliers",
+              "let independentRTP = 0;",
+              "for (let k = 0; k <= rows; k++) {",
+              "  independentRTP += binomProb(rows, k) * cfg.scalingEdgeMultiplier(rows, risk, k);",
+              "}",
+              "// binomProb() from stats.ts — does NOT reference plinkoConfig.json"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Result:",
+            "body": "All 27 configs return 99.900%. The proof is non-circular — probabilities are independently computed, not taken from the casino."
+          }
+        },
+        {
+          "title": "Code references",
+          "pins": [
+            {
+              "key": "tests/verify.ts Step 7",
+              "value": "Payout math (EC-11, EC-18)"
+            },
+            {
+              "key": "tests/verify.ts Step 10",
+              "value": "Empirical RTP — informational (EC-19 to EC-22)"
+            },
+            {
+              "key": "tests/verify.ts Step 19",
+              "value": "Scaling edge analysis (EC-17, EC-32)"
+            },
+            {
+              "key": "tests/verify.ts Step 20",
+              "value": "Anti-circularity (EC-33)"
+            },
+            {
+              "key": "src/simulate.ts",
+              "value": "Monte Carlo — 1M rounds/config"
+            },
+            {
+              "key": "src/config.ts",
+              "value": "theoreticalRTP, scalingEdgeMultiplier"
+            },
+            {
+              "key": "src/stats.ts",
+              "value": "binomProb (independent, not from config)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "s5",
+      "title": "Fairness Integrity Testing",
+      "subtitle": "Can anyone cheat the system — players or the casino?",
+      "intro": "This section tests whether any party — player or casino — can predict outcomes, alter results, or gain an unfair advantage through weaknesses in the provably fair implementation. Testing covers 5 fairness guarantee categories with 15 individual tests under realistic and adversarial conditions.",
+      "playerBrief": {
+        "headline": "Fairness Integrity Testing",
+        "statValue": "14 / 14",
+        "statLabel": "pass · 1 N/A",
+        "leftTitle": "What We Tested",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Outcome prediction before betting",
+          "Post-bet tamper resistance",
+          "Seed commitment integrity",
+          "Nonce uniqueness and sequencing",
+          "Round and player isolation",
+          "Payout parameter injection"
+        ],
+        "means": [
+          "No one — not the player, not the casino — can know the outcome before it is determined",
+          "Once a bet is placed, the result cannot be changed",
+          "Each bet is cryptographically unique and irreversible",
+          "Your results are independent of every other player's results"
+        ]
+      },
+      "verdict": {
+        "title": "All fairness guarantees verified",
+        "body": "All provably fair integrity tests passed. No adversarial condition was able to violate any fairness guarantee under realistic gameplay conditions."
+      },
+      "howItWorks": [
+        {
+          "title": "Framework overview",
+          "content": "Testing follows the ProvablyFair.org Fairness Integrity Framework — a structured methodology derived from real, historically observed failures in provably fair systems. Five categories tested independently: Nonce Integrity, Seed Commitment, Outcome Determinism, Round & Player Isolation, and Payout Integrity."
+        },
+        {
+          "title": "Nonce integrity (4 tests)",
+          "content": "Each bet uses unique, sequential nonce (FI-NONCE-001). Nonce progression cannot be manipulated (FI-NONCE-002). Invalid nonces are rejected — server rejects nonce=-1, 0, 999999999 (FI-NONCE-003). Nonce does not reset on reconnect (FI-NONCE-004)."
+        },
+        {
+          "title": "Seed commitment integrity (5 tests)",
+          "content": "Invalid seeds handled deterministically (FI-SEED-001). Seed is locked at bet acceptance (FI-SEED-002). Server seed unique per session — 152 distinct server seeds, 0 reuse (FI-SEED-003). No shared seed pool across users — 2 accounts, 50 concurrent rotations, 0 hash collisions (FI-SEED-004). Seeds not predictable from timing (FI-SEED-005)."
+        },
+        {
+          "title": "Scope and limitations",
+          "content": "This certification does not constitute a comprehensive security audit of the operator's platform, infrastructure, wallet systems, or application logic beyond the provably fair implementation. All test bets ($0.01 and $10) fall in bracket 0. Higher-stake bracket behavior is not verified."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "Fairness guarantee summary",
+          "pins": [
+            {
+              "key": "Outcome prediction",
+              "value": "Cannot predict outcomes before betting — Pass"
+            },
+            {
+              "key": "Post-bet tamper resistance",
+              "value": "Results cannot be altered after bet — Pass"
+            },
+            {
+              "key": "Seed commitment integrity",
+              "value": "152 seed pairs verified — Pass"
+            },
+            {
+              "key": "Nonce uniqueness & sequencing",
+              "value": "Each bet uses unique, sequential input — Pass"
+            },
+            {
+              "key": "Entropy isolation",
+              "value": "No hidden, mixed, or predictable entropy — Pass"
+            },
+            {
+              "key": "Round & player isolation",
+              "value": "No cross-round or cross-user state leakage — Pass"
+            },
+            {
+              "key": "Payout integrity",
+              "value": "Parameters computed server-side, cannot be injected — Pass"
+            }
+          ]
+        },
+        {
+          "title": "Code references",
+          "pins": [
+            {
+              "key": "tests/verify.ts Step 1",
+              "value": "Seed Hash Integrity → FI-SEED-003"
+            },
+            {
+              "key": "tests/verify.ts Step 3",
+              "value": "Hash Consistency → FI-SEED-002"
+            },
+            {
+              "key": "tests/verify.ts Step 4",
+              "value": "Nonce Audit → FI-NONCE-001, 002, 004"
+            },
+            {
+              "key": "tests/verify.ts Step 5",
+              "value": "Slot Recomputation → FI-OUTCOME-001"
+            },
+            {
+              "key": "tests/verify.ts Step 6",
+              "value": "Client Seed Influence → FI-SEED-002"
+            },
+            {
+              "key": "tests/verify.ts Step 11",
+              "value": "Serial Independence → FI-ISO-001"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "s6",
+      "title": "Player Verification Guide",
+      "subtitle": "How any player can independently verify a game result",
+      "intro": "Every Plinko outcome can be independently reproduced using publicly disclosed inputs. No hidden variables, no private backend data — if your calculated slot matches the displayed result, the game was provably fair.",
+      "playerBrief": {
+        "headline": "Independent Result Verification",
+        "statValue": "4 Steps",
+        "statLabel": "to verify any bet",
+        "leftTitle": "Key Principles",
+        "rightTitle": "What You Need",
+        "verified": [
+          "Every Plinko outcome can be independently reproduced",
+          "No hidden variables — no private backend data",
+          "If your calculated slot matches the displayed result, the game was provably fair",
+          "Most players can verify directly through the Duel UI"
+        ],
+        "means": [
+          "Server Seed — revealed after seed rotation (casino entropy)",
+          "Client Seed — your player-controlled seed",
+          "Nonce — the bet number in sequence (ensures uniqueness)",
+          "Rows & Risk — the configuration you played"
+        ]
+      },
+      "verdict": {
+        "title": "Verification is publicly accessible",
+        "body": "Any player can reproduce any Plinko result using the Duel UI verifier or independently using standard cryptographic primitives (HMAC-SHA256) in any programming language."
+      },
+      "howItWorks": [
+        {
+          "title": "Step 1 — Place bet",
+          "content": "Select rows (8–16), risk level (low/medium/high), and bet amount. The Plinko drop generates a slot result which is recorded."
+        },
+        {
+          "title": "Step 2 — Open Verify",
+          "content": "After playing, open the verify panel in the Duel UI. Your seeds will be disclosed — the server seed is revealed after the seed epoch rotates."
+        },
+        {
+          "title": "Step 3 — Recompute",
+          "content": "The verifier runs the same computeSlot logic using the disclosed inputs. Or you can run it yourself — HMAC-SHA256 is available in every programming language."
+        },
+        {
+          "title": "Step 4 — Confirm match",
+          "content": "If the recomputed slot matches the live result, the bet was provably fair. The casino committed to the outcome before you bet, you contributed entropy via your client seed, and the result is deterministic from these inputs alone."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "JavaScript verification script",
+          "code": {
+            "label": "verify-plinko.js · standalone",
+            "language": "js",
+            "lines": [
+              "const crypto = require('crypto');",
+              "",
+              "function verifyPlinkoSlot(serverSeed, clientSeed, nonce, rows) {",
+              "  const key = Buffer.from(serverSeed, 'hex');",
+              "  let slot = 0;",
+              "  for (let cursor = 0; cursor < rows; cursor++) {",
+              "    const message = `${clientSeed}:${nonce}:${cursor}`;",
+              "    const hmac = crypto.createHmac('sha256', key)",
+              "      .update(message).digest('hex');",
+              "    const value = parseInt(hmac.substring(0, 8), 16);",
+              "    slot += value % 2;",
+              "  }",
+              "  return slot;",
+              "}",
+              "",
+              "// Example from live audit data:",
+              "const slot = verifyPlinkoSlot(",
+              "  'd1bfef8b1b8f3054f4bc241662d1a4a9682cdf5671ffbf031f5748e0f584abe7',",
+              "  '51YKOOjqBNXBl6Yk', 0, 10",
+              ");",
+              "console.log('Slot:', slot); // Output: 6"
+            ]
+          },
+          "note": {
+            "variant": "ok",
+            "strong": "Key point:",
+            "body": "You don't need to trust the casino's verifier. The inputs are standard cryptographic primitives (HMAC-SHA256) that you can run in any programming language."
+          }
+        },
+        {
+          "title": "Python verification script",
+          "code": {
+            "label": "verify-plinko.py · standalone",
+            "language": "python",
+            "lines": [
+              "import hmac, hashlib",
+              "",
+              "def verify_plinko_slot(server_seed, client_seed, nonce, rows):",
+              "    key = bytes.fromhex(server_seed)",
+              "    slot = 0",
+              "    for cursor in range(rows):",
+              "        message = f\"{client_seed}:{nonce}:{cursor}\"",
+              "        h = hmac.new(key, message.encode(), hashlib.sha256).hexdigest()",
+              "        value = int(h[:8], 16)",
+              "        slot += value % 2",
+              "    return slot",
+              "",
+              "# Example from live audit data:",
+              "slot = verify_plinko_slot(",
+              "    'd1bfef8b1b8f3054f4bc241662d1a4a9682cdf5671ffbf031f5748e0f584abe7',",
+              "    '51YKOOjqBNXBl6Yk', 0, 10",
+              ")",
+              "print(f'Slot: {slot}')  # Output: 6"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "s7",
+      "title": "Reproducibility & Artifacts",
+      "subtitle": "Clone, run, and verify every audit result yourself",
+      "intro": "This section consolidates the open-source repository, datasets, output artifacts, and reproducibility posture of the audit. Every finding in this report can be independently reproduced using the pinned commit, dataset, and commands below.",
+      "playerBrief": {
+        "headline": "Open-Source Audit Repository",
+        "statValue": "[TBD]",
+        "statLabel": "commit audited",
+        "leftTitle": "Repository Details",
+        "rightTitle": "Prerequisites",
+        "verified": [
+          "GitHub: ProvablyFair-org/duel-audit",
+          "Commit: [TBD — pinned at publication]",
+          "Game: Plinko (duel-plinko-main-2)",
+          "Public Verifier: duel.com/fairness/verify"
+        ],
+        "means": [
+          "Node.js 16+",
+          "npm 8+",
+          "Git",
+          "TypeScript (installed via npm)"
+        ]
+      },
+      "verdict": {
+        "title": "Fully reproducible",
+        "body": "All audit results can be independently reproduced using the pinned commit, dataset, and commands above. The dataset hash ensures you're running against the same 7,600 bets."
+      },
+      "howItWorks": [
+        {
+          "title": "Reproducibility workflow",
+          "content": "Clone the repository, install dependencies, then run npx ts-node tests/verify.ts to execute all 20 verification steps. Run npx ts-node src/simulate.ts to execute the 27M-round Monte Carlo simulation. All output is written to the outputs/ directory."
+        },
+        {
+          "title": "Why limitations matter",
+          "content": "A strong audit identifies where evidence is complete and where it is sampled or bounded. That transparency is part of the trust model. API probe tests (6 of 15 fairness tests) require a live authenticated session and cannot be replayed from static data."
+        }
+      ],
+      "technicalEvidence": [
+        {
+          "title": "Datasets used",
+          "pins": [
+            {
+              "key": "Primary dataset",
+              "value": "results/merged/plinko-master.json"
+            },
+            {
+              "key": "Primary total",
+              "value": "7,600 bets across 152 seed epochs (3 phases)"
+            },
+            {
+              "key": "Simulation output",
+              "value": "outputs/simulation-results.json — 27M rounds"
+            },
+            {
+              "key": "Verification output",
+              "value": "outputs/verification-results.json — Steps 1–20"
+            },
+            {
+              "key": "Determinism log",
+              "value": "outputs/determinism-log.json — per-bet slot recomputation"
+            },
+            {
+              "key": "Chi-squared results",
+              "value": "outputs/chi-squared-results.json — distribution test results"
+            }
+          ]
+        },
+        {
+          "title": "Audit reproducibility pinning",
+          "pins": [
+            {
+              "key": "Git Commit",
+              "value": "[TBD — pinned at publication]"
+            },
+            {
+              "key": "Node Version",
+              "value": "v16+ (tested on v22.x)"
+            },
+            {
+              "key": "Dataset",
+              "value": "results/merged/plinko-master.json (7,600 bets, 152 seed pairs)"
+            },
+            {
+              "key": "Dataset Hash (SHA-256)",
+              "value": "8382e45f8cdf4d439a8866669d15e6f4be543f4b926fb64c67e09d9da7d6b2db"
+            },
+            {
+              "key": "Audit Date",
+              "value": "March 2026"
+            },
+            {
+              "key": "Audit ID",
+              "value": "PF-2026-002"
+            }
+          ]
+        },
+        {
+          "title": "Repository structure",
+          "code": {
+            "label": "duel-plinko-main-2",
+            "language": "text",
+            "lines": [
+              "src/",
+              "  rng.ts          → computeSlot — HMAC-SHA256 implementation",
+              "  config.ts       → scalingEdgeMultiplier, theoreticalRTP",
+              "  stats.ts        → binomProb, chiSquaredTest, runsTest",
+              "  simulate.ts     → Monte Carlo — 1M rounds/config",
+              "  loader.ts       → Dataset loader",
+              "tests/",
+              "  verify.ts       → 20-step verification suite",
+              "results/",
+              "  merged/plinko-master.json   → 7,600 live bets (3 phases)",
+              "outputs/",
+              "  verification-results.json",
+              "  simulation-results.json",
+              "  determinism-log.json",
+              "  chi-squared-results.json",
+              "plinkoConfig.json            → Casino-supplied config (191 brackets)"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

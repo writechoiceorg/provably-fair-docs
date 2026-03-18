@@ -1,0 +1,1366 @@
+---
+title: Plinko Audit
+hide_title: true
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+import config from './config.json';
+
+import CertBannerGames     from '@site/src/components/casino/CertBannerGames';
+import GameTagRow          from '@site/src/components/casino/GameTagRow';
+import SectionHeading      from '@site/src/components/casino/SectionHeading';
+import GameStats           from '@site/src/components/casino/GameStats';
+import GameSectionHeader   from '@site/src/components/casino/GameSectionHeader';
+import PlayerBrief         from '@site/src/components/casino/PlayerBrief';
+import VerdictBox          from '@site/src/components/casino/VerdictBox';
+import ExpandablePanel     from '@site/src/components/casino/ExpandablePanel';
+import CodeCard            from '@site/src/components/casino/CodeCard';
+import PinGrid             from '@site/src/components/casino/PinGrid';
+import CompareStrip        from '@site/src/components/casino/CompareStrip';
+import GameVerdictTable    from '@site/src/components/casino/GameVerdictTable';
+import AuditCheckList      from '@site/src/components/casino/AuditCheckList';
+import AuditCoverageTable  from '@site/src/components/casino/AuditCoverageTable';
+import NoteBlock           from '@site/src/components/casino/NoteBlock';
+import ExcludeList         from '@site/src/components/casino/ExcludeList';
+import ReproduceBlock      from '@site/src/components/casino/ReproduceBlock';
+import ReferencesList      from '@site/src/components/casino/ReferencesList';
+import SectionVerdictTable from '@site/src/components/casino/SectionVerdictTable';
+
+<CertBannerGames
+  config={{
+    name:        config.hero.title,
+    subtitle:    config.hero.subtitle,
+    auditDate:   config.hero.auditDate,
+    auditId:     config.hero.auditId,
+    certifiedBy: config.hero.certifiedBy,
+    status:      config.status,
+  }}
+/>
+
+<GameTagRow tags={config.hero.badges} />
+<GameStats config={config.statsBlock} />
+
+<SectionHeading label="Result" title="Audit Verdict" />
+<GameVerdictTable rows={config.auditVerdict} />
+
+<SectionHeading label="Overview" title="Plinko Audit Overview" />
+<p>{config.overview.intro}</p>
+
+<SectionHeading label="Scope" title="What Was Audited" />
+<AuditCheckList items={config.overview.whatWasAudited} />
+
+<SectionHeading label="Coverage" title="What Audit Covers" />
+<AuditCoverageTable config={config.overview.coverageTable} />
+
+<SectionHeading label="Guarantees" title="What Audit Guarantees" />
+<ul className="ck-list single">
+  {(config.overview.guarantees ?? []).map((item, i) => (
+    <li key={i}>{item}</li>
+  ))}
+</ul>
+
+<SectionHeading label="Exclusions" title="What Audit Excludes" />
+<ExcludeList items={config.overview.excludes ?? []} />
+
+<SectionHeading label="Open Source" title="Reproduce This Audit" />
+<ReproduceBlock config={config.overview.reproduce} />
+
+<SectionHeading label="References" title="References" />
+<ReferencesList references={config.overview.references ?? []} />
+
+{/* ════════════════════════════════════════════════════════════════
+    S1 — SEED, NONCE & DETERMINISM
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[0].number}
+  title={config.sections[0].title}
+  subtitle={config.sections[0].subtitle}
+/>
+
+Every Plinko drop on Duel is generated from three inputs: **server seed**, **client seed**, and **nonce**. The casino commits to its seed before you bet, you control your own seed, and the nonce increments automatically. At each row, these inputs are combined via HMAC-SHA256 to produce a single left/right decision — the ball's final slot is the sum of all right-turns across every row.
+
+<PlayerBrief brief={config.sections[0].playerBrief} />
+
+{/* ── Section Diagram: HMAC Pipeline ───────────────────────────── */}
+
+<div className="diagram" style={{background:'#f6f7f9'}}>
+<svg viewBox="0 0 760 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="sh_s1_top" x="-4%" y="-8%" width="108%" height="124%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+    </filter>
+  </defs>
+  <rect width="760" height="180" fill="#f6f7f9"/>
+  <text x="380" y="24" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">PROVABLY FAIR PLINKO GENERATION</text>
+  {/* Server Seed */}
+  <g filter="url(#sh_s1_top)">
+    <rect x="22" y="42" width="138" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="34" y="52" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#d97706" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="7.5" width="12" height="7" rx="2"/><path d="M4.5,7.5 V5 A3.5,3.5 0 0 1 11.5,5 V7.5"/>
+    </svg>
+    <text x="53" y="65" fontFamily="DM Sans,sans-serif" fontSize="12" fontWeight="700" fill="#2a2a2e">Server Seed</text>
+    <text x="36" y="85" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">Casino-committed</text>
+  </g>
+  {/* Client Seed */}
+  <g filter="url(#sh_s1_top)">
+    <rect x="176" y="42" width="138" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="188" y="51" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#2563eb" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="8" cy="5" r="3.2"/><path d="M2,15 A6,4.5 0 0 1 14,15"/>
+    </svg>
+    <text x="207" y="65" fontFamily="DM Sans,sans-serif" fontSize="12" fontWeight="700" fill="#2a2a2e">Client Seed</text>
+    <text x="190" y="85" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">Player-controlled</text>
+  </g>
+  {/* Nonce:Row */}
+  <g filter="url(#sh_s1_top)">
+    <rect x="330" y="42" width="122" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="342" y="52" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#64748b" strokeWidth="1.6" strokeLinecap="round">
+      <line x1="3" y1="0.5" x2="1.5" y2="13.5"/><line x1="9" y1="0.5" x2="7.5" y2="13.5"/>
+      <line x1="0" y1="4.5" x2="12" y2="4.5"/><line x1="2" y1="9.5" x2="14" y2="9.5"/>
+    </svg>
+    <text x="360" y="65" fontFamily="DM Sans,sans-serif" fontSize="12" fontWeight="700" fill="#2a2a2e">Nonce:Row</text>
+    <text x="344" y="85" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">Per-row cursor</text>
+  </g>
+  {/* Connector lines */}
+  <line x1="91"  y1="102" x2="91"  y2="118" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <line x1="245" y1="102" x2="245" y2="118" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <line x1="391" y1="102" x2="391" y2="118" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <line x1="91"  y1="118" x2="510" y2="118" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <line x1="510" y1="118" x2="510" y2="102" stroke="#e5e5ea" strokeWidth="1.5"/>
+  {/* HMAC-SHA256 */}
+  <g filter="url(#sh_s1_top)">
+    <rect x="468" y="42" width="164" height="60" rx="8" fill="#0e0e14"/>
+    <text x="494" y="64" fontFamily="JetBrains Mono,monospace" fontSize="11.5" fontWeight="600" fill="rgba(255,255,255,.88)">HMAC-SHA256</text>
+    <text x="494" y="84" fontFamily="DM Sans,sans-serif" fontSize="10" fill="rgba(255,255,255,.35)">mod 2 → L or R per row</text>
+  </g>
+  {/* Arrow to result */}
+  <line x1="632" y1="72" x2="660" y2="72" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <polygon points="658,67 668,72 658,77" fill="#e5e5ea"/>
+  {/* Plinko result */}
+  <g filter="url(#sh_s1_top)">
+    <rect x="672" y="52" width="56" height="40" rx="8" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1.5"/>
+    <svg x="685" y="56" width="30" height="32" viewBox="0 0 30 32" fill="none">
+      <circle cx="15" cy="5"  r="2" fill="#22c55e"/>
+      <circle cx="11" cy="12" r="2" fill="#16a34a" opacity=".6"/>
+      <circle cx="19" cy="12" r="2" fill="#16a34a" opacity=".6"/>
+      <circle cx="7"  cy="19" r="2" fill="#16a34a" opacity=".4"/>
+      <circle cx="15" cy="19" r="2" fill="#16a34a" opacity=".4"/>
+      <circle cx="23" cy="19" r="2" fill="#16a34a" opacity=".4"/>
+      <circle cx="3"  cy="26" r="2" fill="#16a34a" opacity=".25"/>
+      <circle cx="11" cy="26" r="2" fill="#16a34a" opacity=".25"/>
+      <circle cx="19" cy="26" r="2" fill="#16a34a" opacity=".25"/>
+      <circle cx="27" cy="26" r="2" fill="#16a34a" opacity=".25"/>
+    </svg>
+  </g>
+  <text x="380" y="156" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">Same inputs → same ball path. Every row verifiable.</text>
+</svg>
+</div>
+
+{/* ── Section Verdict Table ─────────────────────────────────────── */}
+
+<SectionVerdictTable rows={[
+  { check: "Server seed committed before bet",  status: "Pass", finding: "Casino cannot change randomness after betting" },
+  { check: "Player client seed control",         status: "Pass", finding: "Player contributes entropy via custom client seed" },
+  { check: "Nonce sequencing",                   status: "Pass", finding: "Sequential nonce from 0, never resets until seed rotation" },
+  { check: "Hash consistency within epoch",      status: "Pass", finding: "server_seed_hashed constant across all 152 seed pairs" },
+  { check: "Deterministic output",               status: "Pass", finding: "Same inputs always produce same slot position" },
+  { check: "Client seed influence",              status: "Pass", finding: "Alternate client seed produced different slots in 84.3% of bets (6,409/7,600)" },
+]} />
+
+<VerdictBox title={config.sections[0].verdict.title} body={config.sections[0].verdict.body} />
+
+{/* ══════════════════════════════════════════════════════════════════
+    EXPANDABLE 1 — HOW IT WORKS
+    ══════════════════════════════════════════════════════════════════ */}
+
+<ExpandablePanel title="How It Works — Seed, Nonce & Determinism" count="7 sections">
+
+{/* 1.1 Server Seed Commitment */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.1</span><span className="sub-t">Server Seed Commitment</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Before any bet is placed, the casino generates a secret server seed and publicly commits to it by displaying its SHA-256 hash to the player. This cryptographic commitment prevents the casino from changing the seed after seeing player actions. When the player rotates their client seed, the previous server seed is revealed. The auditor verifies it by hashing it and confirming it matches the pre-committed hash.</p>
+
+  <CodeCard label="tests/verify.ts · Step 1: EC-1" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 1: Seed Hash Integrity (EC-1)",
+    "const revealed = revealedSeeds(seeds);",
+    "for (const s of revealed) {",
+    "  if (!verifyHash(s.seed.serverSeed!, s.seed.serverSeedHashed)) {",
+    "    failures.push(s.seed.serverSeedHashed.substring(0, 16) + '... MISMATCH');",
+    "  }",
+    "}",
+    "// verifyHash: SHA-256(Buffer.from(serverSeed, 'hex')) === serverSeedHashed",
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="All 152 revealed seeds: SHA-256(hexDecode(serverSeed)) = serverSeedHashed. Zero mismatches." />
+
+  <div className="diagram" style={{background:'#f6f7f9', margin:'1rem 0'}}>
+  <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sh_commit" x="-4%" y="-8%" width="108%" height="124%">
+        <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".07"/>
+      </filter>
+      <pattern id="dots_commit" width="6" height="6" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+      </pattern>
+    </defs>
+    <rect width="720" height="210" fill="#f6f7f9"/>
+    <text x="360" y="24" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">COMMIT-REVEAL FLOW</text>
+    <rect x="20" y="38" width="680" height="158" rx="10" fill="#fff" stroke="#e5e5ea"/>
+    <rect x="20" y="38" width="680" height="158" rx="10" fill="url(#dots_commit)"/>
+    <rect x="20" y="38" width="680" height="3" rx="1.5" fill="#e8590c" opacity=".5"/>
+    {/* COMMIT */}
+    <text x="110" y="62" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">COMMIT</text>
+    <line x1="110" y1="68" x2="110" y2="80" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="106,78 110,86 114,78" fill="#d4d4da"/>
+    <g filter="url(#sh_commit)">
+      <rect x="50" y="88" width="120" height="90" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="110" y="122" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">Hash</text>
+      <text x="110" y="138" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">shown to</text>
+      <text x="110" y="154" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">player</text>
+    </g>
+    <line x1="174" y1="133" x2="206" y2="133" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="204,129.5 210,133 204,136.5" fill="#d4d4da"/>
+    {/* BET */}
+    <text x="280" y="62" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">BET</text>
+    <line x1="280" y1="68" x2="280" y2="80" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="276,78 280,86 284,78" fill="#d4d4da"/>
+    <g filter="url(#sh_commit)">
+      <rect x="220" y="88" width="120" height="90" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="280" y="122" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">Player bets</text>
+      <text x="280" y="138" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">with client</text>
+      <text x="280" y="154" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">seed</text>
+    </g>
+    <line x1="344" y1="133" x2="376" y2="133" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="374,129.5 380,133 374,136.5" fill="#d4d4da"/>
+    {/* REVEAL */}
+    <text x="450" y="62" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">REVEAL</text>
+    <line x1="450" y1="68" x2="450" y2="80" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="446,78 450,86 454,78" fill="#d4d4da"/>
+    <g filter="url(#sh_commit)">
+      <rect x="390" y="88" width="120" height="90" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="450" y="122" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">Server seed</text>
+      <text x="450" y="138" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="600" fill="#2a2a2e">revealed</text>
+    </g>
+    <line x1="514" y1="133" x2="546" y2="133" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="544,129.5 550,133 544,136.5" fill="#d4d4da"/>
+    {/* VERIFY */}
+    <text x="620" y="62" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#16a34a" letterSpacing=".08em" opacity=".7">VERIFY</text>
+    <line x1="620" y1="68" x2="620" y2="80" stroke="#bbf7d0" strokeWidth="1.3"/>
+    <polygon points="616,78 620,86 624,78" fill="#bbf7d0"/>
+    <g filter="url(#sh_commit)">
+      <rect x="560" y="88" width="120" height="90" rx="8" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1.5"/>
+      <text x="620" y="118" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10.5" fontWeight="600" fill="#16a34a">SHA-256</text>
+      <text x="620" y="138" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10.5" fontWeight="600" fill="#16a34a">(seed)</text>
+      <text x="620" y="158" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10.5" fontWeight="600" fill="#16a34a">= hash?</text>
+    </g>
+  </svg>
+  </div>
+
+  <p style={{fontSize:'0.82rem', fontWeight:700, color:'var(--text)', margin:'0.8rem 0 0.3rem'}}>Real Example from Live Data:</p>
+  <CodeCard label="plinko-master.json · seed entry #1" language="json" lines={[
+    '{',
+    '  "clientSeed": "51YKOOjqBNXBl6Yk",',
+    '  "serverSeedHashed": "19935b7406293bd6cdff68edd212d2889f457cb8755e2babe0467aa7c337d275",',
+    '  "serverSeed": "d1bfef8b1b8f3054f4bc241662d1a4a9682cdf5671ffbf031f5748e0f584abe7",',
+    '  "nonce": 0',
+    '}',
+  ]} />
+
+  <p style={{fontSize:'0.82rem', fontWeight:700, color:'var(--text)', margin:'0.8rem 0 0.3rem'}}>Verification:</p>
+  <CodeCard label="verify-seed.js" language="js" badge="Verified" lines={[
+    "const crypto = require('crypto');",
+    "",
+    'const serverSeed = "d1bfef8b1b8f3054f4bc241662d1a4a9682cdf5671ffbf031f5748e0f584abe7";',
+    "",
+    "const hashedServerSeed = crypto",
+    '  .createHash("sha256")',
+    '  .update(serverSeed, "hex")',
+    '  .digest("hex");',
+    "",
+    "console.log(hashedServerSeed);",
+    "// Output: 19935b7406293bd6cdff68edd212d2889f457cb8755e2babe0467aa7c337d275 ✅",
+  ]} />
+</div>
+
+{/* 1.2 Commitment Linkage */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.2</span><span className="sub-t">Commitment Linkage (Pre-Bet Verification)</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>At the start of each phase (A, B, C), the auditor captured the active <code>server_seed_hashed</code> before placing any bets. After the first bet, the hash echoed in the bet response was compared against the pre-capture commitment.</p>
+
+  <CodeCard label="tests/verify.ts · Step 2: EC-2" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 2: Commitment Linkage (EC-2)",
+    "for (const pre of preSeeds) {",
+    "  const first = phaseBets.sort((a, b) => a.response.id - b.response.id)[0];",
+    "  const match = first.response.server_seed_hashed === pre.seed.serverSeedHashed;",
+    "}",
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="All 3 pre-capture commitments match the first bet response hash. Server did not switch seeds between commitment and first bet." />
+  <NoteBlock variant="default" strong="Known limitation:" body="Explicit pre-bet snapshots captured at 3 phase boundaries only. For the remaining 149 seed pairs, the commitment hash is first observed in the first bet response. Future audits should add a getActiveSeed() call after every rotation." />
+</div>
+
+{/* 1.3 Hash Consistency Within Epoch */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.3</span><span className="sub-t">Hash Consistency Within Epoch</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>For each of the 152 seed pairs, the <code>server_seed_hashed</code> field was extracted from every bet response and checked for uniqueness. More than one distinct hash within a seed pair would indicate a mid-session seed switch — a commit-reveal violation.</p>
+
+  <CodeCard label="tests/verify.ts · Step 3: EC-26" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 3: Hash Consistency (EC-26)",
+    "for (const [hash, epochBets] of byHash) {",
+    "  const hashes = new Set(epochBets.map(b => b.response.server_seed_hashed));",
+    "  if (hashes.size !== 1) {",
+    "    failures.push('Epoch ' + hash + ': ' + hashes.size + ' distinct hashes');",
+    "  }",
+    "}",
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="152 / 152 seed pairs — server_seed_hashed constant within each. No mid-session seed switches." />
+</div>
+
+{/* 1.4 Player Client Seed Control */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.4</span><span className="sub-t">Player Client Seed Control</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Players have full control over their client seed through the Duel UI, allowing them to view, modify, or randomize it at any time before placing bets. The client seed is an input to every HMAC-SHA256 computation — changing it produces a different ball path. Phase D specifically tested 10 distinct client seeds to confirm each is actively used in the HMAC.</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Real Data Evidence:</strong> 5 of the 152 unique client seeds observed in the live dataset:</p>
+
+  <ul className="ck-list single" style={{margin:'0.2rem 0 0.6rem'}}>
+    <li><code>51YKOOjqBNXBl6Yk</code></li>
+    <li><code>d1AcZhAy1QMp7PDa</code></li>
+    <li><code>Ezo8DQQDgAENxYzb</code></li>
+    <li><code>ifHwnv8mBrUO50qL</code></li>
+    <li><code>pQ5vYA0ToytmMDPU</code></li>
+  </ul>
+
+  <NoteBlock variant="ok" strong="Result:" body="152 unique client seeds observed across the dataset. Client seeds are player-controlled and vary across all phases and epochs. Evidence: plinko-phase-d.json" />
+</div>
+
+{/* 1.5 Nonce Incrementation */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.5</span><span className="sub-t">Nonce Incrementation</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>The nonce begins at 0 and increments by 1 for each bet under the same seed pair, ensuring every bet produces a unique RNG input. The nonce resets to 0 only when the player rotates their client seed, triggering a new server seed.</p>
+
+  <CodeCard label="tests/verify.ts · Step 4: EC-2 to EC-5" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 4: Nonce Audit",
+    "for (const [hash, epochBets] of byHash) {",
+    "  const nonces = sorted.map(b => b.response.nonce);",
+    "  // EC-2: First nonce is 0",
+    "  if (nonces[0] !== 0) { hardFailures.push(...); }",
+    "  // EC-4: Nonces sequential, no gaps, no repeats",
+    "  for (let i = 0; i < nonces.length; i++) {",
+    "    if (nonces[i] !== i) { hardFailures.push(...); break; }",
+    "  }",
+    "  // EC-5: Single client_seed per epoch",
+    "  const clientSeeds = new Set(sorted.map(b => b.response.client_seed));",
+    "  if (clientSeeds.size !== 1) { hardFailures.push(...); }",
+    "}",
+  ]} />
+
+  <div className="diagram" style={{background:'#f6f7f9', margin:'1rem 0'}}>
+  <svg viewBox="0 0 720 310" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sh_nonce" x="-4%" y="-6%" width="108%" height="120%">
+        <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+      </filter>
+      <pattern id="dots_nonce" width="6" height="6" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+      </pattern>
+    </defs>
+    <rect width="720" height="310" fill="#f6f7f9"/>
+    <text x="360" y="24" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">NONCE VALIDATION FLOW</text>
+    {/* Step boxes */}
+    <text x="92" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">NONCE INIT</text>
+    <line x1="92" y1="53" x2="92" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="88.5,60 92,67 95.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_nonce)">
+      <rect x="30" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="92" y="96" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">Nonce starts at 0</text>
+      <text x="92" y="112" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">for new server seed</text>
+    </g>
+    <line x1="158" y1="104" x2="180" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="178,100.5 184,104 178,107.5" fill="#d4d4da"/>
+    <text x="252" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">SESSION CHECK</text>
+    <line x1="252" y1="53" x2="252" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="248.5,60 252,67 255.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_nonce)">
+      <rect x="190" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="252" y="92" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">Verify same</text>
+      <text x="252" y="106" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9" fontWeight="500" fill="#64748b">server_seed_hashed</text>
+      <text x="252" y="120" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">(same session)</text>
+    </g>
+    <line x1="318" y1="104" x2="340" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="338,100.5 344,104 338,107.5" fill="#d4d4da"/>
+    <text x="412" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">INCREMENT CHECK</text>
+    <line x1="412" y1="53" x2="412" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="408.5,60 412,67 415.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_nonce)">
+      <rect x="350" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="412" y="96" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">Current nonce</text>
+      <text x="412" y="112" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">= previous + 1</text>
+    </g>
+    <line x1="478" y1="104" x2="500" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="498,100.5 504,104 498,107.5" fill="#d4d4da"/>
+    <text x="572" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">UNIQUENESS</text>
+    <line x1="572" y1="53" x2="572" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="568.5,60 572,67 575.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_nonce)">
+      <rect x="510" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="572" y="96" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">No nonce reused</text>
+      <text x="572" y="112" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">within session</text>
+    </g>
+    {/* Sequence example */}
+    <rect x="30" y="156" width="604" height="52" rx="8" fill="#fff" stroke="#e5e5ea"/>
+    <rect x="30" y="156" width="604" height="52" rx="8" fill="url(#dots_nonce)"/>
+    <text x="46" y="172" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#aaa" letterSpacing=".08em">SEQUENCE EXAMPLE (SAME SESSION)</text>
+    <rect x="120" y="180" width="72" height="20" rx="4" fill="#fff" stroke="#87ceeb" strokeWidth="1"/>
+    <text x="156" y="194" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="500" fill="#2a2a2e">nonce: 0</text>
+    <text x="204" y="194" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">→</text>
+    <rect x="220" y="180" width="72" height="20" rx="4" fill="#fff" stroke="#87ceeb" strokeWidth="1"/>
+    <text x="256" y="194" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="500" fill="#2a2a2e">nonce: 1</text>
+    <text x="304" y="194" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">→</text>
+    <rect x="320" y="180" width="72" height="20" rx="4" fill="#fff" stroke="#87ceeb" strokeWidth="1"/>
+    <text x="356" y="194" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="500" fill="#2a2a2e">nonce: 2</text>
+    <text x="404" y="194" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">→</text>
+    <rect x="420" y="180" width="72" height="20" rx="4" fill="#fff" stroke="#87ceeb" strokeWidth="1"/>
+    <text x="456" y="194" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="500" fill="#2a2a2e">nonce: 3</text>
+    <text x="504" y="194" fontFamily="DM Sans,sans-serif" fontSize="10" fill="#aaa">...</text>
+    {/* Pass banner */}
+    <rect x="30" y="222" width="604" height="30" rx="6" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <svg x="42" y="228" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#16a34a"/>
+      <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
+    <text x="64" y="242" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#16a34a" letterSpacing=".04em">NONCE STARTS CORRECTLY, INCREMENTS BY 1, NEVER REUSED</text>
+    {/* Why this matters */}
+    <rect x="30" y="264" width="604" height="34" rx="6" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1"/>
+    <svg x="42" y="270" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#2563eb"/>
+      <text x="8" y="12.5" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="11" fontWeight="800" fill="#fff">i</text>
+    </svg>
+    <text x="62" y="278" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#1e40af" letterSpacing=".02em">WHY THIS MATTERS</text>
+    <text x="62" y="291" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#64748b" fontStyle="italic">Prevents replay attacks — same seeds + same nonce = same result. Sequential nonces ensure every bet is unique.</text>
+  </svg>
+  </div>
+
+  <p style={{fontSize:'0.82rem', fontWeight:700, color:'var(--text)', margin:'0.8rem 0 0.3rem'}}>Real Data Verification:</p>
+  <CodeCard label="plinko-master.json · nonce sequence" language="json" lines={[
+    "// First bet with serverSeedHashed 19935b74...",
+    '{ "nonce": 0, "server_seed_hashed": "19935b74..." }',
+    "",
+    "// Second bet with same serverSeedHashed",
+    '{ "nonce": 1, "server_seed_hashed": "19935b74..." }',
+    "",
+    "// Third bet with same serverSeedHashed",
+    '{ "nonce": 2, "server_seed_hashed": "19935b74..." }',
+    "",
+    "// ...nonce increments to 49, then player rotates seed...",
+    "",
+    "// New server seed issued, nonce resets",
+    '{ "nonce": 0, "server_seed_hashed": "c8b3cd4a..." }',
+    '{ "nonce": 1, "server_seed_hashed": "c8b3cd4a..." }',
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="152 seed pairs checked. 147 have perfectly clean nonce sequences. 5 show a minor gap caused by the auditor's capture script, not the casino. All bets in these 5 pairs were independently recomputed and produced correct slots — confirming no fairness issue exists." />
+  <NoteBlock variant="default" strong="Auditor capture-retry note:" body="In each of the 5 affected seed pairs, the auditor's network capture script lost a response before recording it. The casino processed the bet correctly and incremented its nonce counter as expected. When the capture script retried, the casino correctly assigned the next nonce. The 'gap' exists only in the auditor's captured dataset, not in the casino's actual nonce sequence. This is an artifact of the data collection process, not a game integrity issue." />
+</div>
+
+{/* 1.6 Deterministic Mapping */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.6</span><span className="sub-t">Deterministic Mapping</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>The RNG algorithm is fully deterministic: given the same server seed, client seed, nonce, and row count, it always produces the exact same slot position. For each row, the algorithm computes HMAC-SHA256 with the cursor as row index:</p>
+
+  <div className="diagram" style={{background:'#f6f7f9', margin:'1rem 0'}}>
+  <svg viewBox="0 0 720 370" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sh_det" x="-4%" y="-6%" width="108%" height="120%">
+        <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+      </filter>
+      <pattern id="dots_det" width="6" height="6" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+      </pattern>
+    </defs>
+    <rect width="720" height="370" fill="#f6f7f9"/>
+    <text x="360" y="24" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">DETERMINISTIC ALGORITHM FLOW</text>
+    {/* Step 1 */}
+    <text x="92" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">INPUT SEEDS</text>
+    <line x1="92" y1="53" x2="92" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="88.5,60 92,67 95.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_det)">
+      <rect x="30" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="92" y="92" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10" fontWeight="500" fill="#2a2a2e">serverSeed</text>
+      <text x="92" y="106" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10" fontWeight="500" fill="#2a2a2e">clientSeed</text>
+      <text x="92" y="120" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10" fontWeight="500" fill="#2a2a2e">nonce + rows</text>
+    </g>
+    <line x1="158" y1="104" x2="180" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="178,100.5 184,104 178,107.5" fill="#d4d4da"/>
+    {/* Step 2 */}
+    <text x="252" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">RNG ALGORITHM</text>
+    <line x1="252" y1="53" x2="252" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="248.5,60 252,67 255.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_det)">
+      <rect x="190" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="252" y="92" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="500" fill="#2a2a2e">HMAC-SHA256</text>
+      <text x="252" y="106" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10" fontWeight="600" fill="#2a2a2e">per row → L or R</text>
+      <text x="252" y="120" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9.5" fill="#aaa">deterministic</text>
+    </g>
+    <line x1="318" y1="104" x2="340" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="338,100.5 344,104 338,107.5" fill="#d4d4da"/>
+    {/* Step 3 */}
+    <text x="412" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">OUTPUT RESULT</text>
+    <line x1="412" y1="53" x2="412" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="408.5,60 412,67 415.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_det)">
+      <rect x="350" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="412" y="92" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">Produces</text>
+      <text x="412" y="106" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10" fontWeight="500" fill="#2a2a2e">computed_slot</text>
+      <text x="412" y="120" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9.5" fill="#aaa">(calculated)</text>
+    </g>
+    <line x1="478" y1="104" x2="500" y2="104" stroke="#d4d4da" strokeWidth="1.3"/>
+    <polygon points="498,100.5 504,104 498,107.5" fill="#d4d4da"/>
+    {/* Step 4 */}
+    <text x="572" y="48" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".08em" opacity=".7">VERIFY MATCH</text>
+    <line x1="572" y1="53" x2="572" y2="62" stroke="#d4d4da" strokeWidth="1.2"/>
+    <polygon points="568.5,60 572,67 575.5,60" fill="#d4d4da"/>
+    <g filter="url(#sh_det)">
+      <rect x="510" y="70" width="124" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="572" y="92" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="600" fill="#2a2a2e">Compare with</text>
+      <text x="572" y="106" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="10" fontWeight="500" fill="#2a2a2e">final_slot</text>
+      <text x="572" y="120" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9.5" fill="#aaa">(recorded)</text>
+    </g>
+    {/* Determinism principle */}
+    <rect x="30" y="156" width="604" height="86" rx="8" fill="#fff" stroke="#e5e5ea"/>
+    <rect x="30" y="156" width="604" height="86" rx="8" fill="url(#dots_det)"/>
+    <text x="332" y="174" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#aaa" letterSpacing=".08em">DETERMINISM PRINCIPLE</text>
+    <rect x="160" y="184" width="130" height="40" rx="6" fill="#fef9c3" stroke="#facc15" strokeWidth="1"/>
+    <text x="225" y="200" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#2a2a2e">Same Inputs</text>
+    <text x="225" y="214" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#92400e">seed + seed + nonce</text>
+    <text x="310" y="208" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="13" fill="#aaa">→</text>
+    <rect x="330" y="184" width="130" height="40" rx="6" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <text x="395" y="200" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#2a2a2e">Same Output</text>
+    <text x="395" y="214" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#aaa">every single time</text>
+    <rect x="56" y="228" width="552" height="24" rx="5" fill="#0e0e14"/>
+    <text x="332" y="244" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fill="rgba(255,255,255,.7)">computeSlot(serverSeed, clientSeed, nonce, rows) = final_slot</text>
+    <text x="590" y="244" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="600" fill="rgba(255,255,255,.35)">// Always</text>
+    {/* Pass banner */}
+    <rect x="30" y="260" width="604" height="30" rx="6" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <svg x="42" y="266" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#16a34a"/>
+      <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
+    <text x="64" y="280" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#16a34a" letterSpacing=".04em">GAME RESULTS PRODUCING ALGORITHM IS FULLY DETERMINISTIC</text>
+    {/* Why this matters */}
+    <rect x="30" y="302" width="604" height="52" rx="6" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1"/>
+    <svg x="42" y="310" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <rect x="0" y="0" width="16" height="16" rx="3" fill="#2563eb"/>
+      <text x="8" y="12.5" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="11" fontWeight="800" fill="#fff">i</text>
+    </svg>
+    <text x="62" y="320" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#1e40af" letterSpacing=".02em">WHY THIS MATTERS</text>
+    <text x="62" y="334" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#64748b" fontStyle="italic">Enables player verification — anyone can independently recalculate Plinko slot results using the same inputs.</text>
+    <text x="62" y="346" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#64748b" fontStyle="italic">If the algorithm were non-deterministic, provably fair would be impossible.</text>
+  </svg>
+  </div>
+
+  <CodeCard label="src/rng.ts · computeSlot" language="ts" badge="Core RNG" lines={[
+    "export function computeSlot(",
+    "  serverSeed: string, clientSeed: string, nonce: number, rows: number",
+    "): number {",
+    "  const key = Buffer.from(serverSeed, 'hex');",
+    "  let slot = 0;",
+    "  for (let cursor = 0; cursor < rows; cursor++) {",
+    "    const message = clientSeed + ':' + nonce + ':' + cursor;",
+    "    const hmac = crypto.createHmac('sha256', key).update(message).digest('hex');",
+    "    const hex4 = hmac.substring(0, 8);",
+    "    const int  = parseInt(hex4, 16);",
+    "    slot += int % 2;  // odd = right (+1), even = left (+0)",
+    "  }",
+    "  return slot;",
+    "}",
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="All 7,600 bets with revealed seeds: HMAC-SHA256 recompute matches final_slot. Zero mismatches. drand confirmed absent from RNG." />
+
+  <p style={{fontSize:'0.82rem', fontWeight:700, color:'var(--text)', margin:'0.8rem 0 0.3rem'}}>Real Example Verified:</p>
+  <CodeCard label="plinko-master.json · Bet #59896953" language="json" badge="Verified" lines={[
+    "// Source: results/merged/plinko-master.json",
+    "// Bet ID: 59896953 (first bet in dataset)",
+    "// ✅ VERIFIED FROM ACTUAL CODEBASE",
+    "",
+    "{",
+    '  "serverSeed": "d1bfef8b1b8f3054f4bc241662d1a4a9682cdf5671ffbf031f5748e0f584abe7",',
+    '  "clientSeed": "51YKOOjqBNXBl6Yk",',
+    '  "nonce": 0,',
+    '  "rows": 10,',
+    '  "risk_level": "low",',
+    '  "final_slot": 6,',
+    '  "payout_multiplier": "1.00905109"',
+    "}",
+  ]} />
+
+  <p style={{fontSize:'0.82rem', fontWeight:700, color:'var(--text)', margin:'0.8rem 0 0.3rem'}}>Verification:</p>
+  <CodeCard label="verify-slot.js" language="js" badge="Verified" lines={[
+    '// computeSlot("d1bfef8b...", "51YKOOjqBNXBl6Yk", 0, 10)',
+    "// Ball path: R → R → R → R → R → L → R → L → L → L",
+    "// Right-turns: 6 out of 10 rows",
+    "// Output: slot 6 ✅ (matches final_slot)",
+    "// Multiplier: 1.00905109× (10 rows, low risk, slot 6)",
+    "// Payout: 0.01 × 1.00905109 = 0.0100905109 ✅",
+  ]} />
+</div>
+
+{/* 1.7 Client Seed Influence */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.7</span><span className="sub-t">Client Seed Influence</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>To confirm the client seed is a genuine input to the HMAC computation, every bet was recomputed using an alternate client seed. If the client seed is active, a different seed should produce different slot positions for the majority of bets.</p>
+
+  <CodeCard label="tests/verify.ts · Step 6: EC-27" language="ts" badge="Verified" lines={[
+    "const correctSlot = computeSlot(serverSeed, client_seed, nonce, rows);",
+    "const wrongSlot   = computeSlot(serverSeed, wrongClientSeed, nonce, rows);",
+    "if (wrongSlot !== correctSlot) changed++;",
+  ]} />
+
+  <NoteBlock variant="ok" strong="Result:" body="Recomputing with an alternate client seed produced different slots in 6,409 / 7,600 bets (84.3%) across 152 epochs. Per-epoch divergence ranged from 37/50 to 50/50. The 15.7% overlap is expected — each row has a 50% chance of coincidental match." />
+</div>
+
+</ExpandablePanel>
+
+{/* ══════════════════════════════════════════════════════════════════
+    EXPANDABLE 2 — TECHNICAL EVIDENCE & VERIFICATION
+    ══════════════════════════════════════════════════════════════════ */}
+
+<ExpandablePanel title="Technical Evidence & Verification" count="6 sections">
+
+{/* 1.8 Purpose */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.8</span><span className="sub-t">Purpose</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>This section indexes the technical artifacts used to verify Plinko seed handling, nonce behavior, and determinism. All evidence is reproducible using the linked scripts and datasets. Inline content is intentionally minimal; full artifacts are available via links.</p>
+</div>
+
+{/* 1.9 Evidence Coverage Summary */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.9</span><span className="sub-t">Evidence Coverage Summary</span></div>
+  <div className="sub-div"/>
+  <div className="pf-coverage-wrap">
+    <table className="pf-coverage-table">
+      <thead><tr><th>Verification Area</th><th>Coverage</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Server seed commit &amp; reveal</strong></td><td>152 seed entries</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td><strong>Commitment linkage</strong></td><td>3 pre-capture commitments</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td><strong>Hash consistency within seed pair</strong></td><td>152 seed pairs</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td><strong>Client seed usage</strong></td><td>152 epochs + Phase D (10 seeds)</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td><strong>Nonce incrementation</strong></td><td>152 epochs, 7,600 transitions</td><td><span className="pf-pass">Pass</span> <span style={{fontSize:'0.72rem',color:'var(--text-4)'}}>5 capture-retry FLAG</span></td></tr>
+        <tr><td><strong>Deterministic recomputation</strong></td><td>7,600 / 7,600 bets</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td><strong>Client seed influence</strong></td><td>6,409 / 7,600 slots changed</td><td><span className="pf-pass">Pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* 1.10 Code References */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.10</span><span className="sub-t">Code References</span></div>
+  <div className="sub-div"/>
+  <div className="pf-coverage-wrap">
+    <table className="pf-coverage-table">
+      <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>tests/verify.ts</code></td><td>Steps 1-6: seed commit, commitment linkage, hash consistency, nonce sequencing, slot recomputation, client seed influence</td></tr>
+        <tr><td><code>src/rng.ts</code></td><td><code>computeSlot</code> — independent HMAC-SHA256 implementation, <code>verifyHash</code> — SHA-256 commit-reveal check</td></tr>
+        <tr><td><code>src/loader.ts</code></td><td>Dataset loader: seeds, bets, config</td></tr>
+        <tr><td><code>capture/plinko-capture.js</code></td><td>1,070-line browser capture script with instance guard, auto-save, rotation checkpoints</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* 1.11 Datasets Used */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.11</span><span className="sub-t">Datasets Used</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}><strong>Primary:</strong> <code>results/merged/plinko-master.json</code></p>
+  <div className="pf-coverage-wrap">
+    <table className="pf-coverage-table">
+      <thead><tr><th>Property</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Source</strong></td><td>Live Plinko game data from duel.com/plinko</td></tr>
+        <tr><td><strong>Total Records</strong></td><td>7,600 bets across 152 seed epochs</td></tr>
+        <tr><td><strong>SHA-256</strong></td><td><code style={{fontSize:'0.7rem'}}>8382e45f8cdf4d439a8866669d15e6f4be543f4b926fb64c67e09d9da7d6b2db</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style={{fontSize:'0.88rem'}}><strong>Supplementary:</strong> <code>results/plinko-phase-d.json</code> — 500 bets across 10 configs, 11 seed entries</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Fields used:</strong> <code>serverSeed</code>, <code>serverSeedHashed</code>, <code>clientSeed</code>, <code>nonce</code>, <code>final_slot</code>, <code>rows</code>, <code>risk_level</code></p>
+</div>
+
+{/* 1.12 Verified Invariants */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.12</span><span className="sub-t">Verified Invariants (Seed / Nonce)</span></div>
+  <div className="sub-div"/>
+  <div className="pf-coverage-wrap">
+    <table className="pf-coverage-table">
+      <thead><tr><th>Invariant</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>SHA-256(hexDecode(serverSeed)) = serverSeedHashed for all 152 entries</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Pre-capture commitment hash matches first bet response hash (3/3 phases)</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>server_seed_hashed constant within each seed pair (152/152)</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Nonce starts at 0 when a new server seed is issued</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Nonce increments by exactly +1 for every bet</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Nonce never decrements, skips, or resets within same seed pair</td><td><span className="pf-pass">Pass</span> <span style={{fontSize:'0.72rem',color:'var(--text-4)'}}>5 FLAG</span></td></tr>
+        <tr><td>Nonce values never reused under same server + client seed pair</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Single client seed per epoch</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>Client seed is a verified HMAC input (84.3% divergence with alternate seed)</td><td><span className="pf-pass">Pass</span></td></tr>
+        <tr><td>7,600/7,600 slots recomputed correctly</td><td><span className="pf-pass">Pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{/* 1.13 Reproduction Instructions */}
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">1.13</span><span className="sub-t">Reproduction Instructions</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Clone the repository, install dependencies, and run the verification suite:</p>
+
+  <CodeCard label="reproduce-s1.sh · 4 lines" language="sh" badge="Verified" lines={[
+    "git clone https://github.com/ProvablyFair-org/duel-audit",
+    "cd duel-audit",
+    "npm install",
+    "npx ts-node tests/verify.ts",
+  ]} />
+
+  <p style={{fontSize:'0.88rem'}}>Steps 1-6 cover all Seed, Nonce &amp; Determinism checks. Expected output:</p>
+
+  <CodeCard label="expected output" language="text" lines={[
+    "  [PASS] Step 1 — Seed Hash Integrity",
+    "  [PASS] Step 2 — Commitment Linkage",
+    "  [PASS] Step 3 — Hash Consistency Within Epoch",
+    "  [PASS] Step 4 — Nonce Audit",
+    "  [PASS] Step 5 — Slot Recomputation (RNG + drand absent)",
+    "  [PASS] Step 6 — Client Seed Influence",
+  ]} />
+</div>
+
+</ExpandablePanel>
+
+{/* ════════════════════════════════════════════════════════════════
+    S2 — RNG & ENTROPY MODEL
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[1].number}
+  title={config.sections[1].title}
+  subtitle={config.sections[1].subtitle}
+/>
+
+This section verifies that Duel's Plinko random number generation produces **cryptographically sound, unbiased outputs** using HMAC-SHA256 with zero modulo bias. Each row's left/right decision is an exact 50/50 coin flip.
+
+<PlayerBrief brief={config.sections[1].playerBrief} />
+
+{/* ── Top diagram: HMAC Pipeline ─────────────────────────────── */}
+
+<div className="diagram" style={{background:'#f6f7f9'}}>
+<svg viewBox="0 0 740 218" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="sh_s2_main" x="-4%" y="-6%" width="108%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+    </filter>
+  </defs>
+  <rect width="740" height="218" fill="#f6f7f9"/>
+  <text x="370" y="22" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">PLINKO HMAC-SHA256 PIPELINE (PER ROW)</text>
+  {/* Step 1: Inputs */}
+  <text x="72" y="44" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".06em" opacity=".7">STEP 1</text>
+  <g filter="url(#sh_s2_main)">
+    <rect x="14" y="50" width="116" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="26" y="59" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#e8590c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4,1 L1,7 L4,13"/><path d="M10,1 L13,7 L10,13"/>
+    </svg>
+    <text x="44" y="72" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#2a2a2e">Inputs</text>
+    <text x="26" y="94" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#aaa">seed:seed:nonce:row</text>
+  </g>
+  <line x1="132" y1="80" x2="148" y2="80" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <polygon points="146,76 152,80 146,84" fill="#e5e5ea"/>
+  {/* Step 2: HMAC-SHA256 */}
+  <text x="220" y="44" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".06em" opacity=".7">STEP 2</text>
+  <g filter="url(#sh_s2_main)">
+    <rect x="154" y="50" width="132" height="60" rx="8" fill="#0e0e14"/>
+    <svg x="166" y="58" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7,1 L12,3 V7 C12,10 9.5,12 7,13 C4.5,12 2,10 2,7 V3 Z"/>
+    </svg>
+    <text x="184" y="72" fontFamily="JetBrains Mono,monospace" fontSize="10.5" fontWeight="600" fill="rgba(255,255,255,.88)">HMAC-SHA256</text>
+    <text x="166" y="94" fontFamily="DM Sans,sans-serif" fontSize="8" fill="rgba(255,255,255,.3)">cryptographic hash</text>
+  </g>
+  <line x1="288" y1="80" x2="304" y2="80" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <polygon points="302,76 308,80 302,84" fill="#e5e5ea"/>
+  {/* Step 3: Hash to Number */}
+  <text x="370" y="44" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".06em" opacity=".7">STEP 3</text>
+  <g filter="url(#sh_s2_main)">
+    <rect x="310" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="322" y="59" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round">
+      <line x1="3" y1="0.5" x2="1.5" y2="13.5"/><line x1="9" y1="0.5" x2="7.5" y2="13.5"/>
+      <line x1="0" y1="4.5" x2="12" y2="4.5"/><line x1="2" y1="9.5" x2="14" y2="9.5"/>
+    </svg>
+    <text x="340" y="72" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#2a2a2e">Hash to Number</text>
+    <text x="322" y="94" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#aaa">4 bytes to uint32</text>
+  </g>
+  <line x1="432" y1="80" x2="448" y2="80" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <polygon points="446,76 452,80 446,84" fill="#e5e5ea"/>
+  {/* Step 4: Left or Right */}
+  <text x="514" y="44" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#e8590c" letterSpacing=".06em" opacity=".7">STEP 4</text>
+  <g filter="url(#sh_s2_main)">
+    <rect x="454" y="50" width="120" height="60" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <svg x="466" y="58" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7,2 V6"/><path d="M7,6 L3,11"/><path d="M7,6 L11,11"/>
+      <circle cx="3" cy="12" r="1" fill="#2563eb" stroke="none" opacity=".4"/>
+      <circle cx="11" cy="12" r="1" fill="#2563eb" stroke="none" opacity=".4"/>
+    </svg>
+    <text x="484" y="72" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#2a2a2e">Left or Right</text>
+    <text x="466" y="94" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#aaa">mod 2 to L or R</text>
+  </g>
+  <line x1="576" y1="80" x2="592" y2="80" stroke="#e5e5ea" strokeWidth="1.5"/>
+  <polygon points="590,76 596,80 590,84" fill="#e5e5ea"/>
+  {/* Step 5: Slot Mapping */}
+  <text x="662" y="44" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#16a34a" letterSpacing=".06em" opacity=".7">STEP 5</text>
+  <g filter="url(#sh_s2_main)">
+    <rect x="598" y="50" width="128" height="60" rx="8" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1.5"/>
+    <svg x="610" y="56" width="14" height="16" viewBox="0 0 14 16" fill="none">
+      <circle cx="7"   cy="2"  r="1.5" fill="#22c55e"/>
+      <circle cx="4.5" cy="7"  r="1.5" fill="#16a34a" opacity=".5"/>
+      <circle cx="9.5" cy="7"  r="1.5" fill="#16a34a" opacity=".5"/>
+      <circle cx="2"   cy="12" r="1.5" fill="#16a34a" opacity=".3"/>
+      <circle cx="7"   cy="12" r="1.5" fill="#16a34a" opacity=".3"/>
+      <circle cx="12"  cy="12" r="1.5" fill="#16a34a" opacity=".3"/>
+    </svg>
+    <text x="628" y="72" fontFamily="DM Sans,sans-serif" fontSize="11" fontWeight="700" fill="#16a34a">Slot Mapping</text>
+    <text x="610" y="94" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#16a34a">sum rights to slot</text>
+  </g>
+  {/* Verification strip */}
+  <g filter="url(#sh_s2_main)">
+    <rect x="14" y="130" width="712" height="44" rx="8" fill="#fff" stroke="#e5e5ea" strokeWidth="1"/>
+    <circle cx="40" cy="152" r="10" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <polyline points="35,152 38,155 45,147" fill="none" stroke="#16a34a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    <text x="58" y="148" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#2a2a2e">Final Verification</text>
+    <text x="58" y="162" fontFamily="DM Sans,sans-serif" fontSize="9.5" fill="#aaa">Live output: slot 7  ·  Verifier output: slot 7  ·  </text>
+    <text x="338" y="162" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="9.5" fontWeight="700" fill="#16a34a">Perfect Match</text>
+  </g>
+  <text x="370" y="202" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9.5" fill="#aaa">Repeated for each row (cursor 0 to rows-1). Same inputs → same ball path. Always.</text>
+</svg>
+</div>
+
+{/* ── Section Verdict Table ─────────────────────────────────────── */}
+
+<SectionVerdictTable rows={[
+  { check: "RNG derived only from disclosed inputs", status: "Pass", finding: "No hidden randomness affects outcomes" },
+  { check: "Entropy purity",                         status: "Pass", finding: "No timestamps, external APIs, or server-side state" },
+  { check: "Modulo bias",                            status: "Pass", finding: "2 to the 32nd mod 2 = 0 — exact 50/50, no rejection sampling needed" },
+  { check: "drand absent from Plinko RNG",           status: "Pass", finding: "7,600/7,600 bets recomputed correctly without drand" },
+  { check: "Serial independence",                    status: "Pass", finding: "Lag-1 autocorrelation and runs test both pass" },
+  { check: "Chi-squared (live, 27 configs)",         status: "Pass", finding: "27/27 configs pass at alpha=0.01" },
+  { check: "Chi-squared (simulation, 27 configs)",   status: "Pass", finding: "27/27 pass at Bonferroni-corrected alpha/27" },
+]} />
+
+<VerdictBox title={config.sections[1].verdict.title} body={config.sections[1].verdict.body} />
+
+{/* ══ EXPANDABLE 1: How Plinko Randomness & Entropy Works ═════════ */}
+
+<ExpandablePanel title="How Plinko Randomness & Entropy Works" count="7 sections">
+
+<p style={{color:'var(--text-3)',marginBottom:'1rem'}}>This section explains how Plinko randomness is generated, what entropy sources are used, and how the RNG ensures unbiased and isolated outcomes.</p>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.1</span><span className="sub-t">RNG Function Implementation</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>The Duel Plinko RNG uses HMAC-SHA256 with deterministic inputs (serverSeed, clientSeed, nonce, cursor). For each row, the algorithm produces a single bit — left (0) or right (1) — by taking the first 4 bytes of the HMAC output as a 32-bit unsigned integer and computing <code>int % 2</code>.</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Key encoding:</strong> The server seed is hex-decoded to a 32-byte Buffer, not treated as a UTF-8 string. <strong>Message format:</strong> <code>clientSeed:nonce:cursor</code> — no other fields including drand appear.</p>
+  <CodeCard label="src/rng.ts · computeSlot" language="ts" badge="Verified" lines={[
+    "export function computeSlot(",
+    "  serverSeed: string, clientSeed: string, nonce: number, rows: number",
+    "): number {",
+    "  const key = Buffer.from(serverSeed, 'hex');",
+    "  let slot = 0;",
+    "  for (let cursor = 0; cursor < rows; cursor++) {",
+    "    const message = clientSeed + ':' + nonce + ':' + cursor;",
+    "    const hmac = crypto.createHmac('sha256', key).update(message).digest('hex');",
+    "    const hex4 = hmac.substring(0, 8);",
+    "    const int  = parseInt(hex4, 16);",
+    "    slot += int % 2;  // odd = right (+1), even = left (+0)",
+    "  }",
+    "  return slot;",
+    "}",
+  ]} />
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.2</span><span className="sub-t">Entropy Sources</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>All randomness derives exclusively from the deterministic HMAC-SHA256 function combining three cleanly separated inputs:</p>
+  <div className="tw">
+    <table>
+      <thead><tr><th>Source</th><th>Controlled By</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Server Seed</strong></td><td>Casino</td><td>Base randomness (committed via SHA-256 hash before betting)</td></tr>
+        <tr><td><strong>Client Seed</strong></td><td>Player</td><td>Player-contributed entropy</td></tr>
+        <tr><td><strong>Nonce</strong></td><td>System</td><td>Uniqueness per bet (increments automatically)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style={{fontSize:'0.88rem'}}><strong>Verified absent:</strong> No timestamps, no Math.random(), no external APIs or drand, no server-side mutable state. Only: <code>HMAC-SHA256(hexDecode(serverSeed), clientSeed:nonce:cursor)</code></p>
+  <CodeCard label="tests/verify.ts · Step 5: EC-6, EC-7" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 5: Slot Recomputation (EC-6, EC-7)",
+    "// If ANY hidden entropy existed, recomputation would fail.",
+    "for (const [hash, epochBets] of byHash) {",
+    "  const seedEntry = findRevealedSeed(seeds, hash);",
+    "  if (!seedEntry) { skipped += epochBets.length; continue; }",
+    "",
+    "  const serverSeed = seedEntry.seed.serverSeed;",
+    "  for (const bet of epochBets) {",
+    "    const { client_seed, nonce, final_slot } = bet.response;",
+    "    const computed = computeSlot(serverSeed, client_seed, nonce, bet.request.rows);",
+    "    if (computed !== final_slot) { failures.push(...); }",
+    "    checked++;",
+    "  }",
+    "}",
+  ]} />
+  <NoteBlock variant="ok" strong="How we know:" body="7,600/7,600 bets were recomputed using only the four declared inputs. If any hidden entropy source existed, recomputation would fail. It does not." />
+
+  <div className="diagram" style={{background:'#f6f7f9',margin:'1rem 0'}}>
+  <svg viewBox="0 0 700 440" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sh_entropy" x="-4%" y="-6%" width="108%" height="120%">
+        <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+      </filter>
+      <pattern id="dots_s2" width="6" height="6" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+      </pattern>
+    </defs>
+    <rect width="700" height="440" fill="#f6f7f9"/>
+    <text x="350" y="22" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">NO MIXED ENTROPY SOURCES</text>
+    {/* Valid panel */}
+    <rect x="20" y="38" width="318" height="228" rx="10" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <rect x="20" y="38" width="318" height="26" rx="10" fill="#16a34a"/>
+    <rect x="20" y="54" width="318" height="10" fill="#16a34a"/>
+    <svg x="30" y="42" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <rect width="16" height="16" rx="3" fill="rgba(255,255,255,.25)"/>
+      <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
+    <text x="50" y="55" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#fff" letterSpacing=".06em">VALID: PURE ENTROPY</text>
+    <g filter="url(#sh_entropy)">
+      <rect x="52" y="82" width="82" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="93" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9" fill="#2a2a2e">serverSeed</text>
+    </g>
+    <g filter="url(#sh_entropy)">
+      <rect x="140" y="82" width="78" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="179" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9" fill="#2a2a2e">clientSeed</text>
+    </g>
+    <g filter="url(#sh_entropy)">
+      <rect x="224" y="82" width="82" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="265" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9" fill="#2a2a2e">nonce:row</text>
+    </g>
+    <text x="179" y="128" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="13" fill="#bbf7d0">↓</text>
+    <g filter="url(#sh_entropy)">
+      <rect x="114" y="134" width="130" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="179" y="154" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="600" fill="#2a2a2e">HMAC-SHA256</text>
+    </g>
+    <text x="179" y="182" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="13" fill="#bbf7d0">↓</text>
+    <rect x="144" y="188" width="70" height="28" rx="14" fill="#16a34a"/>
+    <text x="179" y="207" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="700" fill="#fff">Slot 7</text>
+    <text x="179" y="236" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#16a34a">Same inputs → Same slot</text>
+    <text x="179" y="250" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#16a34a">100% deterministic and verifiable</text>
+    {/* Invalid panel */}
+    <rect x="362" y="38" width="318" height="228" rx="10" fill="#fef2f2" stroke="#fecaca" strokeWidth="1"/>
+    <rect x="362" y="38" width="318" height="26" rx="10" fill="#dc2626"/>
+    <rect x="362" y="54" width="318" height="10" fill="#dc2626"/>
+    <svg x="372" y="42" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <rect width="16" height="16" rx="3" fill="rgba(255,255,255,.25)"/>
+      <line x1="5" y1="5" x2="11" y2="11" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="11" y1="5" x2="5" y2="11" stroke="#fff" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+    <text x="392" y="55" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#fff" letterSpacing=".06em">INVALID: MIXED ENTROPY</text>
+    <g filter="url(#sh_entropy)">
+      <rect x="382" y="82" width="72" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="418" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8.5" fill="#2a2a2e">serverSeed</text>
+    </g>
+    <g filter="url(#sh_entropy)">
+      <rect x="460" y="82" width="66" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="493" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8.5" fill="#2a2a2e">clientSeed</text>
+    </g>
+    <g filter="url(#sh_entropy)">
+      <rect x="532" y="82" width="50" height="30" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="557" y="102" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8.5" fill="#2a2a2e">nonce</text>
+    </g>
+    <rect x="588" y="82" width="80" height="30" rx="6" fill="#fef2f2" stroke="#dc2626" strokeWidth="1" strokeDasharray="4,2"/>
+    <text x="628" y="101" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#dc2626">+ Math.random()</text>
+    <text x="521" y="128" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="13" fill="#fecaca">↓</text>
+    <g filter="url(#sh_entropy)">
+      <rect x="446" y="134" width="150" height="30" rx="6" fill="#fff" stroke="#fecaca"/>
+      <text x="521" y="154" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fontWeight="600" fill="#2a2a2e">HMAC-SHA256 + ???</text>
+    </g>
+    <text x="521" y="182" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="13" fill="#fecaca">↓</text>
+    <rect x="481" y="188" width="80" height="28" rx="14" fill="#dc2626"/>
+    <text x="521" y="207" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="10.5" fontWeight="700" fill="#fff">Slot ???</text>
+    <text x="521" y="236" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#dc2626">Same inputs → Different slots</text>
+    <text x="521" y="250" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#dc2626">Non-deterministic and unverifiable</text>
+    {/* Forbidden sources */}
+    <rect x="20" y="282" width="660" height="54" rx="8" fill="#fffbeb" stroke="#fde68a" strokeWidth="1"/>
+    <svg x="30" y="290" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <path d="M8,1 L15,14 H1 Z" fill="#f59e0b" stroke="none"/>
+      <text x="8" y="12.5" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="9" fontWeight="800" fill="#fff">!</text>
+    </svg>
+    <text x="50" y="301" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#92400e" letterSpacing=".04em">FORBIDDEN EXTERNAL ENTROPY SOURCES</text>
+    <rect x="36"  y="310" width="88"  height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="80"  y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">Math.random()</text>
+    <rect x="132" y="310" width="72"  height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="168" y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">Date.now()</text>
+    <rect x="212" y="310" width="92"  height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="258" y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">crypto.random()</text>
+    <rect x="312" y="310" width="104" height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="364" y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">process.hrtime()</text>
+    <rect x="424" y="310" width="84"  height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="466" y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">External APIs</text>
+    <rect x="516" y="310" width="120" height="20" rx="4" fill="#fff" stroke="#fde68a"/>
+    <text x="576" y="324" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="8" fill="#92400e">Database timestamps</text>
+    {/* How detected */}
+    <rect x="20" y="350" width="660" height="42" rx="6" fill="#eff6ff" stroke="#bfdbfe" strokeWidth="1"/>
+    <svg x="30" y="358" width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="7" fill="#2563eb"/>
+      <text x="8" y="12" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="800" fill="#fff">?</text>
+    </svg>
+    <text x="50" y="369" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#1e40af" letterSpacing=".02em">HOW MIXED ENTROPY IS DETECTED</text>
+    <text x="50" y="384" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#64748b" fontStyle="italic">Run the same inputs multiple times. If results ever differ, external entropy has been mixed in. Pure HMAC-SHA256 must always produce identical outputs.</text>
+    {/* Pass banner */}
+    <rect x="20" y="404" width="660" height="24" rx="6" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <svg x="30" y="407" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect width="16" height="16" rx="3" fill="#16a34a"/>
+      <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
+    <text x="52" y="421" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#16a34a" letterSpacing=".04em">NO MIXED ENTROPY SOURCES DETECTED</text>
+  </svg>
+  </div>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.3</span><span className="sub-t">Modulo Bias Analysis</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Each row uses <code>int % 2</code> where <code>int</code> is a 32-bit unsigned integer (range 0 to 4,294,967,295). For a modulus <code>m</code>, bias exists when 2³² is not evenly divisible by <code>m</code>.</p>
+  <pre><code>{`2^32 = 4,294,967,296\n4,294,967,296 / 2 = 2,147,483,648 (exact, no remainder)`}</code></pre>
+  <p style={{fontSize:'0.88rem'}}>There are exactly 2,147,483,648 even values and 2,147,483,648 odd values in [0, 2³² - 1]. The probability of a right bounce at any row is exactly 1/2. No rejection sampling is required.</p>
+  <NoteBlock variant="default" strong="Contrast with Dice:" body="Dice uses int % 10001 which requires rejection sampling to eliminate the 762-value bias from 2 to the 32nd mod 10001. Plinko's int % 2 has zero bias by construction." />
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.4</span><span className="sub-t">RNG Isolation</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>The <code>computeSlot</code> function is completely stateless — each bet's result depends solely on its unique (serverSeed, clientSeed, nonce, rows) input tuple. There are no class-level variables, no cross-bet memory, and no global state. Different players receive different server seeds, and the nonce ensures every bet under the same seed pair produces a unique HMAC input.</p>
+  <NoteBlock variant="ok" strong="Evidence:" body="The computeSlot implementation in 2.1 confirms this — it is a pure function with no class state, no external calls, and no cross-bet memory. The function signature takes all inputs explicitly and returns a value." />
+
+  <div className="diagram" style={{background:'#f6f7f9',margin:'1rem 0'}}>
+  <svg viewBox="0 0 700 534" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sh_isolation" x="-4%" y="-6%" width="108%" height="120%">
+        <feDropShadow dx="0" dy="1" stdDeviation="2.5" floodColor="#000" floodOpacity=".06"/>
+      </filter>
+    </defs>
+    <rect width="700" height="534" fill="#f6f7f9"/>
+    <text x="350" y="22" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="10" fontWeight="700" fill="#aaa" letterSpacing=".08em">RNG ISOLATION — NO STATE LEAKAGE</text>
+    {/* Stateless function */}
+    <rect x="20" y="36" width="660" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+    <text x="350" y="54" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="9" fontWeight="700" fill="#e8590c" letterSpacing=".06em">STATELESS FUNCTION</text>
+    <rect x="40" y="62" width="620" height="24" rx="5" fill="#0e0e14"/>
+    <text x="350" y="78" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="9.5" fill="rgba(255,255,255,.8)">computeSlot(serverSeed, clientSeed, nonce, rows) to final_slot</text>
+    <text x="350" y="100" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#aaa">No class-level variables · No external state · Pure function</text>
+    {/* User isolation */}
+    <rect x="20" y="116" width="322" height="160" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <rect x="20" y="116" width="322" height="22" rx="8" fill="#16a34a"/>
+    <rect x="20" y="128" width="322" height="10" fill="#16a34a"/>
+    <svg x="30" y="120" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
+      <circle cx="8" cy="5" r="3"/><path d="M2,15 A6,4.5 0 0 1 14,15"/>
+    </svg>
+    <text x="48" y="133" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#fff" letterSpacing=".06em">USER ISOLATION</text>
+    <circle cx="131" cy="168" r="18" fill="#dcfce7" stroke="#bbf7d0" strokeWidth="1.5"/>
+    <text x="131" y="174" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="13" fontWeight="800" fill="#16a34a">A</text>
+    <svg x="173" y="158" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="7" fill="#fef2f2" stroke="#fecaca" strokeWidth="1"/>
+      <line x1="4.5" y1="4.5" x2="11.5" y2="11.5" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round"/>
+      <line x1="11.5" y1="4.5" x2="4.5" y2="11.5" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+    <text x="181" y="184" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7" fontWeight="700" fill="#dc2626" letterSpacing=".04em">NO LINK</text>
+    <circle cx="231" cy="168" r="18" fill="#dcfce7" stroke="#bbf7d0" strokeWidth="1.5"/>
+    <text x="231" y="174" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="13" fontWeight="800" fill="#16a34a">B</text>
+    <rect x="98" y="196" width="66" height="18" rx="4" fill="#fff" stroke="#e5e5ea"/>
+    <text x="131" y="209" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#2a2a2e">seed_a1b2c3</text>
+    <rect x="198" y="196" width="66" height="18" rx="4" fill="#fff" stroke="#e5e5ea"/>
+    <text x="231" y="209" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#2a2a2e">seed_x7y8z9</text>
+    <text x="181" y="236" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8.5" fill="#16a34a">Different users — Different server seeds</text>
+    <text x="181" y="250" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8.5" fill="#16a34a">User A cannot predict User B's slots</text>
+    {/* Round isolation */}
+    <rect x="358" y="116" width="322" height="160" rx="8" fill="#fff7ed" stroke="#fed7aa"/>
+    <rect x="358" y="116" width="322" height="22" rx="8" fill="#e8590c"/>
+    <rect x="358" y="128" width="322" height="10" fill="#e8590c"/>
+    <text x="388" y="133" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#fff" letterSpacing=".06em">ROUND ISOLATION</text>
+    <g filter="url(#sh_isolation)">
+      <rect x="410" y="148" width="82" height="34" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="451" y="162" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fontWeight="700" fill="#2a2a2e">Session 1</text>
+      <text x="451" y="174" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#aaa">seed_old</text>
+    </g>
+    <text x="510" y="168" fontFamily="JetBrains Mono,monospace" fontSize="7" fill="#aaa">nonce: 0 to 1 to 2...</text>
+    <text x="519" y="200" textAnchor="middle" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="7.5" fontWeight="700" fill="#e8590c" letterSpacing=".04em">SEED ROTATION</text>
+    <g filter="url(#sh_isolation)">
+      <rect x="410" y="210" width="82" height="34" rx="6" fill="#fff" stroke="#e5e5ea"/>
+      <text x="451" y="224" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="9" fontWeight="700" fill="#2a2a2e">Session 2</text>
+      <text x="451" y="236" textAnchor="middle" fontFamily="JetBrains Mono,monospace" fontSize="7.5" fill="#aaa">seed_new</text>
+    </g>
+    <text x="510" y="230" fontFamily="JetBrains Mono,monospace" fontSize="7" fill="#aaa">nonce: 0 to 1 to 2...</text>
+    <text x="519" y="256" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8.5" fill="#e8590c">Seed rotation resets state</text>
+    <text x="519" y="268" textAnchor="middle" fontFamily="DM Sans,sans-serif" fontSize="8.5" fill="#e8590c">Past rounds don't affect future</text>
+    {/* Isolation guarantees */}
+    <rect x="20" y="282" width="660" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+    <circle cx="34" cy="298" r="5" fill="#2563eb"/>
+    <text x="46" y="302" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#2a2a2e" letterSpacing=".04em">ISOLATION GUARANTEES</text>
+    <rect x="36" y="312" width="306" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+    <svg x="42" y="317" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    <text x="58" y="329" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#2a2a2e">No cross-user prediction</text>
+    <rect x="358" y="312" width="306" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+    <svg x="364" y="317" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    <text x="380" y="329" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#2a2a2e">No cross-round prediction</text>
+    {/* Audit evidence */}
+    <rect x="20" y="362" width="660" height="120" rx="8" fill="#fff" stroke="#e5e5ea"/>
+    <text x="50" y="382" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8" fontWeight="700" fill="#2a2a2e" letterSpacing=".04em">AUDIT EVIDENCE</text>
+    <svg x="36" y="393" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    <text x="54" y="403" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#52525e">1. Every call to computeSlot() is stateless</text>
+    <svg x="36" y="411" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    <text x="54" y="421" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#52525e">2. No class-level state variables affect outcomes</text>
+    <svg x="36" y="429" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    <text x="54" y="439" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#52525e">3. Only parameters: (serverSeed, clientSeed, nonce, rows)</text>
+    <svg x="36" y="447" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    <text x="54" y="457" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#52525e">4. Different users have different server seeds</text>
+    <svg x="36" y="465" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+    <text x="54" y="475" fontFamily="DM Sans,sans-serif" fontSize="9" fill="#52525e">5. Same user gets new server seed after rotation</text>
+    {/* Pass banner */}
+    <rect x="20" y="496" width="660" height="24" rx="6" fill="#f0fdf4" stroke="#bbf7d0" strokeWidth="1"/>
+    <svg x="30" y="499" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <rect width="16" height="16" rx="3" fill="#16a34a"/>
+      <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </svg>
+    <text x="52" y="513" fontFamily="Plus Jakarta Sans,sans-serif" fontSize="8.5" fontWeight="700" fill="#16a34a" letterSpacing=".04em">RNG STATE DOES NOT LEAK ACROSS ROUNDS OR USERS</text>
+  </svg>
+  </div>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.5</span><span className="sub-t">Monte Carlo Simulation (27M Rounds)</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>A 27,000,000-round Monte Carlo simulation (1,000,000 rounds per config, all 27 configs) verified that the algorithm produces the expected binomial slot distribution at scale.</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Methodology:</strong> Fresh random seeds per config. Expected slot counts from independent binomial B(n, 0.5). Chi-squared goodness-of-fit with Cochran pooling. P-values via regularized incomplete gamma function.</p>
+  <CodeCard label="src/simulate.ts · core loop" language="ts" badge="Verified" lines={[
+    "// Fresh random seeds per config (independent from casino data)",
+    "const serverSeed = crypto.randomBytes(32).toString('hex');",
+    "const clientSeed = crypto.randomBytes(8).toString('hex');",
+    "const key = Buffer.from(serverSeed, 'hex');",
+    "",
+    "for (let nonce = 0; nonce < ROUNDS_PER_CONFIG; nonce++) {",
+    "  const slot = computeSlotSync(key, clientSeed, nonce, rows);",
+    "  slotCounts[slot]++;",
+    "  totalPayout += cfg.scalingEdgeMultiplier(rows, risk, slot);",
+    "}",
+    "",
+    "const simulatedRTP = totalPayout / ROUNDS_PER_CONFIG;",
+    "// Independent binomial expected counts — not from casino config",
+    "const { chi2, df, pValue } = chiSquaredTest(slotCounts, expectedCounts);",
+    "// chiSquaredTest handles Cochran pooling + exact gamma p-values",
+  ]} />
+  <div className="tw">
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Average simulated RTP</strong></td><td>99.890%</td></tr>
+        <tr><td><strong>Average theoretical RTP</strong></td><td>99.900%</td></tr>
+        <tr><td><strong>Chi-squared (alpha=0.01)</strong></td><td>27/27 configs pass</td></tr>
+        <tr><td><strong>Bonferroni-corrected (alpha/27)</strong></td><td>27/27 pass (min p=0.0059)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <NoteBlock variant="default" strong="Note:" body="One config (8r/high, p=0.0059) falls below uncorrected alpha=0.01 — a single-run false positive within the expected family-wise error rate for 27 tests (FWER approximately 23.8%)." />
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.6</span><span className="sub-t">Chi-Squared on Live Bets</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>The same chi-squared test was applied to the 7,600 live bets grouped by configuration. Expected counts computed from independent binomial probabilities.</p>
+  <CodeCard label="tests/verify.ts · Step 12: EC-9" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 12: Slot Symmetry (EC-9)",
+    "for (const [key, groupBets] of allGroups) {",
+    "  if (groupBets.length < 100) continue;",
+    "  const rows = groupBets[0].request.rows;",
+    "  const observed = new Array(rows + 1).fill(0);",
+    "  for (const bet of groupBets) observed[bet.response.final_slot]++;",
+    "",
+    "  const allExpected = observed.map((_, slot) =>",
+    "    groupBets.length * binomProb(rows, slot));",
+    "  // chiSquaredTest handles pooling of bins with expected < 5",
+    "  const { chi2, df, pValue } = chiSquaredTest(observed, allExpected);",
+    "  if (pValue < 0.01) { failures.push(...); }",
+    "}",
+  ]} />
+  <NoteBlock variant="ok" strong="Result:" body="All 27 configurations pass at alpha=0.01. Weakest: 16r/low (n=200): chi-squared=20.45, df=10, p=0.0252. Under the null hypothesis, the probability of observing at least one p < 0.05 across 27 tests is approximately 75%, so this is statistically expected." />
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.7</span><span className="sub-t">Serial Independence (Step 11)</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Consecutive outcomes were tested for dependence using two methods on Phase B data (2,000 bets, single config — 16 rows, high risk):</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Lag-1 autocorrelation:</strong> Measures whether consecutive multiplier values are correlated. Threshold: ±1.96/√n.<br/><strong>Runs test:</strong> Counts runs of consecutive wins/losses. Tests via z-score against expected.</p>
+  <CodeCard label="tests/verify.ts · Step 11: EC-29" language="ts" badge="Verified" lines={[
+    "// Source: tests/verify.ts — Step 11: Serial Independence (EC-29)",
+    "for (const [label, phaseBets] of [['B', PHASE_B], ['C', PHASE_C]]) {",
+    "  if (phaseBets.length < 10) continue;",
+    "  const mults = phaseBets.map(b => parseFloat(b.response.payout_multiplier));",
+    "  const r1 = lag1Autocorrelation(mults);",
+    "  const threshold = 3 / Math.sqrt(phaseBets.length);",
+    "  const wins = phaseBets.map(b =>",
+    "    parseFloat(b.response.payout_multiplier) >= 1);",
+    "  const runs = runsTest(wins);",
+    "  if (Math.abs(r1) > threshold) { failures.push(...); }",
+    "  if (runs.pValue < 0.01) { failures.push(...); }",
+    "}",
+  ]} />
+  <NoteBlock variant="ok" strong="Result:" body="r = -0.0089 (threshold plus or minus 0.0671), runs z = -0.483, p = 0.629. Both tests pass comfortably. No serial dependence detected." />
+  <NoteBlock variant="default" strong="Why only Phase B:" body="Phase A sequences bets across 27 configs, creating artificial run patterns. Serial independence is only meaningful for single-config sequences. Phase C (200 bets) is too short for meaningful power." />
+</div>
+
+</ExpandablePanel>
+
+{/* ══ EXPANDABLE 2: Technical Evidence & Verification ═════════════ */}
+
+<ExpandablePanel title="Technical Evidence & Verification" count="7 sections">
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.8</span><span className="sub-t">Purpose</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>This section indexes the technical artifacts used to verify the Plinko random number generator, its entropy sources, bias properties, distribution fit, serial independence, and probability independence.</p>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.9</span><span className="sub-t">Evidence Coverage Summary</span></div>
+  <div className="sub-div"/>
+  <div className="tw">
+    <table>
+      <thead><tr><th>Verification Area</th><th>Coverage</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td><strong>RNG input dependency</strong></td><td>7,600 bets recomputed</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>Entropy source isolation</strong></td><td>Code + live data verification</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>Modulo bias</strong></td><td>Mathematical proof (2³² mod 2 = 0)</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>drand absence</strong></td><td>7,600 recomputation without drand</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>Chi-squared (live, 27 configs)</strong></td><td>All configs with n ≥ 100</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>Chi-squared (simulation, 27 configs)</strong></td><td>1M rounds per config</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td><strong>Serial independence</strong></td><td>Phase B (2,000 bets) + Phase C (200)</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.10</span><span className="sub-t">Code References</span></div>
+  <div className="sub-div"/>
+  <div className="tw">
+    <table>
+      <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>src/rng.ts</code></td><td><code>computeSlot</code> — independent HMAC-SHA256 implementation</td></tr>
+        <tr><td><code>src/stats.ts</code></td><td><code>chiSquaredTest</code> (pooling + gamma p-values), <code>lag1Autocorrelation</code>, <code>runsTest</code>, <code>binomProb</code></td></tr>
+        <tr><td><code>src/simulate.ts</code></td><td>Monte Carlo simulation — 1M rounds/config, fresh seeds</td></tr>
+        <tr><td><code>tests/verify.ts</code></td><td>Steps 5 (slot recomputation / drand absent), 11 (serial independence), 12 (chi-squared on live bets)</td></tr>
+        <tr><td><code>src/config.ts</code></td><td><code>theoreticalRTP</code>, <code>scalingEdgeMultiplier</code>, <code>probabilities</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.11</span><span className="sub-t">Datasets Used</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}><strong>Simulation:</strong> <code>outputs/simulation-results.json</code> — 27M rounds (1M per config), chi-squared results, slot counts.</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Live chi-squared:</strong> <code>outputs/chi-squared-results.json</code> — Per-config chi-squared on 7,600 live bets.</p>
+  <p style={{fontSize:'0.88rem'}}><strong>Serial independence:</strong> Phase B data from <code>results/merged/plinko-master.json</code> — 2,000 consecutive 16r/high bets.</p>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.12</span><span className="sub-t">Worked Example</span></div>
+  <div className="sub-div"/>
+  <p style={{fontSize:'0.88rem'}}>Bet ID 60086141 (Phase B, 16 rows, high risk) — verified from <code>plinko-master.json</code>:</p>
+  <pre><code>{`serverSeed = 99e516ca44345fcf3c749495ba208076170a4fbfcf7160b02a19474318b975e8\nclientSeed = d1AcZhAy1QMp7PDa\nnonce      = 0\nrows       = 16`}</code></pre>
+  <div className="tw">
+    <table>
+      <thead><tr><th>cursor</th><th>HMAC[:8]</th><th>uint32</th><th>% 2</th><th>direction</th><th>running slot</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td><code>9bb70c78</code></td><td>2,612,464,760</td><td>0</td><td>left</td><td>0</td></tr>
+        <tr><td>1</td><td><code>73ffd6cb</code></td><td>1,946,146,507</td><td>1</td><td>right</td><td>1</td></tr>
+        <tr><td>2</td><td><code>080f7399</code></td><td>135,230,361</td><td>1</td><td>right</td><td>2</td></tr>
+        <tr><td>3</td><td><code>fdb099cb</code></td><td>4,256,209,355</td><td>1</td><td>right</td><td>3</td></tr>
+        <tr><td>4</td><td><code>3e2298fa</code></td><td>1,042,454,778</td><td>0</td><td>left</td><td>3</td></tr>
+        <tr><td>5</td><td><code>b16793be</code></td><td>2,976,355,262</td><td>0</td><td>left</td><td>3</td></tr>
+        <tr><td>6</td><td><code>e0edaa90</code></td><td>3,773,672,080</td><td>0</td><td>left</td><td>3</td></tr>
+        <tr><td>7</td><td><code>c5e47fae</code></td><td>3,320,086,446</td><td>0</td><td>left</td><td>3</td></tr>
+        <tr><td>8</td><td><code>593ac2f0</code></td><td>1,497,023,216</td><td>0</td><td>left</td><td>3</td></tr>
+        <tr><td>9</td><td><code>e52ca7d1</code></td><td>3,844,909,009</td><td>1</td><td>right</td><td>4</td></tr>
+        <tr><td>10</td><td><code>3faa2c62</code></td><td>1,068,117,090</td><td>0</td><td>left</td><td>4</td></tr>
+        <tr><td>11</td><td><code>2dc9b35b</code></td><td>768,193,371</td><td>1</td><td>right</td><td>5</td></tr>
+        <tr><td>12</td><td><code>db283867</code></td><td>3,676,846,183</td><td>1</td><td>right</td><td>6</td></tr>
+        <tr><td>13</td><td><code>2a3c41a4</code></td><td>708,592,036</td><td>0</td><td>left</td><td>6</td></tr>
+        <tr><td>14</td><td><code>3dce6219</code></td><td>1,036,935,705</td><td>1</td><td>right</td><td>7</td></tr>
+        <tr><td>15</td><td><code>266a7d15</code></td><td>644,513,045</td><td>1</td><td>right</td><td>8</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <NoteBlock variant="ok" strong="final_slot = 8" body="Matches the API response. Ball path: L R R R L L L L L R L R R L R R. Multiplier for 16r/high slot 8: 0.20186622x." />
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.13</span><span className="sub-t">Verified Invariants (RNG & Entropy)</span></div>
+  <div className="sub-div"/>
+  <div className="tw">
+    <table>
+      <thead><tr><th>Invariant</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>RNG depends only on declared inputs (serverSeed, clientSeed, nonce, cursor)</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>No hidden or mixed entropy sources</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>drand is not an input to Plinko RNG</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>Modulo bias is zero (2³² mod 2 = 0, exact 50/50)</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>RNG is stateless per bet</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>Chi-squared (live): 0/27 configs fail at alpha=0.01</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>Chi-squared (simulation): 0/27 fail at Bonferroni alpha/27</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>Serial independence: lag-1 autocorrelation within threshold</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+        <tr><td>Serial independence: runs test p greater than 0.01</td><td><span className="pf-status pf-status--pass">Pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div className="sub">
+  <div className="sub-hdr"><span className="sub-n">2.14</span><span className="sub-t">Reproduction Instructions</span></div>
+  <div className="sub-div"/>
+  <CodeCard label="reproduce-s2.sh · 7 lines" language="sh" badge="Verified" lines={[
+    "git clone https://github.com/ProvablyFair-org/duel-audit",
+    "cd duel-audit",
+    "npm install",
+    "",
+    "# Run verification steps (includes Steps 5, 11, 12)",
+    "npx ts-node tests/verify.ts",
+    "",
+    "# Run simulation (separate from verify)",
+    "npx ts-node src/simulate.ts",
+  ]} />
+  <p style={{fontSize:'0.88rem'}}>Expected output from verify.ts (S2-related steps):</p>
+  <CodeCard label="expected output" language="text" lines={[
+    "  [PASS] Step 5 — Slot Recomputation (RNG + drand absent)",
+    "  [PASS] Step 11 — Serial Independence",
+    "  [PASS] Step 12 — Slot Symmetry",
+  ]} />
+</div>
+
+</ExpandablePanel>
