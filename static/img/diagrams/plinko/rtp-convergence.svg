@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s4" x="-4%" y="-4%" width="108%" height="116%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.06"/>
+        </filter>
+        <linearGradient id="sdFill_s4" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#dc2626" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#dc2626" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <rect width="720" height="240" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="360" y="22" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">PLINKO RTP CONVERGENCE — 27M SIMULATED ROUNDS (AVG OF 27 CONFIGS)</text>
+
+      <!-- Chart area -->
+      <rect x="60" y="38" width="620" height="130" rx="0" fill="#fff" stroke="#e5e5ea" stroke-width="0.5"/>
+
+      <!-- Y-axis labels -->
+      <text x="54" y="50" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">100.8%</text>
+      <text x="54" y="76" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">100.4%</text>
+      <text x="54" y="102" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">100.0%</text>
+      <text x="54" y="128" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">99.6%</text>
+      <text x="54" y="154" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">99.2%</text>
+
+      <!-- Grid lines -->
+      <line x1="60" y1="47" x2="680" y2="47" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="60" y1="73" x2="680" y2="73" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="60" y1="99" x2="680" y2="99" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="60" y1="125" x2="680" y2="125" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="60" y1="151" x2="680" y2="151" stroke="#f0f0f0" stroke-width="0.5"/>
+
+      <!-- X-axis labels -->
+      <text x="60" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">0</text>
+      <text x="163" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">5M</text>
+      <text x="267" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">10M</text>
+      <text x="370" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">15M</text>
+      <text x="473" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">20M</text>
+      <text x="577" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">25M</text>
+      <text x="680" y="178" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">27M</text>
+      <text x="370" y="192" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" fill="#aaa">Simulated Rounds (1M per config × 27 configs)</text>
+
+      <!-- Theoretical RTP line at 99.9% → y=99 + (100.0-99.9)/0.4*26 = 99 + 2.6 ≈ 101.6 -->
+      <!-- Scale: 100.8% = y47, 99.2% = y151. Range = 1.6%, height = 104px. 1% = 65px -->
+      <!-- 99.9% → 47 + (100.8 - 99.9) * 65 = 47 + 58.5 = 105.5 -->
+      <line x1="60" y1="105.5" x2="680" y2="105.5" stroke="#e8590c" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.7"/>
+
+      <!-- SD band (narrowing) -->
+      <!-- Upper band: starts wide at ~100.6%, narrows to ~100.0% -->
+      <!-- Lower band: starts wide at ~99.3%, narrows to ~99.8% -->
+      <!-- 100.6% → 47 + (100.8-100.6)*65 = 47+13 = 60 -->
+      <!-- 100.0% → 47 + (100.8-100.0)*65 = 47+52 = 99 -->
+      <!-- 99.3% → 47 + (100.8-99.3)*65 = 47+97.5 = 144.5 -->
+      <!-- 99.8% → 47 + (100.8-99.8)*65 = 47+65 = 112 -->
+      <path d="M60,44 L100,56 L163,65 L230,74 L300,82 L370,88 L440,93 L510,97 L577,100 L640,102 L680,103
+               L680,110 L640,110 L577,112 L510,114 L440,118 L370,122 L300,130 L230,137 L163,143 L100,150 L60,158 Z" fill="url(#sdFill_s4)"/>
+      <path d="M60,44 L100,56 L163,65 L230,74 L300,82 L370,88 L440,93 L510,97 L577,100 L640,102 L680,103" fill="none" stroke="#dc2626" stroke-width="0.8" opacity="0.3"/>
+      <path d="M60,158 L100,150 L163,143 L230,137 L300,130 L370,122 L440,118 L510,114 L577,112 L640,110 L680,110" fill="none" stroke="#dc2626" stroke-width="0.8" opacity="0.3"/>
+
+      <!-- RTP line (converging to 99.890% → 47 + (100.8-99.89)*65 = 47+59.15 = 106.15) -->
+      <path d="M60,52 L83,70 L100,82 L130,94 L163,98 L200,96 L240,103 L280,100 L320,104 L370,102 L420,105 L470,104 L520,106 L560,105.5 L600,106 L640,106 L680,106.2" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- End dot -->
+      <circle cx="680" cy="106.2" r="3.5" fill="#2563eb"/>
+
+      <!-- Legend -->
+      <g transform="translate(80,204)">
+        <line x1="0" y1="5" x2="16" y2="5" stroke="#2563eb" stroke-width="2"/>
+        <text x="22" y="9" font-family="DM Sans,sans-serif" font-size="9.5" fill="#777">Avg RTP</text>
+
+        <line x1="80" y1="5" x2="96" y2="5" stroke="#dc2626" stroke-width="1" opacity="0.4"/>
+        <text x="102" y="9" font-family="DM Sans,sans-serif" font-size="9.5" fill="#777">Std Dev</text>
+
+        <line x1="152" y1="5" x2="168" y2="5" stroke="#e8590c" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="174" y="9" font-family="DM Sans,sans-serif" font-size="9.5" fill="#777">Theoretical (99.9%)</text>
+
+        <rect x="310" y="-1" width="6" height="12" rx="2" fill="url(#sdFill_s4)" stroke="#dc2626" stroke-width="0.5" opacity="0.5"/>
+        <text x="322" y="9" font-family="DM Sans,sans-serif" font-size="9.5" fill="#777">Confidence band</text>
+      </g>
+
+      <!-- Result callout -->
+      <g filter="url(#sh_s4)">
+        <rect x="522" y="204" width="170" height="24" rx="6" fill="#fff" stroke="#bbf7d0" stroke-width="1"/>
+        <text x="536" y="220" font-family="DM Sans,sans-serif" font-size="10" fill="#777">Final RTP: </text>
+        <text x="592" y="220" font-family="Plus Jakarta Sans,sans-serif" font-size="10.5" font-weight="700" fill="#16a34a">99.890%</text>
+        <text x="645" y="220" font-family="DM Sans,sans-serif" font-size="10" fill="#777"> ✓</text>
+      </g>
+</svg>

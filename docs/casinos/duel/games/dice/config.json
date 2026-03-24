@@ -2,7 +2,7 @@
   "name": "Dice",
   "slug": "dice",
   "icon": "dice",
-  "status": "CERTIFIED",
+  "status": "PENDING",
   "summaryCard": {
     "rngModel": "HMAC-SHA256",
     "betsVerified": "8,600",
@@ -12,10 +12,10 @@
     "integrityChecks": "20 / 20"
   },
   "hero": {
-    "title": "Duel: Dice Audit",
-    "subtitle": "Provably Fair Verification Report",
-    "auditDate": "February 2026",
-    "auditId": "PF-2026-002",
+    "title": "Laser : Dice Audit",
+    "subtitle": "Provably Fair Verification Report for Laser",
+    "auditDate": "April 2025",
+    "auditId": "PF-2025-004",
     "certifiedBy": "ProvablyFair.org",
     "badges": [
       {
@@ -23,11 +23,11 @@
         "variant": "green"
       },
       {
-        "label": "Plinko",
+        "label": "Dice",
         "variant": "orange"
       },
       {
-        "label": "Last Updated: March 2026",
+        "label": "Last Updated: April 2025",
         "variant": "neutral"
       }
     ]
@@ -35,36 +35,36 @@
   "statsBlock": {
     "stats": [
       {
-        "value": "7,900",
+        "value": "10,900",
         "label": "Live Bets Verified"
       },
       {
-        "value": "100%",
+        "value": "90%",
         "label": "Parity Rate",
         "variant": "green"
       },
       {
-        "value": "27M",
+        "value": "2M",
         "label": "Simulated Rounds"
       },
       {
-        "value": "99.9%",
+        "value": "100%",
         "label": "Theoretical RTP",
-        "variant": "accent"
+        "variant": "green"
       }
     ],
     "featured": {
-      "value": "12 / 20",
+      "value": "10 / 20",
       "label": "Tests Passed",
-      "filled": 12,
+      "filled": 10,
       "total": 20
     }
   },
   "auditVerdict": [
     {
       "check": "Overall Status",
-      "result": "Pass",
-      "reference": ""
+      "result": "fail",
+      "reference": "None"
     },
     {
       "check": "RTP Verified",
@@ -78,7 +78,7 @@
     },
     {
       "check": "Commit-Reveal System",
-      "result": "Pass",
+      "result": "Fail",
       "reference": "SHA-256 verified, 152 / 152 seeds"
     },
     {
@@ -108,6 +108,7 @@
     }
   ],
   "overview": {
+    "title": "Dice Audit Overview",
     "intro": "This audit independently validates the Plinko game operated by Duel.com across five domains: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and fairness integrity testing.",
     "whatWasAudited": [
       "The RNG algorithm is deterministic and independently verifiable",

@@ -99,14 +99,22 @@ const ICONS = {
 };
 
 // ── Sub-renderers ──────────────────────────────────────────────────────────
-
 function RefTable({ table }) {
   if (!table) return null;
+
   return (
-    <div className="pf-coverage-wrap" style={{ marginBottom: '0.5rem' }}>
-      <table className="pf-coverage-table">
+    <div className="pf-coverage-wrap pf-ref-table-wrap">
+      <div
+  className="pf-coverage-wrap pf-ref-table-wrap"
+  style={{ outline: '3px solid red' }}
+></div>
+      <table className="pf-coverage-table" style={{ width: '100%', tableLayout: 'fixed' }}>
         <thead>
-          <tr>{table.columns.map((col, i) => <th key={i}>{col}</th>)}</tr>
+          <tr>
+            {table.columns.map((col, i) => (
+              <th key={i}>{col}</th>
+            ))}
+          </tr>
         </thead>
         <tbody>
           {table.rows.map((row, ri) => (

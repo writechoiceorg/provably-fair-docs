@@ -44,7 +44,7 @@ import SectionVerdictTable from '@site/src/components/casino/SectionVerdictTable
 <SectionHeading label="Result" title="Audit Verdict" />
 <GameVerdictTable rows={config.auditVerdict} />
 
-<SectionHeading label="Overview" title="Plinko Audit Overview" />
+<SectionHeading label="Overview" title={config.overview.title} />
 <p>{config.overview.intro}</p>
 
 <SectionHeading label="Scope" title="What Was Audited" />
@@ -871,7 +871,7 @@ This section verifies that Duel's Plinko random number generation produces **cry
 
 
 <ExpandablePanel title={config.sections[1].howItWorksHeading.heading} count="7 sections">
-<p style={{color:'var(--text-3)',marginBottom:'1rem'}}>{config.sections[1].howItWorksHeading.content}</p>
+<p style={{color:'var(--text-3)',marginBottom:'1rem'}}>{config.sections[1].howItWorksHeading.content  }</p>
 
 <div className="sub">
   <div className="sub-hdr"><span className="sub-n">2.1</span><span className="sub-t">RNG Function Implementation</span></div>

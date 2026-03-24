@@ -42,7 +42,7 @@
     {
       "number": "01",
       "area": "Determinism",
-      "status": "pass",
+      "status": "fail",
       "evidence": "HMAC-SHA256 with rejection sampling. Nonce starts at 0, increments by 1, never reused. Player controls client seed. 100% deterministic."
     },
     {

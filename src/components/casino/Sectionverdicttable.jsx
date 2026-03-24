@@ -17,7 +17,10 @@ export default function SectionVerdictTable({ rows = [] }) {
 
   return (
     <div className="tw">
-      <table>
+       <table
+        className="pf-coverage-table"
+        style={{ width: '100%', tableLayout: 'fixed' }}
+      >
         <thead>
           <tr>
             <th>Test</th>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 740 220" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s3" x="-4%" y="-6%" width="108%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity=".06"/>
+        </filter>
+      </defs>
+      <rect width="740" height="220" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="370" y="22" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">PARITY VERIFICATION FLOW</text>
+
+      <g transform="translate(65,0)">
+
+
+      <!-- Row 1: Seeds → Live Game RNG → (our verifier) → Compare → diamond → outcomes -->
+
+      <!-- Seeds box -->
+      <text x="62" y="44" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".06em" opacity=".7">INPUTS</text>
+      <g filter="url(#sh_s3)">
+        <rect x="14" y="50" width="96" height="50" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="62" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="700" fill="#2a2a2e">Seeds + Nonce</text>
+        <text x="62" y="86" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#aaa">Shared inputs</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="112" y1="75" x2="128" y2="75" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="126,71.5 132,75 126,78.5" fill="#d4d4da"/>
+
+      <!-- Two parallel paths -->
+      <!-- Live Game (dark) -->
+      <g filter="url(#sh_s3)">
+        <rect x="134" y="50" width="108" height="22" rx="6" fill="#0e0e14"/>
+        <text x="188" y="65" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="600" fill="rgba(255,255,255,.88)">Live Game RNG</text>
+      </g>
+      <!-- Our Verifier (accent border) -->
+      <g filter="url(#sh_s3)">
+        <rect x="134" y="78" width="108" height="22" rx="6" fill="#fff" stroke="#e8590c" stroke-width="1.2"/>
+        <text x="188" y="93" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="600" fill="#e8590c">Our Verifier</text>
+      </g>
+
+      <!-- Arrows from both → Compare -->
+      <line x1="242" y1="61" x2="268" y2="75" stroke="#d4d4da" stroke-width="1.2"/>
+      <line x1="242" y1="89" x2="268" y2="75" stroke="#d4d4da" stroke-width="1.2"/>
+
+      <!-- Compare box -->
+      <g filter="url(#sh_s3)">
+        <rect x="272" y="50" width="108" height="50" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="326" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="700" fill="#2a2a2e">Compare Results</text>
+        <text x="326" y="86" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#aaa">live vs. recomputed</text>
+      </g>
+
+      <!-- Arrow → diamond -->
+      <line x1="380" y1="75" x2="404" y2="75" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="402,71.5 408,75 402,78.5" fill="#d4d4da"/>
+
+      <!-- Diamond: Results Match? -->
+      <polygon points="448,48 486,75 448,102 410,75" fill="#fff" stroke="#e5e5ea" stroke-width="1.5" filter="url(#sh_s3)"/>
+      <text x="448" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="700" fill="#2a2a2e">Results</text>
+      <text x="448" y="83" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="700" fill="#2a2a2e">Match?</text>
+
+      <!-- Yes path → -->
+      <line x1="486" y1="62" x2="520" y2="62" stroke="#bbf7d0" stroke-width="1.5"/>
+      <polygon points="518,58.5 524,62 518,65.5" fill="#bbf7d0"/>
+      <text x="500" y="56" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="700" fill="#16a34a">Yes</text>
+
+      <!-- Match box (green) -->
+      <g filter="url(#sh_s3)">
+        <rect x="528" y="48" width="82" height="30" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+        <text x="569" y="67" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#16a34a">✓ Match</text>
+      </g>
+
+      <!-- No path → -->
+      <line x1="486" y1="88" x2="520" y2="88" stroke="#fecaca" stroke-width="1.5"/>
+      <polygon points="518,84.5 524,88 518,91.5" fill="#fecaca"/>
+      <text x="500" y="84" font-family="DM Sans,sans-serif" font-size="8.5" font-weight="700" fill="#dc2626">No</text>
+
+      <!-- Mismatch box (red) -->
+      <g filter="url(#sh_s3)">
+        <rect x="528" y="74" width="82" height="30" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/>
+        <text x="569" y="93" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#dc2626">✗ Mismatch</text>
+      </g>
+
+
+      <!-- Bottom result strip -->
+      <g filter="url(#sh_s3)">
+        <rect x="14" y="122" width="596" height="44" rx="8" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+        <circle cx="40" cy="144" r="10" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+        <polyline points="35,144 38,147 45,140" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="58" y="140" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#16a34a">7,600 / 7,600 bets matched</text>
+        <text x="58" y="154" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">Every live slot exactly reproduced by our independent verifier — 100% parity rate</text>
+      </g>
+
+      <!-- Bottom note -->
+      <text x="305" y="194" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" fill="#aaa">Both systems process identical inputs; outputs must be bit-for-bit identical.</text>
+
+      </g>
+</svg>
