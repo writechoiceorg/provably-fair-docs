@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 570" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s4" x="-4%" y="-6%" width="108%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity=".07"/>
+        </filter>
+        <pattern id="dots_s4" width="6" height="6" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+        </pattern>
+      </defs>
+      <rect width="720" height="570" fill="#f6f7f9"/>
+
+      <!-- Title — centered at 360 -->
+      <text x="360" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">ANTI-CIRCULARITY FLOW — NON-CIRCULAR RTP PROOF</text>
+
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- TWO-SOURCE PANELS                                   -->
+      <!-- Panel width=326, gap=28, total=680, margin=20 each -->
+      <!-- Left: x=20..346   center=183                       -->
+      <!-- Right: x=374..700  center=537                      -->
+      <!-- ══════════════════════════════════════════════════ -->
+
+      <!-- ── LEFT: Independent Binomial (green zone) ── -->
+      <rect x="20" y="42" width="326" height="186" rx="10" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <rect x="20" y="42" width="326" height="26" rx="10" fill="#16a34a"/>
+      <rect x="20" y="58" width="326" height="10" fill="#16a34a"/>
+      <svg x="30" y="46" width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="rgba(255,255,255,.3)"/>
+        <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <text x="50" y="59" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#fff" letter-spacing=".06em">INDEPENDENT PROBABILITY</text>
+
+      <!-- "NOT from casino" stamp -->
+      <rect x="222" y="46" width="114" height="18" rx="9" fill="rgba(255,255,255,.25)"/>
+      <text x="279" y="58" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#fff" letter-spacing=".04em">NOT FROM CASINO</text>
+
+      <!-- Source label — centered at 183 -->
+      <text x="183" y="86" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" fill="#16a34a">Source: stats.ts → binomProb()</text>
+
+      <!-- Binomial formula box — centered at 183 -->
+      <g filter="url(#sh_s4)">
+        <rect x="63" y="96" width="240" height="44" rx="8" fill="#fff" stroke="#bbf7d0" stroke-width="1"/>
+        <text x="183" y="116" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600" fill="#16a34a">P(slot=k) = C(n,k) · 0.5ⁿ</text>
+        <text x="183" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#aaa">Binomial B(rows, 0.5) — pure math</text>
+      </g>
+
+      <!-- Arrow down -->
+      <line x1="183" y1="142" x2="183" y2="156" stroke="#bbf7d0" stroke-width="1.3"/>
+      <polygon points="179,154 183,162 187,154" fill="#bbf7d0"/>
+
+      <!-- Output pill — centered at 183 -->
+      <g filter="url(#sh_s4)">
+        <rect x="103" y="164" width="160" height="36" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="183" y="180" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="700" fill="#2a2a2e">Slot Probabilities</text>
+        <text x="183" y="194" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#aaa">for k = 0 to rows</text>
+      </g>
+
+      <!-- Red disclaimer — centered at 183 -->
+      <rect x="59" y="210" width="248" height="12" rx="3" fill="#fef2f2" stroke="#fecaca" stroke-width="0.5"/>
+      <svg x="61" y="210" width="12" height="12" viewBox="0 0 16 16" fill="none">
+        <line x1="4" y1="4" x2="12" y2="12" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="12" y1="4" x2="4" y2="12" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <text x="77" y="219" font-family="DM Sans,sans-serif" font-size="7.5" font-weight="600" fill="#dc2626">Does NOT use plinkoConfig.json probabilities</text>
+
+
+      <!-- ── RIGHT: Multiplier Table (orange zone) ── -->
+      <rect x="374" y="42" width="326" height="186" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+      <rect x="374" y="42" width="326" height="26" rx="10" fill="#e8590c"/>
+      <rect x="374" y="58" width="326" height="10" fill="#e8590c"/>
+      <svg x="384" y="46" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="1" width="12" height="12" rx="1.5"/>
+        <line x1="1" y1="5" x2="13" y2="5"/>
+        <line x1="1" y1="9" x2="13" y2="9"/>
+        <line x1="5" y1="1" x2="5" y2="13"/>
+      </svg>
+      <text x="404" y="59" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#fff" letter-spacing=".06em">OBSERVED MULTIPLIER TABLE</text>
+
+      <!-- "from casino config" stamp -->
+      <rect x="580" y="46" width="110" height="18" rx="9" fill="rgba(255,255,255,.25)"/>
+      <text x="635" y="58" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#fff" letter-spacing=".04em">FROM CASINO CONFIG</text>
+
+      <!-- Source label — centered at 537 -->
+      <text x="537" y="86" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="600" fill="#e8590c">Source: plinkoConfig.json</text>
+
+      <!-- Multiplier table box — centered at 537 -->
+      <g filter="url(#sh_s4)">
+        <rect x="413" y="96" width="248" height="44" rx="8" fill="#fff" stroke="#fed7aa" stroke-width="1"/>
+        <text x="537" y="116" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600" fill="#e8590c">scaling_edge[0].multipliers</text>
+        <text x="537" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#aaa">Per-slot payouts — all 27 configs</text>
+      </g>
+
+      <!-- Arrow down -->
+      <line x1="537" y1="142" x2="537" y2="156" stroke="#fed7aa" stroke-width="1.3"/>
+      <polygon points="533,154 537,162 541,154" fill="#fed7aa"/>
+
+      <!-- Output pill — centered at 537 -->
+      <g filter="url(#sh_s4)">
+        <rect x="457" y="164" width="160" height="36" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="537" y="180" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9.5" font-weight="700" fill="#2a2a2e">Multiplier(k)</text>
+        <text x="537" y="194" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#aaa">for k = 0 to rows</text>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- CONVERGENCE ZONE — symmetric around 360            -->
+      <!-- ══════════════════════════════════════════════════ -->
+
+      <!-- Left arrow down from panel -->
+      <line x1="183" y1="228" x2="183" y2="252" stroke="#bbf7d0" stroke-width="1.5"/>
+      <polygon points="179,250 183,258 187,250" fill="#bbf7d0"/>
+
+      <!-- Right arrow down from panel -->
+      <line x1="537" y1="228" x2="537" y2="252" stroke="#fed7aa" stroke-width="1.5"/>
+      <polygon points="533,250 537,258 541,250" fill="#fed7aa"/>
+
+      <!-- Left value pill — centered at 183 -->
+      <g filter="url(#sh_s4)">
+        <rect x="121" y="260" width="124" height="26" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+        <text x="183" y="277" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#16a34a">P(slot = k)</text>
+      </g>
+
+      <!-- Right value pill — centered at 537 -->
+      <g filter="url(#sh_s4)">
+        <rect x="475" y="260" width="124" height="26" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+        <text x="537" y="277" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#e8590c">Multiplier(k)</text>
+      </g>
+
+      <!-- Center label — centered at 360 -->
+      <text x="360" y="270" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#aaa" letter-spacing=".06em">MULTIPLY PER SLOT, THEN SUM</text>
+
+      <!-- Converging arrows into formula bar -->
+      <line x1="183" y1="288" x2="295" y2="316" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="291,312 299,318 295,309" fill="#d4d4da"/>
+
+      <line x1="537" y1="288" x2="425" y2="316" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="429,309 421,318 429,312" fill="#d4d4da"/>
+
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- FORMULA BAR — centered at 360, width=520          -->
+      <!-- ══════════════════════════════════════════════════ -->
+
+      <g filter="url(#sh_s4)">
+        <rect x="100" y="320" width="520" height="50" rx="10" fill="#fff" stroke="#e5e5ea"/>
+        <rect x="100" y="320" width="520" height="50" rx="10" fill="url(#dots_s4)"/>
+        <text x="360" y="340" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#aaa" letter-spacing=".06em">RTP COMPUTATION</text>
+        <rect x="130" y="348" width="460" height="16" rx="4" fill="#0e0e14"/>
+        <text x="360" y="360" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,.8)">RTP = Σ binomProb(rows, k) × scalingEdgeMultiplier(rows, risk, k)</text>
+      </g>
+
+      <!-- Arrow down — centered at 360 -->
+      <line x1="360" y1="372" x2="360" y2="388" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="356,386 360,394 364,386" fill="#d4d4da"/>
+
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- RESULT — centered at 360, width=320               -->
+      <!-- ══════════════════════════════════════════════════ -->
+
+      <g filter="url(#sh_s4)">
+        <rect x="200" y="398" width="320" height="56" rx="12" fill="#16a34a"/>
+        <circle cx="236" cy="426" r="13" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+        <polyline points="230,426 234,430 242,421" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="264" y="421" font-family="Plus Jakarta Sans,sans-serif" font-size="22" font-weight="800" fill="#fff">99.900%</text>
+        <text x="418" y="421" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,.7)">RTP</text>
+        <text x="264" y="440" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,.5)">All 27 configs — proven analytically, not estimated</text>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- INFO BOX — centered at 360, width=640             -->
+      <!-- ══════════════════════════════════════════════════ -->
+
+      <rect x="40" y="472" width="640" height="82" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <svg x="52" y="482" width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="#2563eb"/>
+        <text x="8" y="12.5" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="800" fill="#fff">i</text>
+      </svg>
+      <text x="72" y="493" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#1e40af" letter-spacing=".04em">WHY THIS PROOF IS NON-CIRCULAR</text>
+
+      <svg x="56" y="505" width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="72" y="514" font-family="DM Sans,sans-serif" font-size="8.5" fill="#52525e"><tspan font-weight="600" fill="#16a34a">Probabilities</tspan> from binomial theorem (stats.ts) — never reads casino config</text>
+
+      <svg x="56" y="521" width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="72" y="530" font-family="DM Sans,sans-serif" font-size="8.5" fill="#52525e"><tspan font-weight="600" fill="#e8590c">Multipliers</tspan> from casino config — the only casino-sourced input to the proof</text>
+
+      <svg x="56" y="537" width="10" height="10" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="72" y="546" font-family="DM Sans,sans-serif" font-size="8.5" fill="#52525e"><tspan font-weight="600" fill="#2563eb">Cross-check:</tspan> config probs exactly equal independent binomial (Step 20, EC-33)</text>
+
+</svg>

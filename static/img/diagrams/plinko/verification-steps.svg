@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 180" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s6" x="-4%" y="-6%" width="108%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity=".06"/>
+        </filter>
+      </defs>
+      <rect width="720" height="180" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="360" y="22" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">FROM BET → INDEPENDENT VERIFICATION</text>
+
+
+      <!-- Step 1: Place Bet — box center x=92 -->
+      <text x="92" y="42" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".06em" opacity=".7">STEP 1</text>
+      <g filter="url(#sh_s6)">
+        <rect x="24" y="48" width="136" height="66" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <!-- plinko dots icon centered -->
+        <svg x="85" y="54" width="14" height="12" viewBox="0 0 14 12" fill="none">
+          <circle cx="7" cy="1.5" r="1.5" fill="#e8590c" opacity=".7"/>
+          <circle cx="4" cy="6" r="1.2" fill="#e8590c" opacity=".4"/>
+          <circle cx="10" cy="6" r="1.2" fill="#e8590c" opacity=".4"/>
+          <circle cx="1" cy="10.5" r="1.2" fill="#e8590c" opacity=".25"/>
+          <circle cx="7" cy="10.5" r="1.2" fill="#e8590c" opacity=".25"/>
+          <circle cx="13" cy="10.5" r="1.2" fill="#e8590c" opacity=".25"/>
+        </svg>
+        <text x="92" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" font-weight="700" fill="#2a2a2e">Place Bet</text>
+        <text x="92" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">Plinko drop generates slot</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="162" y1="81" x2="180" y2="81" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="178,77.5 184,81 178,84.5" fill="#d4d4da"/>
+
+      <!-- Step 2: Open Verify — box center x=252 -->
+      <text x="252" y="42" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".06em" opacity=".7">STEP 2</text>
+      <g filter="url(#sh_s6)">
+        <rect x="184" y="48" width="136" height="66" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <!-- unlock icon centered - blue -->
+        <svg x="245" y="54" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="8" width="12" height="7" rx="2"/>
+          <path d="M4.5,8 V5 A3.5,3.5 0 0 1 11.5,5 V6"/>
+        </svg>
+        <text x="252" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" font-weight="700" fill="#2a2a2e">Open Verify</text>
+        <text x="252" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">Seeds are disclosed</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="322" y1="81" x2="340" y2="81" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="338,77.5 344,81 338,84.5" fill="#d4d4da"/>
+
+      <!-- Step 3: Recompute — box center x=412 -->
+      <text x="412" y="42" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".06em" opacity=".7">STEP 3</text>
+      <g filter="url(#sh_s6)">
+        <rect x="344" y="48" width="136" height="66" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <!-- cpu icon centered - purple -->
+        <svg x="405" y="54" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#7c3aed" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="10" height="10" rx="1.5"/>
+          <line x1="6" y1="3" x2="6" y2="0.5"/><line x1="10" y1="3" x2="10" y2="0.5"/>
+          <line x1="6" y1="13" x2="6" y2="15.5"/><line x1="10" y1="13" x2="10" y2="15.5"/>
+          <line x1="3" y1="6" x2="0.5" y2="6"/><line x1="3" y1="10" x2="0.5" y2="10"/>
+          <line x1="13" y1="6" x2="15.5" y2="6"/><line x1="13" y1="10" x2="15.5" y2="10"/>
+        </svg>
+        <text x="412" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" font-weight="700" fill="#2a2a2e">Recompute</text>
+        <text x="412" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">Verifier runs same logic</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="482" y1="81" x2="500" y2="81" stroke="#d4d4da" stroke-width="1.3"/>
+      <polygon points="498,77.5 504,81 498,84.5" fill="#d4d4da"/>
+
+      <!-- Step 4: Confirm Match (green) — box center x=600 -->
+      <text x="600" y="42" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#16a34a" letter-spacing=".06em" opacity=".7">STEP 4</text>
+      <g filter="url(#sh_s6)">
+        <rect x="504" y="48" width="192" height="66" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+        <!-- check circle icon centered -->
+        <svg x="593" y="54" width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" fill="#16a34a" opacity=".15"/>
+          <circle cx="8" cy="8" r="7" stroke="#16a34a" stroke-width="1.3" fill="none"/>
+          <polyline points="5,8.5 7,10.5 11,6" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <text x="600" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12.5" font-weight="700" fill="#16a34a">✓ Confirm Match</text>
+        <text x="600" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#16a34a">Live result must match</text>
+      </g>
+
+
+      <!-- Progress bar -->
+      <rect x="24" y="128" width="672" height="5" rx="2.5" fill="#e5e5ea"/>
+      <rect x="24" y="128" width="160" height="5" rx="2.5" fill="#16a34a" opacity=".3"/>
+      <rect x="184" y="128" width="160" height="5" rx="2.5" fill="#16a34a" opacity=".5"/>
+      <rect x="344" y="128" width="160" height="5" rx="2.5" fill="#16a34a" opacity=".7"/>
+      <rect x="504" y="128" width="192" height="5" rx="2.5" fill="#16a34a"/>
+
+</svg>

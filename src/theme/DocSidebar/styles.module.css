@@ -1,0 +1,45 @@
+.sidebarShell {
+  position: relative;
+  height: 100vh;
+}
+
+.sidebarBody {
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 72px;
+}
+
+.sidebarFooter {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0.75rem 0.75rem 1rem;
+  display: flex;
+  justify-content: flex-start;
+  background: var(--ifm-background-surface-color);
+  border-top: 1px solid var(--ifm-toc-border-color);
+}
+
+.toggleBtn {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ifm-toc-border-color);
+  background: transparent;
+  color: var(--ifm-font-color-base);
+  border-radius: 999px;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.toggleBtn:hover {
+  background: var(--ifm-hover-overlay);
+}
+
+.toggleBtn:active {
+  transform: scale(0.96);
+}

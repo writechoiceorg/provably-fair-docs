@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s4" x="-4%" y="-6%" width="108%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity=".07"/>
+        </filter>
+        <pattern id="dots_s4" width="6" height="6" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+        </pattern>
+      </defs>
+      <rect width="720" height="440" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="360" y="24" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">PAYOUT CHAIN — FROM SLOT TO WIN AMOUNT</text>
+
+
+      <!-- ══════════════════════════════════════════════ -->
+      <!-- THREE-STEP PIPELINE                             -->
+      <!-- Step widths=186, gaps=16, total=590, margin=65  -->
+      <!-- Step 1: x=65..251   center=158                 -->
+      <!-- Step 2: x=267..453  center=360                 -->
+      <!-- Step 3: x=469..655  center=562                 -->
+      <!-- ══════════════════════════════════════════════ -->
+
+      <!-- ── STEP 1: Slot Determination ── -->
+      <text x="158" y="48" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".08em" opacity=".7">STEP 1</text>
+
+      <line x1="158" y1="53" x2="158" y2="62" stroke="#d4d4da" stroke-width="1.2"/>
+      <polygon points="154.5,60 158,67 161.5,60" fill="#d4d4da"/>
+
+      <g filter="url(#sh_s4)">
+        <rect x="65" y="70" width="186" height="82" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="158" y="92" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11.5" font-weight="700" fill="#2a2a2e">Slot Determination</text>
+        <text x="158" y="108" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">computeSlot(server, client,</text>
+        <text x="158" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">nonce, rows)</text>
+        <!-- Result pill -->
+        <rect x="118" y="130" width="80" height="16" rx="8" fill="#0e0e14"/>
+        <text x="158" y="142" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="rgba(255,255,255,.9)">slot = 9</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="253" y1="111" x2="265" y2="111" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="263,107.5 269,111 263,114.5" fill="#d4d4da"/>
+
+
+      <!-- ── STEP 2: Multiplier Lookup ── -->
+      <text x="360" y="48" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#e8590c" letter-spacing=".08em" opacity=".7">STEP 2</text>
+
+      <line x1="360" y1="53" x2="360" y2="62" stroke="#d4d4da" stroke-width="1.2"/>
+      <polygon points="356.5,60 360,67 363.5,60" fill="#d4d4da"/>
+
+      <g filter="url(#sh_s4)">
+        <rect x="267" y="70" width="186" height="82" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="360" y="92" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11.5" font-weight="700" fill="#2a2a2e">Multiplier Lookup</text>
+        <text x="360" y="108" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">scaling_edge[0]</text>
+        <text x="360" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">10r / high / slot 9</text>
+        <!-- Result pill -->
+        <rect x="301" y="130" width="118" height="16" rx="8" fill="#0e0e14"/>
+        <text x="360" y="142" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="rgba(255,255,255,.9)">mult = 10.0845×</text>
+      </g>
+
+      <!-- Arrow → -->
+      <line x1="455" y1="111" x2="467" y2="111" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="465,107.5 471,111 465,114.5" fill="#d4d4da"/>
+
+
+      <!-- ── STEP 3: Payout Calculation ── -->
+      <text x="562" y="48" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#16a34a" letter-spacing=".08em" opacity=".7">STEP 3</text>
+
+      <line x1="562" y1="53" x2="562" y2="62" stroke="#bbf7d0" stroke-width="1.2"/>
+      <polygon points="558.5,60 562,67 565.5,60" fill="#bbf7d0"/>
+
+      <g filter="url(#sh_s4)">
+        <rect x="469" y="70" width="186" height="82" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+        <text x="562" y="92" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11.5" font-weight="700" fill="#16a34a">Payout Calculation</text>
+        <text x="562" y="108" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#16a34a">amount × multiplier</text>
+        <text x="562" y="120" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">$0.01 × 10.08454259</text>
+        <!-- Result pill (green) -->
+        <rect x="493" y="130" width="138" height="16" rx="8" fill="#16a34a"/>
+        <text x="562" y="142" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#fff">win = $0.10085</text>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════ -->
+      <!-- REAL BET EXAMPLE — centered at 360             -->
+      <!-- ══════════════════════════════════════════════ -->
+
+      <rect x="65" y="174" width="590" height="108" rx="10" fill="#fff" stroke="#e5e5ea"/>
+      <rect x="65" y="174" width="590" height="108" rx="10" fill="url(#dots_s4)"/>
+      <!-- Orange top accent -->
+      <rect x="65" y="174" width="590" height="3" rx="1.5" fill="#e8590c" opacity=".5"/>
+
+      <text x="360" y="196" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#aaa" letter-spacing=".06em">REAL BET VERIFIED — ID 59904017 (PHASE A, 10 ROWS, HIGH RISK)</text>
+
+      <!-- Three value boxes in a row -->
+      <!-- Box 1: Slot -->
+      <g filter="url(#sh_s4)">
+        <rect x="95" y="210" width="140" height="56" rx="6" fill="#fff" stroke="#e5e5ea"/>
+        <text x="165" y="228" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#aaa" letter-spacing=".04em">SLOT (STEP 5)</text>
+        <text x="165" y="248" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="16" font-weight="800" fill="#2a2a2e">9</text>
+        <text x="165" y="260" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#aaa">computeSlot() verified</text>
+      </g>
+
+      <!-- Multiply sign -->
+      <text x="262" y="246" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="14" font-weight="800" fill="#d4d4da">→</text>
+
+      <!-- Box 2: Multiplier -->
+      <g filter="url(#sh_s4)">
+        <rect x="290" y="210" width="140" height="56" rx="6" fill="#fff" stroke="#e5e5ea"/>
+        <text x="360" y="228" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#aaa" letter-spacing=".04em">MULTIPLIER (STEP 8)</text>
+        <text x="360" y="248" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="16" font-weight="800" fill="#e8590c">10.085×</text>
+        <text x="360" y="260" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#aaa">scaling_edge[0] matched</text>
+      </g>
+
+      <!-- Arrow -->
+      <text x="457" y="246" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="14" font-weight="800" fill="#d4d4da">→</text>
+
+      <!-- Box 3: Win -->
+      <g filter="url(#sh_s4)">
+        <rect x="485" y="210" width="140" height="56" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+        <text x="555" y="228" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#16a34a" letter-spacing=".04em">WIN AMOUNT (STEP 7)</text>
+        <text x="555" y="248" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="16" font-weight="800" fill="#16a34a">$0.1009</text>
+        <text x="555" y="260" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7.5" fill="#16a34a">$0.01 × 10.085 ✓</text>
+      </g>
+
+
+      <!-- ══════════════════════════════════════════════ -->
+      <!-- AUDIT EVIDENCE — 3 verification steps           -->
+      <!-- ══════════════════════════════════════════════ -->
+
+      <rect x="65" y="300" width="590" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <circle cx="79" cy="316" r="5" fill="#2563eb"/>
+      <text x="91" y="320" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#2a2a2e" letter-spacing=".04em">EACH STEP INDEPENDENTLY VERIFIED ACROSS ALL 7,600 BETS</text>
+
+      <!-- Step 5 -->
+      <rect x="85" y="332" width="170" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <svg x="91" y="337" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="107" y="349" font-family="DM Sans,sans-serif" font-size="8.5" fill="#2a2a2e"><tspan font-weight="600">Step 5:</tspan> Slot recomputed</text>
+
+      <!-- Step 8 -->
+      <rect x="275" y="332" width="170" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <svg x="281" y="337" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="297" y="349" font-family="DM Sans,sans-serif" font-size="8.5" fill="#2a2a2e"><tspan font-weight="600">Step 8:</tspan> Multiplier matched</text>
+
+      <!-- Step 7 -->
+      <rect x="465" y="332" width="170" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <svg x="471" y="337" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="487" y="349" font-family="DM Sans,sans-serif" font-size="8.5" fill="#2a2a2e"><tspan font-weight="600">Step 7:</tspan> Payout correct</text>
+
+
+      <!-- ══════════════════════════════════════════════ -->
+      <!-- PASS BANNER — centered at 360                   -->
+      <!-- ══════════════════════════════════════════════ -->
+
+      <rect x="65" y="384" width="590" height="28" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <svg x="77" y="389" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="#16a34a"/>
+        <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <text x="99" y="403" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#16a34a" letter-spacing=".04em">7,600 / 7,600 BETS: SLOT CORRECT, MULTIPLIER MATCHED, PAYOUT VERIFIED</text>
+
+      <!-- WHY IT MATTERS note -->
+      <text x="360" y="430" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">Casino cannot alter any step after the slot is determined. Every payout is deterministic and verifiable.</text>
+
+</svg>

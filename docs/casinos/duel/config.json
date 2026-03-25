@@ -1,0 +1,291 @@
+{
+  "name": "Duel.com",
+  "domain": "duel.com",
+  "auditId": "PF-2026-001",
+  "certDate": "Feb 12, 2026",
+  "nextReview": "Feb 2027",
+  "status": "CERTIFIED",
+  "certifiedBy": "ProvablyFair.org",
+  "intro": "Independent verification of RNG integrity, live game parity, RTP convergence, and fairness integrity across 8 games.",
+  "stats": [
+    {
+      "label": "Live Bets Verified",
+      "value": "30,742"
+    },
+    {
+      "label": "Simulation Rounds",
+      "value": "80,000,000+",
+       "variant": "green"
+    },
+    {
+      "label": "Integrity Checks",
+      "value": "120"
+    },
+    {
+      "label": "Games Validated",
+      "value": "8 / 8",
+      "variant": "green"
+    }
+  ],
+  "timeline": [
+    { "title": "Initiated",         "date": "Jan 28" },
+    { "title": "Data Capture",      "date": "Feb 4"  },
+    { "title": "Parity Testing",    "date": "Feb 6"  },
+    { "title": "RTP Simulation",    "date": "Feb 8"  },
+    { "title": "Integrity Testing", "date": "Feb 12" },
+    { "title": "Certification",     "date": "Feb 12" }
+  ],
+  "verdicts": [
+    {
+      "number": "01",
+      "area": "Determinism",
+      "status": "fail",
+      "evidence": "HMAC-SHA256 with rejection sampling. Nonce starts at 0, increments by 1, never reused. Player controls client seed. 100% deterministic."
+    },
+    {
+      "number": "02",
+      "area": "RNG Integrity",
+      "status": "pass",
+      "evidence": "No external entropy sources. Chi-squared uniformity: p = 0.472 across 980K simulated rounds. Rejection sampling eliminates modulo bias."
+    },
+    {
+      "number": "03",
+      "area": "Live ↔ Verifier Parity",
+      "status": "pass",
+      "evidence": "30,742 real bets verified. 100% match rate — zero discrepancies between live results and independently computed outcomes."
+    },
+    {
+      "number": "04",
+      "area": "RTP Validation",
+      "status": "pass",
+      "evidence": "Theoretical RTP verified across all game configurations. Simulated RTP converges within expected variance over 80M+ rounds."
+    },
+    {
+      "number": "05",
+      "area": "Fairness Integrity",
+      "status": "pass",
+      "evidence": "15 integrity checks passed per game: nonce sequencing, seed commitment, outcome determinism, round isolation, payout integrity."
+    }
+  ],
+  "games": [
+    { "name": "Dice",      "slug": "dice",      "icon": "dice",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Crash",     "slug": "crash",     "icon": "crash",     "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Plinko",    "slug": "plinko",    "icon": "plinko",    "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Blackjack", "slug": "blackjack", "icon": "blackjack", "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Roulette",  "slug": "roulette",  "icon": "roulette",  "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Keno",      "slug": "keno",      "icon": "keno",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Mines",     "slug": "mines",     "icon": "mines",     "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" },
+    { "name": "Beef",      "slug": "beef",      "icon": "beef",      "rngModel": "HMAC-SHA256", "parity": "1,009 bets", "rtp": "10M sim", "integrity": "15 checks", "scope": "400 seed sessions", "status": "pass" }
+  ],
+  "transparency": {
+    "auditRepoUrl": "https://github.com/provablyfair/audits",
+    "datasetUrl": "https://github.com/provablyfair/audits/datasets",
+    "verifierUrl": "https://provablyfair.org/verify/duel",
+    "commitHash": "fa913ab94883d06950d3c63bbb7007f927648131",
+    "frameworkVersion": "ProvablyFair v1.0"
+  },
+  "executiveSummary": {
+      "hero": {
+      "title": "Executive Summary",
+      "lead": "This audit evaluated Duel.com's provably fair architecture across eight core games: Dice, Crash, Plinko, Blackjack, Roulette, Keno, Mines, and Beef. The objective was to determine whether game outcomes are cryptographically reproducible, statistically sound, and resistant to structural manipulation.",
+      "beforeDiagram": [
+        "Validation was conducted across five domains: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and structured fairness integrity testing. Assessment combined source-level review, independent deterministic recomputation, large-scale statistical simulation, and controlled adversarial testing."
+      ],
+      "afterDiagram": [
+        "Live production bets were captured and recomputed using disclosed inputs. Monte Carlo simulations validated theoretical RTP alignment across configurable parameters. Fairness integrity testing verified seed commitment, nonce sequencing, outcome determinism, round isolation, and payout integrity under adversarial conditions.",
+        "Across all reviewed games, outcomes were found to be cryptographically reproducible, statistically unbiased within expected variance tolerances, and consistent with documented payout structures at the time of audit.",
+        "All datasets, tooling, scripts, simulations, and verification logic referenced in this report are publicly accessible within the respective game sections. Any third party can independently recompute and verify the exact results presented in this audit, without relying on trust in ProvablyFair.org or the operator."
+      ],
+      "muted": "Certification reflects the integrity of the audited implementation as deployed during the review period."
+    },
+        "architecture": {
+        "accentColor": "#e8590c",
+        "casinoName": "Duel",
+        "rngLabel": "HMAC-SHA256 / drand",
+        "leftSteps": [
+          "Seed Inputs",
+          "HMAC-SHA256 / drand",
+          "Deterministic Outcome",
+          "Payout Applied",
+          "Live Result Recorded"
+        ],
+        "rightSections": [
+          { "label": "Seed & Determinism Check", "sub": "Section 1" },
+          { "label": "RNG & Entropy Validation",  "sub": "Section 2" },
+          { "label": "Verifier Parity",           "sub": "Section 3" }
+        ]
+      },
+      "liveParityStatusText": "Independent recomputation confirmed identical inputs always produce identical outcomes. No conditional divergence or fallback logic was observed. No rounding inconsistencies or conditional divergences were detected.",
+      "liveParityStats": [
+      {
+        "value": "30,742",
+        "label": "Live Bets Captured"
+      },
+      {
+        "value": "100%",
+        "label": "Parity Match Rate",
+        "variant": "green"
+      },
+      {
+        "value": "22",
+        "label": "Seed Sessions"
+      },
+      {
+        "value": "0",
+        "label": "Discrepancies",
+        "variant": "green"
+      }
+    ],
+    "sections": [
+      {
+        "id": "entropy-architecture",
+        "label": "Randomness",
+        "title": "Entropy Architecture",
+        "intro": "el uses HMAC-SHA256 as its deterministic RNG across seed-based games including Dice, Plinko, Blackjack, Keno, and Mines. For Crash and Castle Roulette, Duel integrates drand — a decentralized public randomness beacon — as an additional entropy anchor. In these games:",
+        "checklist": [
+          "The server seed is combined with drand beacon output",
+          "The drand round number is publicly verifiable",
+          "Beacon output cannot be influenced retroactively"
+        ],
+        "body": "This architecture ensures outcome entropy is deterministic, reproducible, cryptographically verifiable, and externally anchored where applicable."
+      },
+      {
+        "id": "rtp-statistical-validation",
+        "label": "Statistics",
+        "title": "RTP & Statistical Validation",
+        "intro": "Monte Carlo simulations were executed per game configuration:",
+        "checklist": [
+          "80,000,000+ total simulation rounds",
+          "Theoretical RTP derived directly from payout tables",
+          "Empirical convergence measured across configurable parameters",
+          "RTP alignment validated across all selectable configurations"
+        ],
+        "body": "For games with adjustable risk settings, RTP alignment was validated across all selectable configurations. Empirical convergence remained within expected statistical tolerance. No payout distortion or structural house-edge anomalies were identified."
+      },
+      {
+        "id": "fairness-integrity-analysis",
+        "label": "Integrity",
+        "title": "Fairness Integrity Analysis",
+        "intro": "A structured integrity framework covering 120 game integrity checks was executed across five categories:",
+        "checklist": [
+          "Nonce integrity and sequencing",
+          "Seed commitment and lifecycle",
+          "Outcome determinism and replay resistance",
+          "Round and player isolation",
+          "Payout integrity and parameter enforcement"
+        ],
+        "body": "All fairness invariants were verified within the defined scope of testing. No tested vector enabled outcome prediction, post-bet manipulation, house-edge distortion, or unauthorized bankroll advantage."
+      },
+      {
+        "id": "residual-risk-assumptions",
+        "label": "Risk",
+        "title": "Residual Risk & Assumptions",
+        "intro": "Certification assumes:",
+        "checklist": [
+          "Secure generation and storage of server seeds",
+          "Production logic matches audited implementation",
+          "Continued adherence to documented RNG and drand integration"
+        ],
+        "muted": "Future code modifications or entropy architecture changes may require revalidation."
+      }
+    ],
+    "scopeTable": {
+      "coveredTitle": "Covered",
+      "notCoveredTitle": "Not Covered",
+      "covered": [
+        "Provably fair RNG logic",
+        "Deterministic reproducibility",
+        "RTP mathematical correctness",
+        "Fairness integrity within tested scope"
+        
+      ],
+      "notCovered": [
+        "Business solvency",
+        "Regulatory licensing",
+        "Custody governance",
+        "Infrastructure vulnerabilities"
+      ],
+      "note": "Certification assumes secure server seed storage, that production logic matches audited implementation, and continued adherence to documented architecture. Code changes may require revalidation."
+    },
+     "games": [
+    {
+      "name": "Dice",
+      "slug": "dice",
+      "icon": "dice",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    },
+    {
+      "name": "Crash",
+      "slug": "crash",
+      "icon": "crash",
+      "rngModel": "SHA256+drand",
+      "parity": "1,009 · 100%",
+      "sim": "10M",
+      "status": "verified"
+    },
+    {
+      "name": "Plinko",
+      "slug": "plinko",
+      "icon": "plinko",
+      "rngModel": "HMAC-SHA256",
+      "parity": "1,009 · 100%",
+      "sim": "10M",
+      "status": "verified"
+    },
+    {
+      "name": "Blackjack",
+      "slug": "blackjack",
+      "icon": "blackjack",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    },
+    {
+      "name": "Roulette",
+      "slug": "roulette",
+      "icon": "roulette",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    },
+    {
+      "name": "Keno",
+      "slug": "keno",
+      "icon": "keno",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    },
+    {
+      "name": "Mines",
+      "slug": "mines",
+      "icon": "mines",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    },
+    {
+      "name": "Beef",
+      "slug": "beef",
+      "icon": "beef",
+      "rngModel": "HMAC-SHA256",
+      "parity": "6.2K · 100%",
+      "rtp": "99.9%",
+      "sim": "100M",
+      "status": "verified"
+    }
+  ]
+  }
+}

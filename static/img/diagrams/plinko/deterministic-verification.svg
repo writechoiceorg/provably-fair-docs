@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 480 820" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s3" x="-4%" y="-4%" width="108%" height="112%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity=".06"/>
+        </filter>
+        <pattern id="dots_s3" width="6" height="6" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r=".3" fill="#000" opacity=".02"/>
+        </pattern>
+      </defs>
+      <rect width="480" height="820" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="240" y="22" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">DETERMINISTIC ALGORITHM VERIFICATION</text>
+
+
+      <!-- ── AUDIT DATA SOURCE ── -->
+      <rect x="40" y="38" width="400" height="44" rx="8" fill="#fff7ed" stroke="#fed7aa"/>
+      <text x="240" y="58" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9" font-weight="700" fill="#e8590c" letter-spacing=".04em">AUDIT DATA SOURCE</text>
+      <text x="240" y="74" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">dataset.bets[] — loaded via loadDataset()</text>
+
+      <!-- Loop pill -->
+      <rect x="148" y="94" width="184" height="24" rx="12" fill="#0e0e14"/>
+      <text x="240" y="110" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="rgba(255,255,255,.8)">FOR EACH BET (i = 0 to length)</text>
+
+      <!-- Arrow ↓ -->
+      <line x1="240" y1="120" x2="240" y2="132" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="236,130 240,138 244,130" fill="#d4d4da"/>
+
+
+      <!-- ── STEP 1: EXTRACT INPUTS ── -->
+      <g filter="url(#sh_s3)">
+        <rect x="60" y="142" width="360" height="76" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="240" y="162" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#2a2a2e">1. EXTRACT RECORDED INPUTS</text>
+
+        <!-- 3 input boxes -->
+        <rect x="80" y="172" width="90" height="34" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+        <text x="125" y="186" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#64748b">findRevealedSeed()</text>
+        <text x="125" y="198" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" font-weight="600" fill="#2a2a2e">.serverSeed</text>
+
+        <rect x="180" y="172" width="90" height="34" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+        <text x="225" y="186" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#64748b">bets[i].response</text>
+        <text x="225" y="198" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" font-weight="600" fill="#2a2a2e">.client_seed</text>
+
+        <rect x="280" y="172" width="90" height="34" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+        <text x="325" y="186" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#64748b">bet.response+request</text>
+        <text x="325" y="198" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" font-weight="600" fill="#2a2a2e">.nonce, .rows</text>
+      </g>
+
+      <!-- Arrow ↓ -->
+      <line x1="240" y1="220" x2="240" y2="232" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="236,230 240,238 244,230" fill="#d4d4da"/>
+
+
+      <!-- ── STEP 2: RECALCULATE ── -->
+      <g filter="url(#sh_s3)">
+        <rect x="60" y="242" width="360" height="76" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="240" y="262" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#2a2a2e">2. RECALCULATE RESULT</text>
+
+        <!-- Code block -->
+        <rect x="80" y="272" width="320" height="36" rx="5" fill="#0e0e14"/>
+        <text x="240" y="288" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(255,255,255,.7)">slot = computeSlot(</text>
+        <text x="240" y="302" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="rgba(255,255,255,.7)">  serverSeed, client_seed, nonce, rows )</text>
+      </g>
+
+      <!-- Arrow ↓ -->
+      <line x1="240" y1="320" x2="240" y2="332" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="236,330 240,338 244,330" fill="#d4d4da"/>
+
+
+      <!-- ── STEP 3: COMPARE ── -->
+      <g filter="url(#sh_s3)">
+        <rect x="60" y="342" width="360" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+        <text x="240" y="362" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#2a2a2e">3. COMPARE WITH RECORDED RESULT</text>
+
+        <!-- Calculated box -->
+        <rect x="108" y="372" width="90" height="28" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+        <text x="153" y="383" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#aaa">CALCULATED</text>
+        <text x="153" y="394" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#2a2a2e">slot</text>
+
+        <!-- === -->
+        <text x="240" y="391" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="700" fill="#d4d4da">===</text>
+
+        <!-- Recorded box -->
+        <rect x="282" y="372" width="90" height="28" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+        <text x="327" y="383" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#aaa">RECORDED</text>
+        <text x="327" y="394" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#2a2a2e">final_slot</text>
+      </g>
+
+      <!-- Arrow ↓ -->
+      <line x1="240" y1="412" x2="240" y2="424" stroke="#d4d4da" stroke-width="1.5"/>
+      <polygon points="236,422 240,430 244,422" fill="#d4d4da"/>
+
+
+      <!-- ── ASSERT (pill) ── -->
+      <rect x="160" y="434" width="160" height="36" rx="18" fill="#fff" stroke="#e8590c" stroke-width="1.5"/>
+      <text x="240" y="450" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#2a2a2e">ASSERT</text>
+      <text x="240" y="463" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" fill="#aaa">expect().to.eql()</text>
+
+      <!-- Branch: Match / Mismatch -->
+      <!-- Match path (left) -->
+      <line x1="200" y1="470" x2="160" y2="490" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="148" y="500" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#16a34a">MATCH ✓</text>
+      <line x1="148" y1="504" x2="148" y2="514" stroke="#bbf7d0" stroke-width="1.2"/>
+      <polygon points="144,512 148,518 152,512" fill="#bbf7d0"/>
+
+      <rect x="106" y="522" width="84" height="24" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <text x="148" y="538" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#16a34a">NEXT ITERATION</text>
+      <text x="148" y="556" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8.5" fill="#aaa">i++</text>
+
+      <!-- Mismatch path (right) -->
+      <line x1="280" y1="470" x2="320" y2="490" stroke="#fecaca" stroke-width="1.5"/>
+      <text x="332" y="500" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#dc2626">MISMATCH ✗</text>
+      <line x1="332" y1="504" x2="332" y2="514" stroke="#fecaca" stroke-width="1.2"/>
+      <polygon points="328,512 332,518 336,512" fill="#fecaca"/>
+
+      <rect x="290" y="522" width="84" height="24" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+      <text x="332" y="538" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#dc2626">TEST FAILS</text>
+      <text x="332" y="556" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#dc2626" font-style="italic">Algorithm not deterministic!</text>
+
+
+      <!-- ── ALL PASS PILL ── -->
+      <rect x="120" y="576" width="240" height="28" rx="14" fill="#16a34a"/>
+      <text x="240" y="594" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700" fill="#fff" letter-spacing=".03em">ALL ITERATIONS PASS → TEST SUCCESS ✓</text>
+
+
+      <!-- ── VERIFICATION EXAMPLE ── -->
+      <rect x="40" y="620" width="400" height="72" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <rect x="40" y="620" width="400" height="72" rx="8" fill="url(#dots_s3)"/>
+      <text x="56" y="638" font-family="Plus Jakarta Sans,sans-serif" font-size="7.5" font-weight="700" fill="#aaa" letter-spacing=".06em">VERIFICATION EXAMPLE</text>
+
+      <!-- Inputs -->
+      <rect x="56" y="648" width="82" height="34" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <text x="97" y="660" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="6.5" font-weight="700" fill="#aaa">INPUTS</text>
+      <text x="97" y="671" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#52525e">seed + seed + 0</text>
+      <text x="97" y="680" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" fill="#52525e">16 rows</text>
+
+      <text x="148" y="670" font-family="DM Sans,sans-serif" font-size="10" fill="#aaa">→</text>
+
+      <!-- Algorithm -->
+      <rect x="160" y="652" width="110" height="26" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <text x="215" y="662" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="6.5" font-weight="700" fill="#aaa">ALGORITHM</text>
+      <text x="215" y="673" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" font-weight="600" fill="#2a2a2e">computeSlot()</text>
+
+      <text x="280" y="670" font-family="DM Sans,sans-serif" font-size="10" fill="#aaa">→</text>
+
+      <!-- Calculated -->
+      <rect x="292" y="652" width="52" height="26" rx="5" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <text x="318" y="662" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="6.5" font-weight="700" fill="#aaa">CALCULATED</text>
+      <text x="318" y="673" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#2a2a2e">slot 7</text>
+
+      <!-- = -->
+      <text x="356" y="670" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#aaa">=</text>
+
+      <!-- Recorded -->
+      <rect x="368" y="652" width="58" height="26" rx="5" fill="#f0fdf4" stroke="#bbf7d0"/>
+      <text x="397" y="662" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="6.5" font-weight="700" fill="#16a34a">RECORDED</text>
+      <text x="397" y="673" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="600" fill="#16a34a">slot 7 ✓</text>
+
+
+      <!-- ── WHY THIS MATTERS ── -->
+      <rect x="40" y="706" width="400" height="52" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+      <svg x="52" y="714" width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="#2563eb"/>
+        <text x="8" y="12.5" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="800" fill="#fff">i</text>
+      </svg>
+      <text x="72" y="724" font-family="Plus Jakarta Sans,sans-serif" font-size="7.5" font-weight="700" fill="#1e40af" letter-spacing=".02em">WHY DETERMINISM IS CRITICAL</text>
+      <text x="72" y="739" font-family="DM Sans,sans-serif" font-size="8.5" fill="#64748b" font-style="italic">If recalculated results match recorded results for every single bet, the algorithm</text>
+      <text x="72" y="751" font-family="DM Sans,sans-serif" font-size="8.5" fill="#64748b" font-style="italic">is proven deterministic. Anyone can independently reproduce and confirm outcomes.</text>
+
+
+      <!-- ── PASS BANNER ── -->
+      <rect x="40" y="772" width="400" height="28" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <svg x="52" y="777" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="#16a34a"/>
+        <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <text x="74" y="791" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#16a34a" letter-spacing=".04em">GAME RESULTS PRODUCING ALGORITHM IS FULLY DETERMINISTIC</text>
+
+</svg>

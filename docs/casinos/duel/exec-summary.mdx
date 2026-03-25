@@ -1,0 +1,106 @@
+---
+title: Executive Summary
+hide_title: true
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+import config from './config.json';
+import plinkoConfig from './games/plinko/config.json';
+
+import CertBanner from '@site/src/components/casino/CertBanner';
+import TagRow from '@site/src/components/casino/TagRow';
+import SectionHeading from '@site/src/components/casino/SectionHeading';
+import StatsGrid from '@site/src/components/casino/StatsGrid';
+import GameCards from '@site/src/components/casino/GameCards';
+import ConclusionBlock from '@site/src/components/casino/ConclusionBlock';
+import Note from '@site/src/components/casino/Note';
+import Checklist from '@site/src/components/casino/Checklist';
+import ArchDiagram from '@site/src/components/casino/ArchDiagram';
+import AuditSummaryBlock from '@site/src/components/casino/AuditSummaryBlock';
+import ScopeCertificationTable from '@site/src/components/casino/ScopeCertificationTable';
+
+
+
+export const toc = [
+  { value: 'Validation Approach',        id: 'validation-approach',        level: 2 },
+  { value: 'Entropy Architecture',       id: 'entropy-architecture',       level: 2 },
+  { value: 'Live Parity Validation',     id: 'live-parity-validation',     level: 2 },
+  { value: 'RTP & Statistical Validation', id: 'rtp-statistical-validation', level: 2 },
+  { value: 'Fairness Integrity Analysis', id: 'fairness-integrity-analysis', level: 2 },
+  { value: 'Residual Risk & Assumptions', id: 'residual-risk-assumptions',  level: 2 },
+  { value: 'Scope of Certification',     id: 'scope-of-certification',     level: 2 },
+  { value: 'Certification Conclusion',   id: 'certification-conclusion',   level: 2 },
+  { value: 'Validation Overview',        id: 'validation-overview',        level: 2 },
+];
+
+<div className="pf-page-eyebrow">{config.name} · {config.auditId}</div>
+
+# {config.executiveSummary.hero.title}
+
+<p className="pf-page-lead">
+  {config.executiveSummary.hero.lead}
+</p>
+
+{config.executiveSummary.hero.beforeDiagram?.map((paragraph, index) => (
+  <p key={`before-${index}`}>{paragraph}</p>
+))}
+
+<ArchDiagram config= {config.executiveSummary.architecture} />
+
+{config.executiveSummary.hero.afterDiagram?.map((paragraph, index) => (
+  <p key={`after-${index}`}>{paragraph}</p>
+))}
+
+<p className="pf-muted">
+  {config.executiveSummary.hero.muted}
+</p>
+
+
+
+<SectionHeading id="validation-approach" label="Overview" title="Validation Approach" />
+ <StatsGrid stats={config.stats} /> 
+
+
+<SectionHeading id="entropy-architecture" label="Randomness" title="Entropy Architecture" />
+ <AuditSummaryBlock section={config.executiveSummary.sections[0]} />
+ <Note variant="ok"><strong>No hidden entropy sources identified.</strong> Outcome entropy is deterministic, reproducible, cryptographically verifiable, and externally anchored where applicable.</Note>
+
+<SectionHeading id="live-parity-validation" label="Determinism" title="Live Parity Validation" />
+
+<StatsGrid stats={config.executiveSummary.liveParityStats} />
+
+<p>{config.executiveSummary.liveParityStatusText}</p>
+
+
+{config.executiveSummary.sections.slice(1).map((section) => (
+  <div key={section.id}>
+    <SectionHeading
+      id={section.id}
+      label={section.label}
+      title={section.title}
+    />
+    <AuditSummaryBlock section={section} />
+  </div>
+))}
+
+<SectionHeading id="scope-of-certification" label="Scope" title="Scope of Certification" />
+ <ScopeCertificationTable
+    covered={config.executiveSummary.scopeTable.covered}
+    notCovered={config.executiveSummary.scopeTable.notCovered}
+  />
+
+  <Note variant="warn"><strong>Important:</strong> Certification assumes secure server seed storage, that production logic matches audited implementation, and continued adherence to documented architecture. Code changes may require revalidation.</Note>
+
+<SectionHeading id="certification-conclusion" label="Conclusion" title="Certification Conclusion" />
+
+<ConclusionBlock config={config} />
+
+<SectionHeading id="validation-overview"  label="Per-Game" title="Validation Overview" />
+
+Each game was independently evaluated. Summary below highlights validation depth.
+
+
+<GameCards games={config.executiveSummary.games} casinoSlug="duel" />
+
+<p className="pf-muted">All datasets, scripts, simulations, and verification logic are publicly accessible within game sections and the linked repository.</p>

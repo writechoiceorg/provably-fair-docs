@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 700 534" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap');
+  </style>
+      <defs>
+        <filter id="sh_s2" x="-4%" y="-6%" width="108%" height="120%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#000" flood-opacity=".06"/>
+        </filter>
+      </defs>
+      <rect width="700" height="534" fill="#f6f7f9"/>
+
+      <!-- Title -->
+      <text x="350" y="22" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="700" fill="#aaa" letter-spacing=".08em">RNG ISOLATION — NO STATE LEAKAGE</text>
+
+
+      <!-- ══════ STATELESS FUNCTION ══════ -->
+      <rect x="20" y="36" width="660" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <text x="350" y="54" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9" font-weight="700" fill="#e8590c" letter-spacing=".06em">STATELESS FUNCTION</text>
+
+      <!-- Dark code bar -->
+      <rect x="40" y="62" width="620" height="24" rx="5" fill="#0e0e14"/>
+      <text x="350" y="78" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9.5" fill="rgba(255,255,255,.8)">computeSlot(serverSeed, clientSeed, nonce, rows) → final_slot</text>
+
+      <text x="350" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="#aaa">No class-level variables · No external state · Pure function</text>
+
+
+      <!-- ══════ USER ISOLATION (green) ══════ -->
+      <rect x="20" y="116" width="322" height="160" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+      <rect x="20" y="116" width="322" height="22" rx="8" fill="#16a34a"/>
+      <rect x="20" y="128" width="322" height="10" fill="#16a34a"/>
+      <svg x="30" y="120" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
+        <circle cx="8" cy="5" r="3"/>
+        <path d="M2,15 A6,4.5 0 0 1 14,15"/>
+      </svg>
+      <text x="48" y="133" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#fff" letter-spacing=".06em">USER ISOLATION</text>
+
+      <!-- User A centred at x=131 -->
+      <circle cx="131" cy="168" r="18" fill="#dcfce7" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="131" y="174" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="13" font-weight="800" fill="#16a34a">A</text>
+
+      <!-- NO LINK centred at box center x=181 -->
+      <svg x="173" y="158" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+        <line x1="4.5" y1="4.5" x2="11.5" y2="11.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="11.5" y1="4.5" x2="4.5" y2="11.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <text x="181" y="184" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7" font-weight="700" fill="#dc2626" letter-spacing=".04em">NO LINK</text>
+
+      <!-- User B centred at x=231 -->
+      <circle cx="231" cy="168" r="18" fill="#dcfce7" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="231" y="174" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="13" font-weight="800" fill="#16a34a">B</text>
+
+      <!-- Seed labels under each -->
+      <rect x="98" y="196" width="66" height="18" rx="4" fill="#fff" stroke="#e5e5ea"/>
+      <text x="131" y="209" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#2a2a2e">seed_a1b2c3</text>
+      <rect x="198" y="196" width="66" height="18" rx="4" fill="#fff" stroke="#e5e5ea"/>
+      <text x="231" y="209" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#2a2a2e">seed_x7y8z9</text>
+
+      <text x="181" y="236" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#16a34a">Different users → Different server seeds</text>
+      <text x="181" y="250" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#16a34a">User A cannot predict User B's slots</text>
+
+
+      <!-- ══════ ROUND ISOLATION (orange) ══════ -->
+      <!-- box center = 358+161 = 519 -->
+      <rect x="358" y="116" width="322" height="160" rx="8" fill="#fff7ed" stroke="#fed7aa"/>
+      <rect x="358" y="116" width="322" height="22" rx="8" fill="#e8590c"/>
+      <rect x="358" y="128" width="322" height="10" fill="#e8590c"/>
+      <svg x="368" y="119" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2,8 A6,6 0 0 1 14,8"/>
+        <polyline points="11,5 14,8 11,11"/>
+        <path d="M14,8 A6,6 0 0 1 2,8"/>
+        <polyline points="5,11 2,8 5,5"/>
+      </svg>
+      <text x="388" y="133" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#fff" letter-spacing=".06em">ROUND ISOLATION</text>
+
+      <!-- Session 1 centred -->
+      <g filter="url(#sh_s2)">
+        <rect x="410" y="148" width="82" height="34" rx="6" fill="#fff" stroke="#e5e5ea"/>
+        <text x="451" y="162" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2a2a2e">Session 1</text>
+        <text x="451" y="174" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#aaa">seed_old</text>
+      </g>
+      <text x="510" y="168" font-family="JetBrains Mono,monospace" font-size="7" fill="#aaa">nonce: 0→1→2→...</text>
+
+      <!-- Seed rotation centred on box -->
+      <text x="519" y="200" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="7.5" font-weight="700" fill="#e8590c" letter-spacing=".04em">↓ SEED ROTATION ↓</text>
+
+      <!-- Session 2 centred -->
+      <g filter="url(#sh_s2)">
+        <rect x="410" y="210" width="82" height="34" rx="6" fill="#fff" stroke="#e5e5ea"/>
+        <text x="451" y="224" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#2a2a2e">Session 2</text>
+        <text x="451" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" fill="#aaa">seed_new</text>
+      </g>
+      <text x="510" y="230" font-family="JetBrains Mono,monospace" font-size="7" fill="#aaa">nonce: 0→1→2→...</text>
+
+      <text x="519" y="256" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#e8590c">Seed rotation resets state</text>
+      <text x="519" y="268" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#e8590c">Past rounds don't affect future</text>
+
+
+      <!-- ══════ ISOLATION GUARANTEES ══════ -->
+      <rect x="20" y="282" width="660" height="68" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <!-- blue dot -->
+      <circle cx="34" cy="298" r="5" fill="#2563eb"/>
+      <text x="46" y="302" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#2a2a2e" letter-spacing=".04em">ISOLATION GUARANTEES</text>
+
+      <!-- 4 guarantee items in 2x2 grid -->
+      <rect x="36" y="312" width="306" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <svg x="42" y="317" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="58" y="329" font-family="DM Sans,sans-serif" font-size="9" fill="#2a2a2e">No cross-user prediction</text>
+
+      <rect x="358" y="312" width="306" height="24" rx="4" fill="#f6f7f9" stroke="#e5e5ea"/>
+      <svg x="364" y="317" width="12" height="12" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <text x="380" y="329" font-family="DM Sans,sans-serif" font-size="9" fill="#2a2a2e">No cross-round prediction</text>
+
+
+      <!-- ══════ AUDIT EVIDENCE ══════ -->
+      <rect x="20" y="362" width="660" height="120" rx="8" fill="#fff" stroke="#e5e5ea"/>
+      <!-- clipboard icon -->
+      <svg x="32" y="372" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#e8590c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="10" height="11" rx="1.5"/>
+        <path d="M5,4 V2.5 A1.5,1.5 0 0 1 11,2.5 V4"/>
+      </svg>
+      <text x="50" y="382" font-family="Plus Jakarta Sans,sans-serif" font-size="8" font-weight="700" fill="#2a2a2e" letter-spacing=".04em">AUDIT EVIDENCE</text>
+
+      <!-- 5 evidence items — icons vertically centred with text -->
+      <svg x="36" y="393" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <text x="54" y="403" font-family="DM Sans,sans-serif" font-size="9" fill="#52525e">1. Every call to computeSlot() is stateless</text>
+
+      <svg x="36" y="411" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <text x="54" y="421" font-family="DM Sans,sans-serif" font-size="9" fill="#52525e">2. No class-level state variables affect outcomes</text>
+
+      <svg x="36" y="429" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <text x="54" y="439" font-family="DM Sans,sans-serif" font-size="9" fill="#52525e">3. Only parameters: (serverSeed, clientSeed, nonce, rows)</text>
+
+      <svg x="36" y="447" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <text x="54" y="457" font-family="DM Sans,sans-serif" font-size="9" fill="#52525e">4. Different users have different server seeds</text>
+
+      <svg x="36" y="465" width="12" height="12" viewBox="0 0 16 16"><rect width="16" height="16" rx="3" fill="#2563eb"/><polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <text x="54" y="475" font-family="DM Sans,sans-serif" font-size="9" fill="#52525e">5. Same user gets new server seed after rotation</text>
+
+
+      <!-- ══════ PASS BANNER ══════ -->
+      <rect x="20" y="496" width="660" height="24" rx="6" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+      <svg x="30" y="499" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect width="16" height="16" rx="3" fill="#16a34a"/>
+        <polyline points="4,8.5 7,11.5 12,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <text x="52" y="513" font-family="Plus Jakarta Sans,sans-serif" font-size="8.5" font-weight="700" fill="#16a34a" letter-spacing=".04em">RNG STATE DOES NOT LEAK ACROSS ROUNDS OR USERS</text>
+
+</svg>
