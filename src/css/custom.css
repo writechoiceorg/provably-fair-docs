@@ -2473,13 +2473,14 @@
    AUDIT COVERAGE TABLE
    ═══════════════════════════════════════════════ */
  .pf-coverage-wrap {
-    margin: 1rem 0 2rem;
-    overflow-x: auto;
+    /* margin: 1rem 0 2rem; */
+    /* overflow-x: auto; */
     border-radius: 14px;
     border: 1px solid var(--pf-border);
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     background: var(--bg);
     overflow: hidden;
+    width: 100%;
   }
 
   [data-theme='dark'] .pf-coverage-wrap {
@@ -2490,7 +2491,7 @@
   .pf-coverage-table {
   width: 100%;
   min-width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   background: var(--bg);
 }
@@ -2919,7 +2920,7 @@ details.pf-reproduce__expand[open] .pf-reproduce__summary::before {
 }
  
 /* Body */
-.pf-ref-panel__body {
+/* replaced */ .pf-ref-panel__body--old {
   padding: 0.6rem 1.2rem 1.2rem;
   border-top: 1px solid var(--border-light);
 }
@@ -2927,7 +2928,8 @@ details.pf-reproduce__expand[open] .pf-reproduce__summary::before {
 .pf-ref-table-wrap {
   margin-left: -1.2rem;
   margin-right: -1.2rem;
-  width: calc(100% + 2.4rem);
+  /* width: calc(100% + 2.4rem); */
+  width: 100%;
   border-left: none;
   border-right: none;
   border-radius: 0;
@@ -3006,7 +3008,7 @@ details.pf-reproduce__expand[open] .pf-reproduce__summary::before {
     gap: 8px;
   }
  
-  .pf-ref-panel__body {
+  /* replaced */ .pf-ref-panel__body--old {
     padding: 0.5rem 0.8rem 1rem;
   }
  
@@ -3031,7 +3033,7 @@ details.pf-reproduce__expand[open] .pf-reproduce__summary::before {
 .tw table {
   width: 100%;
   min-width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: separate;
   border-spacing: 0;
   border: 1px solid var(--border);
@@ -4005,5 +4007,454 @@ html[data-theme='dark'] .pfTransparencyButtonSecondary {
   .pfTransparencyGrid,
   .pfAuditPinningGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   AUDIT SUMMARY BLOCK
+   ═══════════════════════════════════════════════════════════════ */
+   .pf-overview-section {
+  margin: 2rem 0 2.5rem;
+}
+
+.pf-audit-summary {
+  margin-top: 0.95rem;
+}
+
+.pf-audit-summary__intro,
+.pf-audit-summary__body,
+.pf-audit-summary__muted {
+  max-width: 72ch;
+}
+
+.pf-audit-summary__intro {
+  margin: 0 0 0.9rem;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.pf-audit-summary .pf-checklist {
+  margin: 0.85rem 0 0;
+}
+
+.pf-audit-summary__body {
+  margin: 1rem 0 0;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.pf-audit-summary__muted {
+  margin: 0.9rem 0 0;
+}
+
+.pf-audit-summary__note {
+  margin-top: 1rem;
+}
+
+/* Scope of certification — exact alignment fixes */
+
+.pf-scope-table table {
+  table-layout: auto;
+  width: 100%;
+}
+
+.pf-scope-table thead th {
+  text-align: left;
+  vertical-align: middle;
+}
+
+.pf-scope-table tbody td {
+  vertical-align: top;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Pull the two columns visually closer together */
+.pf-scope-table tbody td:first-child {
+  padding-right: 18px;
+}
+
+.pf-scope-table tbody td:last-child {
+  padding-left: 18px;
+}
+
+/* Reset list spacing so content starts neatly under the headers */
+.pf-scope-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each row begins on the same line and uses the same rhythm */
+.pf-scope-list li {
+  position: relative;
+  margin: 0;
+  padding: 10px 0 10px 16px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+/* Make second column text muted, but not the bullet */
+.pf-scope-list--muted li {
+  color: var(--text-3);
+}
+
+/* Bullet styling */
+.pf-scope-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #e85d04;
+}
+
+/* Keep bullets orange in both columns */
+.pf-scope-list--muted li::before {
+  background: #e85d04;
+}
+
+/* Tighten first row so it starts closer to the header, like the original */
+.pf-scope-list li:first-child {
+  padding-top: 8px;
+}
+
+.pf-scope-list li:first-child::before {
+  top: 16px;
+}
+
+/* GAME ICON */
+
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.gc {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.gc:hover {
+  border-color: var(--text-4);
+}
+
+.gc-name {
+  font-weight: 700;
+  font-size: 0.86rem;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.gc-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  flex: 0 0 16px;
+}
+
+.gc-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  vertical-align: -2px;
+}
+
+.gc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--green-border);
+  margin-bottom: 5px;
+}
+
+.gc-row {
+  font-size: 0.7rem;
+  color: var(--text-3);
+  padding: 1px 0;
+}
+
+.gc-row span {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-body);
+  font-size: 0.66rem;
+}
+
+.gc-link {
+  display: block;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid var(--border-light);
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .game-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ICON CONTAINER — controls size */
+.gc-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* FORCE SVG to respect container */
+
+
+.gc-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* mobile */
+
+@media (max-width: 900px) {
+  .pf-scope-cert__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pf-scope-cert__col + .pf-scope-cert__col {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+}
+
+@media (max-width: 640px) {
+  .pf-overview-section {
+    margin: 1.75rem 0 2.2rem;
+  }
+
+  .pf-scope-cert__grid {
+    border-radius: 14px;
+  }
+
+  .pf-scope-cert__col {
+    padding: 1rem;
+  }
+}
+/* ── Fix RefTable full-width inside reference panels ── */
+.pf-ref-table-wrap {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  border-radius: 0;
+}
+.pf-ref-table-wrap .pf-coverage-table {
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+/* replaced */ .pf-ref-panel__body--old {
+  padding: 0.6rem 0 1.2rem;
+}
+.pf-ref-panel__body > p,
+.pf-ref-panel__body > .sub,
+.pf-ref-panel__body > .pf-note,
+.pf-ref-panel__body > .pf-ref-inner,
+.pf-ref-panel__body > ul {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+/* ── pf-rt: Reference Table — edge-to-edge, no side gaps ── */
+.pf-rt {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  box-sizing: border-box;  width: 100%;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+.pf-rt__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.pf-rt__th {
+  background: var(--dark);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.2rem;
+  text-align: left;
+  border: none;
+}
+.pf-rt__row {
+  border-bottom: 1px solid var(--border-light);
+}
+.pf-rt__row:last-child {
+  border-bottom: none;
+}
+.pf-rt__td {
+  padding: 0.65rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  background: var(--bg);
+  vertical-align: top;
+  border: none;
+}
+.pf-rt__td strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Remove padding from panel body — table handles its own ── */
+/* replaced */ .pf-ref-panel__body--old {
+  padding: 0.6rem 0 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   pf-rt — Reference Table
+   Full-width, edge-to-edge, consistent across all panels.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Override panel body — remove side padding, let table fill edge to edge */
+.pf-ref-panel__body {
+  padding: 0.5rem 0 1rem !important;
+  border-top: 1px solid var(--border-light);
+}
+
+/* All direct text children of panel body get their own padding back */
+.pf-ref-panel__body > p,
+.pf-ref-panel__body > ul,
+.pf-ref-panel__body > .pf-note {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+/* Sub blocks inside panel body */
+.pf-ref-panel__body .sub {
+  padding-left: 0;
+  padding-right: 0;
+}
+.pf-ref-panel__body .sub-hdr,
+.pf-ref-panel__body .sub > p,
+.pf-ref-panel__body .sub > ul,
+.pf-ref-panel__body .sub > .pf-note {
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+}
+
+/* The table wrapper — always full width, no margin */
+.pf-rt {
+  width: 100%;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+/* The table itself — full width, no border-radius, no border */
+.pf-rt__table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+}
+
+/* Header row — dark background, uppercase labels */
+.pf-rt__th {
+  background: var(--dark);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.2rem;
+  text-align: left;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Data rows */
+.pf-rt__row {
+  border-bottom: 1px solid var(--border-light);
+}
+.pf-rt__row:last-child {
+  border-bottom: none;
+}
+
+/* Data cells */
+.pf-rt__td {
+  padding: 0.65rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--text-body);
+  background: var(--bg);
+  vertical-align: top;
+  border: none;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.pf-rt__td strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Dark mode rows */
+[data-theme='dark'] .pf-rt__td {
+  background: var(--bg);
+}
+[data-theme='dark'] .pf-rt__row {
+  border-bottom-color: var(--border-light);
+}
+
+/* Inner collapsible tables also get full width */
+.pf-ref-inner__body .pf-rt {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  box-sizing: border-box;  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.pf-rt {
+  width: 100%;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .pf-rt {
+    padding: 0 0.5rem;
   }
 }

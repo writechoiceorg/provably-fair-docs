@@ -9,6 +9,7 @@ import config from './config.json';
 import CertBanner from '@site/src/components/casino/CertBanner';
 import TagRow from '@site/src/components/casino/TagRow';
 import StatBlocks from '@site/src/components/casino/StatBlocks';
+import StatsGrid from '@site/src/components/casino/StatsGrid';
 import VerdictTable from '@site/src/components/casino/VerdictTable';
 import GameMatrix from '@site/src/components/casino/GameMatrix';
 import AuditTimeline from '@site/src/components/casino/AuditTimeline';
@@ -34,7 +35,7 @@ Each control area was independently tested using live production data, Monte Car
 
 <VerdictTable verdicts={config.verdicts} />
 
-<StatBlocks stats={config.stats} />
+<StatsGrid stats={config.stats} /> 
 
 <SectionHeading id ="game-validation-matrix" label="Game Testing" title="Game Validation Matrix" />
 

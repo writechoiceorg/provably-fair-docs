@@ -6,7 +6,6 @@ toc_max_heading_level: 2
 ---
 
 import config from './config.json';
-import diceConfig from './games/dice/config.json';
 import plinkoConfig from './games/plinko/config.json';
 
 import CertBanner from '@site/src/components/casino/CertBanner';
@@ -18,6 +17,8 @@ import ConclusionBlock from '@site/src/components/casino/ConclusionBlock';
 import Note from '@site/src/components/casino/Note';
 import Checklist from '@site/src/components/casino/Checklist';
 import ArchDiagram from '@site/src/components/casino/ArchDiagram';
+import AuditSummaryBlock from '@site/src/components/casino/AuditSummaryBlock';
+import ScopeCertificationTable from '@site/src/components/casino/ScopeCertificationTable';
 
 
 
@@ -35,136 +36,61 @@ export const toc = [
 
 <div className="pf-page-eyebrow">{config.name} · {config.auditId}</div>
 
-# Executive Summary
+# {config.executiveSummary.hero.title}
 
 <p className="pf-page-lead">
-  This audit evaluated {config.name}'s provably fair architecture across <strong>eight core games</strong>: Dice, Crash, Plinko, Blackjack, Roulette, Keno, Mines, and Beef. The objective was to determine whether game outcomes are cryptographically reproducible, statistically sound, and <strong>resistant to structural manipulation</strong>.
+  {config.executiveSummary.hero.lead}
 </p>
 
-Validation was conducted across **five domains**: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and structured fairness integrity testing. Assessment combined source-level review, independent deterministic recomputation, large-scale statistical simulation, and controlled adversarial testing.
+{config.executiveSummary.hero.beforeDiagram?.map((paragraph, index) => (
+  <p key={`before-${index}`}>{paragraph}</p>
+))}
 
-<ArchDiagram config={config} />
+<ArchDiagram config= {config.executiveSummary.architecture} />
 
-Live production bets were captured and recomputed using disclosed inputs. Monte Carlo simulations validated theoretical RTP alignment across configurable parameters. Fairness integrity testing verified seed commitment, nonce sequencing, outcome determinism, round isolation, and payout integrity under adversarial conditions.
+{config.executiveSummary.hero.afterDiagram?.map((paragraph, index) => (
+  <p key={`after-${index}`}>{paragraph}</p>
+))}
 
-Across all reviewed games, outcomes were found to be **cryptographically reproducible**, **statistically unbiased** within expected variance tolerances, and **consistent with documented payout structures** at the time of audit.
+<p className="pf-muted">
+  {config.executiveSummary.hero.muted}
+</p>
 
-All datasets, tooling, scripts, simulations, and verification logic referenced in this report are publicly accessible within the respective game sections. Any third party can **independently recompute and verify** the exact results presented in this audit, without relying on trust in ProvablyFair.org or the operator.
-
-<p className="pf-muted">Certification reflects the integrity of the audited implementation as deployed during the review period.</p>
 
 
 <SectionHeading id="validation-approach" label="Overview" title="Validation Approach" />
-<StatsGrid stats={[
-  { value: config.stats.liveBetsVerified, label: 'Live Bets Verified' },
-  { value: config.stats.simulationRounds, label: 'Simulated Rounds' },
-  { value: config.stats.integrityChecks,  label: 'Integrity Checks', variant: 'orange' },
-  { value: config.stats.gamesValidated,   label: 'Games Certified',  variant: 'green' },
-]} />
+ <StatsGrid stats={config.stats} /> 
 
 
 <SectionHeading id="entropy-architecture" label="Randomness" title="Entropy Architecture" />
-
-Duel uses **HMAC-SHA256** as its deterministic RNG across seed-based games including Dice, Plinko, Blackjack, Keno, and Mines.
-
-For Crash and Castle Roulette, Duel integrates **drand** — a decentralized public randomness beacon — as an additional entropy anchor. In these games:
-
-<Checklist>
-  <li>The server seed is combined with drand beacon output</li>
-  <li>The drand round number is publicly verifiable</li>
-  <li>Beacon output cannot be influenced retroactively</li>
-</Checklist>
-
-This architecture ensures outcome entropy is deterministic, reproducible, cryptographically verifiable, and externally anchored where applicable.
-
-<Note variant="ok"><strong>No hidden entropy sources identified.</strong> Outcome entropy is deterministic, reproducible, cryptographically verifiable, and externally anchored where applicable.</Note>
-
+ <AuditSummaryBlock section={config.executiveSummary.sections[0]} />
+ <Note variant="ok"><strong>No hidden entropy sources identified.</strong> Outcome entropy is deterministic, reproducible, cryptographically verifiable, and externally anchored where applicable.</Note>
 
 <SectionHeading id="live-parity-validation" label="Determinism" title="Live Parity Validation" />
 
-<StatsGrid stats={[
-  { value: config.stats.liveBetsVerified, label: 'Live Bets Captured' },
-  { value: '100%',                         label: 'Parity Match Rate', variant: 'green' },
-  { value: '22',                           label: 'Seed Sessions' },
-  { value: '0',                            label: 'Discrepancies',     variant: 'green' },
-]} />
+<StatsGrid stats={config.executiveSummary.liveParityStats} />
 
-Independent recomputation confirmed identical inputs always produce identical outcomes. No conditional divergence or fallback logic was observed. No rounding inconsistencies or conditional divergences were detected.
-
-<SectionHeading id="rtp-statistical-validation" label="Statistics" title="RTP &amp; Statistical Validation" />
-
-Monte Carlo simulations were executed per game configuration:
-
-<Checklist>
-  <li><strong>{config.stats.simulationRounds}</strong> total simulation rounds</li>
-  <li>Theoretical RTP derived directly from payout tables</li>
-  <li>Empirical convergence measured across configurable parameters</li>
-  <li>RTP alignment validated across all selectable configurations</li>
-</Checklist>
-
-For games with adjustable risk settings, RTP alignment was validated across all selectable configurations. Empirical convergence remained within expected statistical tolerance. No payout distortion or structural house-edge anomalies were identified.
+<p>{config.executiveSummary.liveParityStatusText}</p>
 
 
-<SectionHeading id="fairness-integrity-analysis" label="Integrity" title="Fairness Integrity Analysis" />
-
-A structured integrity framework covering **{config.stats.integrityChecks} game integrity checks** was executed across five categories:
-
-<Checklist>
-  <li>Nonce integrity and sequencing</li>
-  <li>Seed commitment and lifecycle</li>
-  <li>Outcome determinism and replay resistance</li>
-  <li>Round and player isolation</li>
-  <li>Payout integrity and parameter enforcement</li>
-</Checklist>
-
-All fairness invariants were verified within the defined scope of testing. No tested vector enabled outcome prediction, post-bet manipulation, house-edge distortion, or unauthorized bankroll advantage.
-
-
-<SectionHeading id="residual-risk-assumptions" label="Risk" title="Residual Risk &amp; Assumptions" />
-
-Certification assumes:
-
-<Checklist>
-  <li>Secure generation and storage of server seeds</li>
-  <li>Production logic matches audited implementation</li>
-  <li>Continued adherence to documented RNG and drand integration</li>
-</Checklist>
-
-<p className="pf-muted">Future code modifications or entropy architecture changes may require revalidation.</p>
-
+{config.executiveSummary.sections.slice(1).map((section) => (
+  <div key={section.id}>
+    <SectionHeading
+      id={section.id}
+      label={section.label}
+      title={section.title}
+    />
+    <AuditSummaryBlock section={section} />
+  </div>
+))}
 
 <SectionHeading id="scope-of-certification" label="Scope" title="Scope of Certification" />
+ <ScopeCertificationTable
+    covered={config.executiveSummary.scopeTable.covered}
+    notCovered={config.executiveSummary.scopeTable.notCovered}
+  />
 
-<div className="pf-scope-table">
-  <table>
-    <thead>
-      <tr><th>Covered</th><th>Not Covered</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <ul className="pf-checklist" style={{margin:0}}>
-            <li>Provably fair RNG logic</li>
-            <li>Deterministic reproducibility</li>
-            <li>RTP mathematical correctness</li>
-            <li>Fairness integrity within tested scope</li>
-          </ul>
-        </td>
-        <td>
-          <ul className="pf-checklist pf-checklist--muted" style={{margin:0}}>
-            <li>Business solvency</li>
-            <li>Regulatory licensing</li>
-            <li>Custody governance</li>
-            <li>Infrastructure vulnerabilities</li>
-          </ul>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<Note variant="warn"><strong>Important:</strong> Certification assumes secure server seed storage, that production logic matches audited implementation, and continued adherence to documented architecture. Code changes may require revalidation.</Note>
-
+  <Note variant="warn"><strong>Important:</strong> Certification assumes secure server seed storage, that production logic matches audited implementation, and continued adherence to documented architecture. Code changes may require revalidation.</Note>
 
 <SectionHeading id="certification-conclusion" label="Conclusion" title="Certification Conclusion" />
 
@@ -175,6 +101,6 @@ Certification assumes:
 Each game was independently evaluated. Summary below highlights validation depth.
 
 
-<GameCards games={config.games} casinoSlug="duel" />
+<GameCards games={config.executiveSummary.games} casinoSlug="duel" />
 
 <p className="pf-muted">All datasets, scripts, simulations, and verification logic are publicly accessible within game sections and the linked repository.</p>
