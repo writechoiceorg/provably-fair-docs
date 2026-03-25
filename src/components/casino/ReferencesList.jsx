@@ -16,7 +16,6 @@ function RefTable({ table }) {
   if (!table) return null;
   return (
     <div className="pf-rt">
-      <p>Emediong</p>
       <table className="pf-rt__table">
         <thead>
           <tr>
