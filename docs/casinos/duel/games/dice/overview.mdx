@@ -1,0 +1,314 @@
+---
+title: Dice Audit
+hide_title: true
+toc_min_heading_level: 2
+toc_max_heading_level: 2
+---
+
+import config from './config.json';
+
+import CertBannerGames     from '@site/src/components/casino/CertBannerGames';
+import GameTagRow          from '@site/src/components/casino/GameTagRow';
+import SectionHeading      from '@site/src/components/casino/SectionHeading';
+import PlainSectionHeading from '@site/src/components/casino/PlainSectionHeading';
+import GameStats           from '@site/src/components/casino/GameStats';
+import GameSectionHeader   from '@site/src/components/casino/GameSectionHeader';
+import PlayerBrief         from '@site/src/components/casino/PlayerBrief';
+import VerdictBox          from '@site/src/components/casino/VerdictBox';
+import ExpandablePanel     from '@site/src/components/casino/ExpandablePanel';
+import CodeCard            from '@site/src/components/casino/CodeCard';
+import PinGrid             from '@site/src/components/casino/PinGrid';
+import CompareStrip        from '@site/src/components/casino/CompareStrip';
+import GameVerdictTable    from '@site/src/components/casino/GameVerdictTable';
+import AuditCheckList      from '@site/src/components/casino/AuditCheckList';
+import AuditCoverageTable  from '@site/src/components/casino/AuditCoverageTable';
+import NoteBlock           from '@site/src/components/casino/NoteBlock';
+import ExcludeList         from '@site/src/components/casino/ExcludeList';
+import ReproduceBlock      from '@site/src/components/casino/ReproduceBlock';
+import ReferencesList      from '@site/src/components/casino/ReferencesList';
+import SectionVerdictTable from '@site/src/components/casino/SectionVerdictTable';
+import DiagramImage        from '@site/src/components/casino/DiagramImage';
+import SubSection          from '@site/src/components/casino/SubSection';
+import TabbedCode from '@site/src/components/casino/TabbedCode';
+import RepoTree from '@site/src/components/casino/RepoTree';
+import CollapsibleTable from '@site/src/components/casino/CollapsibleTable';
+import RtpHero from '@site/src/components/casino/RtpHero';
+import VerificationWalkthrough from '@site/src/components/casino/VerificationWalkthrough';
+import VerifierLinks from '@site/src/components/casino/VerifierLinks';
+
+
+{/* THE HERO COMPONENT  */}
+<CertBannerGames
+  config={{
+    name:        config.hero.title,
+    subtitle:    config.hero.subtitle,
+    auditDate:   config.hero.auditDate,
+    auditId:     config.hero.auditId,
+    certifiedBy: config.hero.certifiedBy,
+    status:      config.status,
+  }}
+/>
+
+{/* TAG ROW */}
+<GameTagRow tags={config.hero.badges} />
+
+{/* GAME STATISTICS */}
+<GameStats config={config.statsBlock} />
+
+{/* GAME AUDIT TABLE */}
+<SectionHeading label="Result" title="Audit Verdict" />
+<GameVerdictTable rows={config.auditVerdict} />
+
+{/* PLINKO OVERVIEW */}
+<SectionHeading label="Overview" title={config.overview.title} />
+<p>{config.overview.intro}</p>
+
+
+{/* CHECKLIST OF WHAT WAS AUDITED */}
+<SectionHeading label="Scope" title="What Was Audited" />
+<AuditCheckList items={config.overview.whatWasAudited} />
+
+{/* SECTIONS COVERED BY THE AUDIT */}
+<PlainSectionHeading title="What Audit Covers" />
+<AuditCoverageTable config={config.overview.coverageTable} />
+
+<PlainSectionHeading title="What Audit Guarantees" />
+<ul className="ck-list single">
+  {(config.overview.guarantees ?? []).map((item, i) => (
+    <li key={i}>{item}</li>
+  ))}
+</ul>
+
+<PlainSectionHeading title="What Audit Excludes" />
+<ExcludeList items={config.overview.excludes ?? []} />
+
+<SectionHeading label="Open Source" title="Reproduce This Audit" />
+<ReproduceBlock config={config.overview.reproduce} />
+
+<PlainSectionHeading title="References" />
+<ReferencesList references={config.overview.references ?? []} />
+
+{/* ════════════════════════════════════════════════════════════════
+    S1 — SEED, NONCE & DETERMINISM
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[0].number}
+  title={config.sections[0].title}
+  subtitle={config.sections[0].subtitle}
+/>
+
+<p>{config.sections[0].intro}</p>
+
+<PlayerBrief brief={config.sections[0].playerBrief} />
+
+<DiagramImage src={config.sections[0].diagram} alt="HMAC Pipeline" />
+
+<SectionVerdictTable rows={config.sections[0].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[0].verdict.title} body={config.sections[0].verdict.body} />
+
+{(config.sections[0].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+{/* S2 — RNG & ENTROPY MODEL */}
+
+<GameSectionHeader
+  number={config.sections[1].number}
+  title={config.sections[1].title}
+  subtitle={config.sections[1].subtitle}
+/>
+
+<p>{config.sections[1].intro}</p>
+
+<PlayerBrief brief={config.sections[1].playerBrief} />
+
+<DiagramImage src={config.sections[1].diagram} alt="HMAC Pipeline" />
+
+<SectionVerdictTable rows={config.sections[1].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[1].verdict.title} body={config.sections[1].verdict.body} />
+
+{(config.sections[1].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+
+{/* ════════════════════════════════════════════════════════════════
+    S3 — VERIFIER PARITY
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[2].number}
+  title={config.sections[2].title}
+  subtitle={config.sections[2].subtitle}
+/>
+
+<p>{config.sections[2].intro}</p>
+
+<PlayerBrief brief={config.sections[2].playerBrief} />
+
+<DiagramImage src={config.sections[2].diagram} alt="Parity Verification Flow" />
+
+
+<SectionVerdictTable rows={config.sections[2].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[2].verdict.title} body={config.sections[2].verdict.body} />
+
+{(config.sections[2].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+{/* ════════════════════════════════════════════════════════════════
+    S4 — RTP & PAYOUT LOGIC VALIDATION
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[3].number}
+  title={config.sections[3].title}
+  subtitle={config.sections[3].subtitle}
+/>
+
+<p>{config.sections[3].intro}</p>
+
+<PlayerBrief brief={config.sections[3].playerBrief} />
+
+<DiagramImage src={config.sections[3].diagram} alt="RTP Convergence" />
+
+<SectionVerdictTable rows={config.sections[3].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[3].verdict.title} body={config.sections[3].verdict.body} />
+
+{(config.sections[3].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+
+{/* ════════════════════════════════════════════════════════════════
+    S5 — FAIRNESS INTEGRITY TESTING
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[4].number}
+  title={config.sections[4].title}
+  subtitle={config.sections[4].subtitle}
+/>
+
+<p>{config.sections[4].intro}</p>
+
+<PlayerBrief brief={config.sections[4].playerBrief} />
+
+<SectionVerdictTable rows={config.sections[4].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[4].verdict.title} body={config.sections[4].verdict.body} />
+
+{(config.sections[4].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+
+{/* ════════════════════════════════════════════════════════════════
+    S6 — PLAYER VERIFICATION GUIDE
+    ════════════════════════════════════════════════════════════════ */}
+
+<GameSectionHeader
+  number={config.sections[5].number}
+  title={config.sections[5].title}
+  subtitle={config.sections[5].subtitle}
+/>
+
+<p>{config.sections[5].intro}</p>
+
+<PlayerBrief brief={config.sections[5].playerBrief} />
+
+<RtpHero hero={config.sections[3].rtpHero} />
+
+
+<DiagramImage src={config.sections[5].diagram} alt="From Bet to Independent Verification — 4-step flow" />
+
+<VerificationWalkthrough steps={config.sections[5].walkthroughSteps} />
+
+<VerifierLinks links={config.sections[5].verifierLinks} />
+<SectionVerdictTable rows={config.sections[5].sectionVerdictTable} />
+
+<VerdictBox title={config.sections[5].verdictTitle} body={config.sections[5].verdictBody} />
+
+{(config.sections[5].expandables ?? []).map((panel, pi) => (
+  <ExpandablePanel key={pi} title={panel.title} count={panel.count}>
+    {(panel.subsections ?? []).map((sub, si) => (
+      <SubSection key={si} sub={sub} />
+    ))}
+  </ExpandablePanel>
+))}
+
+{/* ════════════════════════════════════════════════════════════════
+    S7 — REPRODUCIBILITY & ARTIFACTS
+    ════════════════════════════════════════════════════════════════ */}
+
+{config.sections[6] && <>
+
+<GameSectionHeader
+  number={config.sections[6].number}
+  title={config.sections[6].title}
+  subtitle={config.sections[6].subtitle}
+/>
+
+<p>{config.sections[6].intro}</p>
+
+<PlayerBrief brief={config.sections[6].playerBrief} />
+
+<RepoTree
+  title={config.sections[6].repoTree.title}
+  lines={config.sections[6].repoTree.lines}
+/>
+
+<h5 className="pf-s7-heading">Commands to Reproduce</h5>
+
+<TabbedCode tabs={config.sections[6].commandTabs} />
+
+<CollapsibleTable
+  title={config.sections[6].outputArtifacts.title}
+  badge={config.sections[6].outputArtifacts.badge}
+  iconColor={config.sections[6].outputArtifacts.iconColor}
+  columns={config.sections[6].outputArtifacts.columns}
+  rows={config.sections[6].outputArtifacts.rows}
+/>
+
+<h5 className="pf-s7-heading">Audit Reproducibility Pinning</h5>
+
+<PinGrid pins={config.sections[6].pinning} variant="pinning" />
+
+<CollapsibleTable
+  title={config.sections[6].stepCrossRef.title}
+  badge={config.sections[6].stepCrossRef.badge}
+  iconColor={config.sections[6].stepCrossRef.iconColor}
+  iconBg={config.sections[6].stepCrossRef.iconBg}
+  columns={config.sections[6].stepCrossRef.columns}
+  rows={config.sections[6].stepCrossRef.rows}
+  tableSmall={true}
+/>
+
+<VerdictBox title={config.sections[6].verdict.title} body={config.sections[6].verdict.body} />
+
+</>}

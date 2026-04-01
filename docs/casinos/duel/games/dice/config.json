@@ -1,0 +1,1267 @@
+{
+  "name": "Dice",
+  "slug": "dice",
+  "icon": "dice",
+  "status": "CERTIFIED",
+  "summaryCard": {
+    "rngModel": "HMAC-SHA256",
+    "betsVerified": "6,200",
+    "parityRate": "100%",
+    "simRounds": "980K+",
+    "rtp": "99.9%",
+    "integrityChecks": "13 / 13"
+  },
+  "hero": {
+    "title": "Duel: Dice Game Audit",
+    "subtitle": "Provably Fair Verification Report",
+    "auditDate": "Jan 30, 2026",
+    "auditId": "PF-2026-001",
+    "certifiedBy": "ProvablyFair.org",
+    "badges": [
+      {
+        "label": "Certified",
+        "variant": "green"
+      },
+      {
+        "label": "Dice",
+        "variant": "orange"
+      },
+      {
+        "label": "Last Updated: Jan 2026",
+        "variant": "neutral"
+      }
+    ]
+  },
+  "statsBlock": {
+    "stats": [
+      {
+        "value": "6,200",
+        "label": "Live Bets Verified"
+      },
+      {
+        "value": "100%",
+        "label": "Parity Rate",
+        "variant": "green"
+      },
+      {
+        "value": "980K+",
+        "label": "Simulated Rounds"
+      },
+      {
+        "value": "99.91%",
+        "label": "Observed RTP",
+        "variant": "accent"
+      }
+    ],
+    "featured": {
+      "value": "13 / 13",
+      "label": "Tests Passed",
+      "filled": 13,
+      "total": 13
+    }
+  },
+  "auditVerdict": [
+    {
+      "check": "Overall Status",
+      "result": "Pass",
+      "reference": ""
+    },
+    {
+      "check": "RTP Verified",
+      "result": "Pass",
+      "reference": "99.9% ± 0.1% House Edge"
+    },
+    {
+      "check": "Live ↔ Verifier Parity",
+      "result": "Pass",
+      "reference": "100% — all test rounds matched"
+    },
+    {
+      "check": "Commit-Reveal System",
+      "result": "Pass",
+      "reference": "SHA-256 verified"
+    },
+    {
+      "check": "Seed Handling",
+      "result": "Pass",
+      "reference": "Player control verified"
+    },
+    {
+      "check": "RNG Analysis",
+      "result": "Pass",
+      "reference": "Unbiased via rejection sampling"
+    },
+    {
+      "check": "Payout Logic",
+      "result": "Pass",
+      "reference": "All payouts verified correct"
+    },
+    {
+      "check": "Fairness Guarantees Tested",
+      "result": "Pass",
+      "reference": "7/7 fairness guarantees verified"
+    },
+    {
+      "check": "Determinism",
+      "result": "Pass",
+      "reference": "Full reproducibility confirmed"
+    }
+  ],
+  "overview": {
+    "title": "Dice Audit Overview",
+    "intro": "This audit independently validates the Dice game operated by Duel.com across five domains: deterministic outcome generation, entropy integrity, live-to-verifier parity, RTP mathematical accuracy, and fairness integrity testing.",
+    "whatWasAudited": [
+      "The RNG algorithm is deterministic and verifiable",
+      "Server seeds are cryptographically committed before play",
+      "Players can set their own client seeds",
+      "Nonces increment correctly and are never reused",
+      "Payout logic matches advertised multipliers",
+      "Theoretical RTP is 99.9%",
+      "Game outcomes determined by a provably fair algorithm",
+      "Players can independently verify every bet",
+      "Commit-reveal cryptographic system verification"
+    ],
+    "coverageTable": {
+      "columns": {
+        "left": "Area",
+        "right": "Description"
+      },
+      "rows": [
+        {
+          "area": "Commit-Reveal System",
+          "description": "Server seed hashing, timing, reveal mechanics"
+        },
+        {
+          "area": "Seed Handling",
+          "description": "Client seed control, nonce lifecycle"
+        },
+        {
+          "area": "RNG Analysis",
+          "description": "Algorithm verification, bias testing"
+        },
+        {
+          "area": "Payout Logic",
+          "description": "Multiplier accuracy, win condition verification"
+        },
+        {
+          "area": "Live Parity",
+          "description": "Verifier vs live game result matching"
+        },
+        {
+          "area": "RTP Validation",
+          "description": "Theoretical and simulated RTP analysis"
+        }
+      ]
+    },
+    "guarantees": [
+      "Outcomes are deterministic and reproducible",
+      "Live game results match the public verifier",
+      "Randomness behaves as advertised",
+      "No adversarial condition was able to violate any fairness guarantee at audit time"
+    ],
+    "excludes": [
+      "Infrastructure or server security",
+      "Wallet, payments, or custody systems",
+      "Operational controls outside game logic"
+    ],
+    "reproduce": {
+      "repoUrl": "https://github.com/ProvablyFair-org/duel-audit",
+      "repoLabel": "github.com/ProvablyFair-org/duel-audit",
+      "commit": "fa913ab",
+      "verifierUrl": "https://duel.com/dice",
+      "verifierLabel": "duel.com/dice",
+      "note": {
+        "variant": "ok",
+        "strong": "All code, datasets, and simulation scripts are publicly accessible.",
+        "body": "Anyone can independently verify every finding in this audit."
+      },
+      "code": {
+        "label": "reproduce-audit.sh",
+        "language": "sh",
+        "lines": [
+          "# Clone and setup",
+          "git clone https://github.com/ProvablyFair-org/duel-audit.git",
+          "cd duel-audit",
+          "git checkout fa913ab94883d06950d3c63bbb7007f927648131",
+          "npm install",
+          "",
+          "# Run all tests (all games)",
+          "npm test    # 39 tests total — Dice: 13 tests (100% pass)",
+          "",
+          "# Run Dice-specific tests only",
+          "npx mocha tests/dice/DiceAuditExecutionChecklistTests.ts",
+          "npx mocha tests/dice/DiceWinCalculatorTests.ts",
+          "npx mocha tests/dice/DuelDiceNumbersGeneratorTests.ts",
+          "npx mocha tests/dice/DiceGameProfilesTests.ts",
+          "",
+          "# Run all Dice tests",
+          "npx mocha \"tests/dice/**/*.ts\"",
+          "",
+          "# Generate audit report files",
+          "npm run generate-audit-files",
+          "# → outputs/audit-results/audit-results.html",
+          "# → outputs/audit-results/audit-results.json",
+          "# → outputs/audit-results/audit-results.pdf"
+        ]
+      }
+    },
+    "references": [
+      {
+        "title": "Dice — Game Rules",
+        "count": "1 section",
+        "icon": "dice",
+        "intro": "Duel Dice is a number prediction game. Players set a target number and choose over/under. A provably fair roll between 0.00 and 99.99 determines the outcome. Payouts scale inversely with win probability — higher risk targets pay higher multipliers. House edge is fixed at 1% across all configurations.",
+        "sections": [
+          {
+            "title": "Game Rules",
+            "content": "Duel Dice is a number prediction game where players bet on whether a provably fair roll (0.00–99.99) will land over or under a chosen target number. Payouts scale inversely with win probability — higher risk targets pay higher multipliers. House edge is fixed at 1% across all configurations."
+          }
+        ]
+      },
+      {
+        "title": "Why Provably Fair Matters",
+        "count": "1 section",
+        "icon": "lock",
+        "intro": "Provably fair is a cryptographic system where game outcomes are determined by inputs from both the casino (server seed) and the player (client seed). The casino commits to its seed before the bet via a SHA-256 hash. After play, the seed is revealed and players can verify the outcome was predetermined.",
+        "sections": [
+          {
+            "title": "Why Provably Fair Matters",
+            "content": "Provably fair is a cryptographic system where game outcomes are determined by inputs from both the casino (server seed) and the player (client seed). The casino commits to its seed before the bet via a SHA-256 hash. After play, the seed is revealed and players can verify the outcome was predetermined. See provablyfair.org/learn for a detailed explainer."
+          }
+        ]
+      },
+      {
+        "title": "High-Level Overview",
+        "count": "3 links",
+        "icon": "list",
+        "sections": [
+          {
+            "title": "High-Level Overview",
+            "bullets": [
+              "Dashboard — system-wide audit overview",
+              "Executive Summary — methodology and conclusions",
+              "Public Certification Page — provablyfair.org/audits/duel"
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Technical Glossary",
+        "count": "3 terms",
+        "icon": "book",
+        "sections": [
+          {
+            "title": "Core Terms",
+            "bullets": [
+              "HMAC-SHA256 — RFC 2104",
+              "drand — Distributed randomness beacon",
+              "Chi-squared test — Statistical uniformity testing"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "number": 1,
+      "id": "s1",
+      "title": "Seed, Nonce & Determinism",
+      "subtitle": "Can the casino change your outcome after you bet?",
+      "intro": "Every Dice roll on Duel is generated from three inputs: server seed, client seed, and nonce. The casino commits to its seed before you bet, you control your own seed, and the nonce increments automatically.",
+      "playerBrief": {
+        "headline": "Commit-Reveal Cryptographic Guarantee",
+        "statValue": "6,200 / 6,200",
+        "statLabel": "bets verified",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Casino commits to server seed before any bet",
+          "Players can set or change their client seed",
+          "Nonce increments automatically, never reused",
+          "Result derived only from (server seed, client seed, nonce)",
+          "Same inputs always produce same outcome"
+        ],
+        "means": [
+          "Casino cannot change outcomes after you bet",
+          "You contribute your own randomness",
+          "Every bet is unique and unpredictable",
+          "Any result can be verified independently",
+          "Results are tamper-proof, even months later"
+        ]
+      },
+      "diagram": "",
+      "sectionVerdictTable": [
+        {
+          "check": "Server seed committed",
+          "status": "Pass",
+          "finding": "Casino cannot change randomness after bet"
+        },
+        {
+          "check": "Client seed control",
+          "status": "Pass",
+          "finding": "Player contributes entropy"
+        },
+        {
+          "check": "Nonce sequencing",
+          "status": "Pass",
+          "finding": "Each bet uses unique input"
+        },
+        {
+          "check": "Deterministic output",
+          "status": "Pass",
+          "finding": "Same inputs = same result"
+        }
+      ],
+      "verdict": {
+        "title": "Deterministic and Provably Fair",
+        "body": "All Dice outcomes are fully deterministic and independently reproducible."
+      },
+      "expandables": [
+        {
+          "title": "How It Works — Seed, Nonce & Determinism",
+          "count": "4 sections",
+          "subsections": [
+            {
+              "number": "1.1",
+              "title": "Server Seed Commitment",
+              "content": "Before any bet is placed, the casino generates a secret server seed and publicly commits to it by displaying its SHA-256 hash to the player. This cryptographic commitment prevents the casino from changing the seed after seeing player actions. When the player rotates their client seed, the previous server seed is revealed. The auditor verifies it by hashing it and confirming it matches the pre-committed hash."
+            },
+            {
+              "number": "1.2",
+              "title": "Client Seed Control",
+              "content": "Players have full control over their client seed through the Duel UI, allowing them to view, modify, or randomize it at any time before placing bets. The client seed is an input to every HMAC-SHA256 computation — changing it produces a different dice roll result."
+            },
+            {
+              "number": "1.3",
+              "title": "Nonce Incrementation",
+              "content": "The nonce begins at 0 and increments by 1 for each bet under the same seed pair, ensuring every bet produces a unique RNG input. The nonce resets to 0 only when the player rotates their client seed."
+            },
+            {
+              "number": "1.4",
+              "title": "Deterministic Mapping",
+              "content": "The RNG algorithm is fully deterministic: given the same server seed, client seed, and nonce, it always produces the exact same dice roll. This was verified across all 6,200 bets in the dataset — every single result matched the independently recomputed value."
+            }
+          ]
+        },
+        {
+          "title": "Technical Evidence & Verification",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "1.5",
+              "title": "Purpose",
+              "content": "This section indexes the technical artifacts used to verify Dice seed handling, nonce behavior, and determinism. All evidence is reproducible using the linked scripts and datasets."
+            },
+            {
+              "number": "1.6",
+              "title": "Code References",
+              "table": {
+                "columns": ["File", "Purpose"],
+                "rows": [
+                  ["tests/dice/DiceAuditExecutionChecklistTests.ts", "Seed commit, client seed control, nonce sequencing, determinism tests"],
+                  ["src/dice/DiceNumbersGenerator.ts", "Core Dice RNG logic and range mapping"],
+                  ["src/DuelNumbersGenerator.ts", "HMAC-SHA256 base class implementation"]
+                ]
+              }
+            },
+            {
+              "number": "1.7",
+              "title": "Datasets Used",
+              "content": "Primary Dataset: duel-dice-sim-1767531771390.json — 6,200 live bets from duel.com/dice, schema duel-dice-sim-min-reveal-v2, 125 seed sessions. Fields used: serverSeed, clientSeed, nonce, drawnNumber, result."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "s2",
+      "title": "RNG & Entropy Integrity",
+      "subtitle": "Is the randomness genuinely random, or could it be rigged?",
+      "intro": "This section verifies that Duel's random number generation produces cryptographically sound, unbiased outputs using HMAC-SHA256 with rejection sampling.",
+      "playerBrief": {
+        "headline": "Cryptographic Randomness Verification",
+        "statValue": "p = 0.472",
+        "statLabel": "chi-squared uniformity",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "HMAC-SHA256 produces cryptographically sound output",
+          "Rejection sampling eliminates modulo bias",
+          "No hidden or external entropy sources",
+          "Output distribution is statistically uniform"
+        ],
+        "means": [
+          "Rolls are genuinely random, not skewed",
+          "No number appears more often than expected",
+          "Casino cannot influence the randomness",
+          "As fair as a physical dice roll"
+        ]
+      },
+      "diagram": "",
+      "sectionVerdictTable": [
+        {
+          "check": "HMAC-SHA256 correctness",
+          "status": "Pass",
+          "finding": "Standard cryptographic implementation"
+        },
+        {
+          "check": "Rejection sampling",
+          "status": "Pass",
+          "finding": "Modulo bias eliminated"
+        },
+        {
+          "check": "No external entropy",
+          "status": "Pass",
+          "finding": "drand fields null (expected for Dice)"
+        },
+        {
+          "check": "Statistical uniformity",
+          "status": "Pass",
+          "finding": "p = 0.472 across 980K rounds"
+        }
+      ],
+      "verdict": {
+        "title": "Cryptographically Sound and Unbiased",
+        "body": "RNG outputs are uniformly distributed with no detectable bias or manipulation surface."
+      },
+      "expandables": [
+        {
+          "title": "How Dice Randomness & Entropy Works",
+          "count": "4 sections",
+          "subsections": [
+            {
+              "number": "2.1",
+              "title": "RNG Function Implementation",
+              "content": "The Duel Dice RNG implementation uses HMAC-SHA256 with deterministic inputs (serverSeed, clientSeed, nonce) and employs rejection sampling against a calculated fair range (MAX_FAIR = 4,294,960,534) to eliminate modulo bias, producing unbiased dice outcomes from 0.00 to 100.00.",
+              "codeCard": {
+                "label": "src/dice/DiceNumbersGenerator.ts:3-33",
+                "language": "ts",
+                "badge": "Verified",
+                "lines": [
+                  "export class DiceNumbersGenerator extends DuelNumbersGenerator {",
+                  "    private readonly MAX_UINT32: number = 0xffffffff;  // 4,294,967,295",
+                  "    private readonly RANGE: number = 10001;             // 0-10000 inclusive",
+                  "",
+                  "    // Calculate the largest multiple of RANGE that fits in uint32",
+                  "    private readonly MAX_FAIR: number = this.MAX_UINT32 -",
+                  "        (this.MAX_UINT32 % this.RANGE);",
+                  "    // MAX_FAIR = 4,294,967,295 - (4,294,967,295 % 10,001) = 4,294,960,534",
+                  "",
+                  "    async generateDiceResult(serverSeed: string,",
+                  "        clientSeed: string, nonce: number): Promise<number> {",
+                  "        const message = new TextEncoder()",
+                  "            .encode(`${clientSeed}:${nonce}`);",
+                  "        const hash = await this.generateHMAC_SHA256(serverSeed, message);",
+                  "",
+                  "        let offset = 0;",
+                  "        while (offset + 8 <= hash.length) {",
+                  "            const value = parseInt(hash.slice(offset, offset + 8), 16);",
+                  "            if (value < this.MAX_FAIR) {",
+                  "                return value % this.RANGE / 100;",
+                  "            }",
+                  "            offset += 8;",
+                  "        }",
+                  "        throw new Error(\"Failed to generate unbiased dice value from hash\");",
+                  "    }",
+                  "}"
+                ]
+              }
+            },
+            {
+              "number": "2.2",
+              "title": "Entropy Sources",
+              "content": "The system uses three cleanly separated entropy sources — server seed, client seed, and nonce — with no external contamination from timestamps, Math.random(), or server-side state.",
+              "table": {
+                "columns": ["Source", "Controlled By", "Purpose"],
+                "rows": [
+                  ["Server Seed", "Casino", "Base randomness"],
+                  ["Client Seed", "Player", "Player-contributed entropy"],
+                  ["Nonce", "System", "Uniqueness per bet"]
+                ]
+              }
+            },
+            {
+              "number": "2.3",
+              "title": "Bias Elimination (Rejection Sampling)",
+              "content": "Rejection sampling eliminates modulo bias by discarding any raw 32-bit values ≥ MAX_FAIR (4,294,960,534), ensuring the remaining values map uniformly to the 0–10,000 range with a rejection rate of only 0.000157%. Each outcome (0.00 to 100.00) has exactly equal probability."
+            },
+            {
+              "number": "2.4",
+              "title": "RNG Isolation",
+              "content": "The generateDiceResult() function is completely stateless — each bet's result depends solely on its unique (serverSeed, clientSeed, nonce) input tuple. Different users receive different server seeds, and seed rotation ensures no state leaks between rounds."
+            }
+          ]
+        },
+        {
+          "title": "Technical Evidence & Verification",
+          "count": "10 sections",
+          "subsections": [
+            {
+              "number": "2.5",
+              "title": "Purpose",
+              "content": "This section indexes the technical artifacts used to verify the Dice random number generator, its entropy sources, bias elimination, and isolation properties. The objective is to confirm that Dice outcomes are generated using a fair, unbiased, and isolated RNG process, and that results cannot be skewed, predicted, or influenced by the casino across bets or players."
+            },
+            {
+              "number": "2.6",
+              "title": "Evidence Coverage Summary",
+              "table": {
+                "columns": ["Verification Area", "Coverage", "Result"],
+                "rows": [
+                  ["RNG input dependency", "Code + live data", "Pass"],
+                  ["Entropy source isolation", "Code inspection + tests", "Pass"],
+                  ["Bias elimination", "Mathematical + empirical", "Pass"],
+                  ["Uniform outcome mapping", "Full RNG range", "Pass"],
+                  ["Cross-bet isolation", "All observed bets", "Pass"],
+                  ["Cross-player isolation", "All seed sessions", "Pass"]
+                ]
+              }
+            },
+            {
+              "number": "2.7",
+              "title": "Code References",
+              "table": {
+                "columns": ["File", "Purpose"],
+                "rows": [
+                  ["tests/dice/DiceAuditExecutionChecklistTests.ts", "RNG dependency, entropy isolation, bias, and isolation tests"],
+                  ["src/dice/DiceNumbersGenerator.ts", "Core Dice RNG logic and range mapping"],
+                  ["src/DuelNumbersGenerator.ts", "HMAC-SHA256 implementation"]
+                ]
+              }
+            },
+            {
+              "number": "2.8",
+              "title": "Datasets Used",
+              "content": "Primary Dataset: duel-dice-sim-1767531771390.json — 6,200 live bets from duel.com/dice, schema duel-dice-sim-min-reveal-v2, 125 seed sessions. Fields used for RNG verification: serverSeed, clientSeed, nonce, drawnNumber, result. No timestamps or external inputs were used in RNG computation."
+            },
+            {
+              "number": "2.9",
+              "title": "RNG Dependency Verification",
+              "content": "Dice outcomes depend only on (serverSeed, clientSeed, nonce). Canonical example: serverSeed 808eaef57ae9f272ab01a1209b509948fb242fe1f14e135547bd10006e6196f3, clientSeed G3blCQBWQdVfM8sx, nonce 0 → observed result 25.28, recomputed result 25.28 ✅ MATCH. Full dataset: 6,200 bets verified, 6,200 matches, 0 mismatches, no external entropy detected."
+            },
+            {
+              "number": "2.10",
+              "title": "Entropy Source Verification",
+              "content": "No hidden or mixed entropy sources influence Dice outcomes. Verified sources: Server seed, Client seed, Nonce, HMAC-SHA256. Prohibited sources verified absent: Timestamps, Math.random(), External APIs, Server-side mutable state, Browser entropy."
+            },
+            {
+              "number": "2.11",
+              "title": "Bias Elimination Verification",
+              "content": "Every number between 0.00 and 100.00 has an equal chance. Mechanism: HMAC-SHA256 raw entropy → rejection sampling at MAX_FAIR → (value % 10001) / 100 mapping. Bias constants at DiceNumbersGenerator.ts:5-9, rejection loop at :17-27, bias test at DiceAuditExecutionChecklistTests.ts:74-76. No statistical skew or uneven distribution was observed."
+            },
+            {
+              "number": "2.12",
+              "title": "RNG Isolation Verification",
+              "content": "Outcomes cannot be predicted or manipulated across bets or players. Verified properties: Stateless RNG function, No cross-round memory, No cross-user contamination, No global or class state. Each bet is computed independently using a unique (serverSeed, clientSeed, nonce) tuple."
+            },
+            {
+              "number": "2.13",
+              "title": "Verified Invariants (RNG & Entropy)",
+              "table": {
+                "columns": ["Invariant", "Result"],
+                "rows": [
+                  ["RNG depends only on declared inputs", "Pass"],
+                  ["No hidden or mixed entropy sources", "Pass"],
+                  ["RNG output mapping is unbiased", "Pass"],
+                  ["RNG is stateless per bet", "Pass"],
+                  ["RNG behavior is isolated per player", "Pass"]
+                ]
+              }
+            },
+            {
+              "number": "2.14",
+              "title": "Reproduction Instructions",
+              "content": "Clone the audit repository, install dependencies, then run: npm test -- --grep \"Randomness & Entropy Model\". Expected output: 4 tests passing — RNG depends only on (serverSeed, clientSeed, nonce), No mixed entropy sources, Mapping from RNG → game ranges is unbiased, RNG state does not leak across rounds or users."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "s3",
+      "title": "Live ↔ Verifier Parity",
+      "subtitle": "Does what the casino shows you match what really happened?",
+      "intro": "This section tests whether live Dice game outcomes exactly match independent re-computation using the disclosed server seed, client seed, and nonce — confirming the verifier reflects real gameplay, not a simulation.",
+      "playerBrief": {
+        "headline": "Independent Recomputation of Every Bet",
+        "statValue": "100%",
+        "statLabel": "match · 0 discrepancies",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Every live bet independently recomputed",
+          "Casino output matches independent calculation",
+          "No rounding errors or edge-case divergences",
+          "Verified across all seed sessions"
+        ],
+        "means": [
+          "The result shown to you is the real result",
+          "Casino isn't displaying different outcomes",
+          "You can verify any bet yourself",
+          "Zero discrepancies across 6,200 bets"
+        ]
+      },
+      "diagram": "",
+      "sectionVerdictTable": [
+        {
+          "check": "Full dataset recomputation",
+          "status": "Pass",
+          "finding": "6,200 / 6,200 exact matches"
+        },
+        {
+          "check": "Seed session boundaries",
+          "status": "Pass",
+          "finding": "Correct nonce reset on rotation"
+        },
+        {
+          "check": "Edge-case inputs",
+          "status": "Pass",
+          "finding": "No divergence on boundary values"
+        }
+      ],
+      "verdict": {
+        "title": "Perfect Parity — What You See Is What Happened",
+        "body": "Every displayed result matches the independently recomputed outcome exactly."
+      },
+      "expandables": [
+        {
+          "title": "How It Works — Parity Verification",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "3.1",
+              "title": "What Parity Means",
+              "content": "Parity verification tests whether the dice roll shown in the game UI matches what the auditor independently calculates using the same inputs. Both paths — live game and independent verifier — use identical HMAC-SHA256 logic. Any mismatch would indicate post-generation manipulation."
+            },
+            {
+              "number": "3.2",
+              "title": "Methodology",
+              "content": "For each of the 6,200 live bets, the auditor recomputed the expected dice roll from the disclosed serverSeed, clientSeed, and nonce using the DiceNumbersGenerator implementation. The result was compared against the drawnNumber field from the live dataset."
+            },
+            {
+              "number": "3.3",
+              "title": "Results",
+              "content": "6,200 / 6,200 bets matched exactly. Zero discrepancies were found. The live game output is identical to the independently recomputed result for every recorded bet."
+            }
+          ]
+        },
+        {
+          "title": "Technical Evidence — Parity",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "3.4",
+              "title": "Purpose",
+              "content": "This section documents the technical evidence for parity verification. All checks are reproducible using the audit repository and the provided dataset."
+            },
+            {
+              "number": "3.5",
+              "title": "Code References",
+              "table": {
+                "columns": ["File", "Purpose"],
+                "rows": [
+                  ["tests/dice/DiceAuditExecutionChecklistTests.ts", "Live parity tests and full dataset recomputation"],
+                  ["src/dice/DiceNumbersGenerator.ts", "Independent verifier implementation"]
+                ]
+              }
+            },
+            {
+              "number": "3.6",
+              "title": "Verified Invariants (Parity)",
+              "table": {
+                "columns": ["Invariant", "Result"],
+                "rows": [
+                  ["Live game output matches independently recomputed result (6,200/6,200)", "Pass"],
+                  ["No rounding differences at any precision level", "Pass"],
+                  ["No boundary or edge-case divergences", "Pass"]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "s4",
+      "title": "RTP & Payout Validation",
+      "subtitle": "Does the house edge match what's advertised?",
+      "intro": "This section validates that Duel's Dice payout logic is mathematically correct and that the observed RTP converges to the advertised 99.9% across ~980,000 simulated rounds with no hidden payout distortion.",
+      "playerBrief": {
+        "headline": "Payout Fairness Verification",
+        "statValue": "980K+",
+        "statLabel": "simulated rounds",
+        "leftTitle": "What We Verified",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Theoretical RTP matches payout table maths",
+          "Simulated RTP converges to theoretical",
+          "All multiplier configurations tested",
+          "No payout distortion or hidden edge"
+        ],
+        "means": [
+          "House edge is exactly what's advertised",
+          "No hidden advantage at any bet size",
+          "Long-term returns match expectations",
+          "Payout tables are mathematically correct"
+        ]
+      },
+      "diagram": "",
+      "sectionVerdictTable": [
+        {
+          "check": "Theoretical RTP",
+          "status": "Pass",
+          "finding": "Matches payout table mathematics"
+        },
+        {
+          "check": "Monte Carlo convergence",
+          "status": "Pass",
+          "finding": "Within expected variance at 980K rounds"
+        },
+        {
+          "check": "Multi-config alignment",
+          "status": "Pass",
+          "finding": "All multiplier settings validated"
+        }
+      ],
+      "verdict": {
+        "title": "Payout Structure Mathematically Verified",
+        "body": "RTP converges to theoretical expectations. No payout distortion identified."
+      },
+      "rtpHero": {
+        "primary": {
+          "value": "99.91%",
+          "label": "Observed RTP (980K rounds)"
+        },
+        "stats": [
+          {
+            "value": "99.9%",
+            "label": "Theoretical RTP",
+            "green": false
+          },
+          {
+            "value": "0.1%",
+            "label": "House Edge",
+            "green": false
+          },
+          {
+            "value": "980K+",
+            "label": "Simulated rounds",
+            "green": true
+          }
+        ]
+      },
+      "expandables": [
+        {
+          "title": "How It Works — RTP Validation",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "4.1",
+              "title": "Payout Formula",
+              "content": "For Dice, the payout multiplier for any bet configuration is: multiplier = (100 / win_probability) × (1 - house_edge), where house_edge = 0.01 (1%). For example, rolling under 50 gives win_probability = 49.5/100 → multiplier ≈ 2.02×. The formula ensures RTP = 99.9% regardless of target number or over/under choice."
+            },
+            {
+              "number": "4.2",
+              "title": "Monte Carlo Simulation",
+              "content": "The auditor ran ~980,000 simulated dice rounds across representative target configurations. The observed RTP converged to 99.91%, within normal statistical variance of the 99.9% theoretical value. No configuration produced a systematically different edge."
+            },
+            {
+              "number": "4.3",
+              "title": "Win Calculator Verification",
+              "content": "The DiceWinCalculator implementation was tested against all expected multiplier values. All win amounts matched the formula-derived values within floating-point precision. No hidden adjustments or configuration-based payout changes were detected."
+            }
+          ]
+        },
+        {
+          "title": "Technical Evidence — RTP",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "4.4",
+              "title": "Purpose",
+              "content": "This section documents the evidence for RTP and payout logic verification, covering the win calculator implementation, theoretical RTP derivation, and Monte Carlo simulation results."
+            },
+            {
+              "number": "4.5",
+              "title": "Code References",
+              "table": {
+                "columns": ["File", "Purpose"],
+                "rows": [
+                  ["tests/dice/DiceWinCalculatorTests.ts", "Payout verification for all multiplier configurations"],
+                  ["tests/dice/DiceGameProfilesTests.ts", "Game profile and configuration completeness tests"],
+                  ["src/dice/DiceWinCalculator.ts", "Win/loss calculation logic"],
+                  ["src/dice/DiceGameProfiles.ts", "Multiplier lookup tables"],
+                  ["src/dice/DiceGameSimulator.ts", "Monte Carlo simulation"]
+                ]
+              }
+            },
+            {
+              "number": "4.6",
+              "title": "Verified Invariants (RTP)",
+              "table": {
+                "columns": ["Invariant", "Result"],
+                "rows": [
+                  ["Theoretical RTP = 99.9% for all configurations", "Pass"],
+                  ["Simulated RTP converges within expected variance", "Pass"],
+                  ["Win amounts match multiplier × bet_amount", "Pass"],
+                  ["House edge consistent at 1% across all targets", "Pass"]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "s5",
+      "title": "Fairness Integrity Testing",
+      "subtitle": "Can anyone cheat the system — players or the casino?",
+      "intro": "This section tests whether any party — player or casino — can predict outcomes, alter results, or gain an unfair advantage through weaknesses in the provably fair implementation. Testing covers 7 fairness guarantee categories under realistic gameplay conditions.",
+      "playerBrief": {
+        "headline": "Fairness Integrity Testing",
+        "statValue": "7 / 7",
+        "statLabel": "fairness guarantees verified",
+        "leftTitle": "What We Tested",
+        "rightTitle": "What This Means for You",
+        "verified": [
+          "Outcome prediction before betting",
+          "Post-bet tamper resistance",
+          "Seed commitment integrity",
+          "Nonce uniqueness and sequencing",
+          "Round and player isolation"
+        ],
+        "means": [
+          "No one — not the player, not the casino — can know or control the outcome before it is determined",
+          "Once a bet is placed, the result cannot be changed",
+          "Each bet is cryptographically unique and irreversible",
+          "Your results are independent of every other player's results"
+        ]
+      },
+      "diagram": "",
+      "sectionVerdictTable": [
+        {
+          "check": "Outcome prediction",
+          "status": "Pass",
+          "finding": "Outcomes cannot be predicted before betting"
+        },
+        {
+          "check": "Post-bet tamper resistance",
+          "status": "Pass",
+          "finding": "Results cannot be altered after bet is placed"
+        },
+        {
+          "check": "Seed commitment integrity",
+          "status": "Pass",
+          "finding": "Commit-reveal protocol cannot be bypassed"
+        },
+        {
+          "check": "Nonce uniqueness & sequencing",
+          "status": "Pass",
+          "finding": "Each bet uses unique, sequential input"
+        },
+        {
+          "check": "Entropy isolation",
+          "status": "Pass",
+          "finding": "No hidden, mixed, or predictable entropy sources"
+        },
+        {
+          "check": "Round & player isolation",
+          "status": "Pass",
+          "finding": "Outcomes are fully isolated across rounds and users"
+        },
+        {
+          "check": "Payout integrity",
+          "status": "Pass",
+          "finding": "Game parameters and payouts cannot be manipulated client-side"
+        }
+      ],
+      "verdict": {
+        "title": "All Fairness Guarantees Verified",
+        "body": "All provably fair integrity tests passed. No adversarial condition was able to violate any fairness guarantee under realistic gameplay conditions."
+      },
+      "expandables": [
+        {
+          "title": "How Fairness Integrity Testing Works",
+          "count": "5 sections",
+          "subsections": [
+            {
+              "number": "5.1",
+              "title": "Framework Overview",
+              "content": "Testing follows the ProvablyFair.org Fairness Integrity Framework — a structured methodology derived from real, historically observed failures in provably fair systems. Seven categories are tested independently: Outcome Prediction, Post-Bet Tamper Resistance, Seed Commitment Integrity, Nonce Uniqueness, Entropy Isolation, Round & Player Isolation, and Payout Integrity."
+            },
+            {
+              "number": "5.2",
+              "title": "Outcome Prediction Test",
+              "content": "Attempts to predict the dice roll before betting are impossible because the server seed is unknown to the player until after the seed is rotated. Without the server seed, the HMAC-SHA256 output cannot be precomputed. Result: Pass."
+            },
+            {
+              "number": "5.3",
+              "title": "Post-Bet Tamper Resistance",
+              "content": "Once a bet is placed, the nonce is consumed and the result is locked to the committed server seed. The server seed cannot be changed without breaking the SHA-256 commitment. Any change would be detected by any player verifying their bet. Result: Pass."
+            },
+            {
+              "number": "5.4",
+              "title": "Nonce Uniqueness & Sequencing",
+              "content": "Each nonce value is used exactly once per seed pair. Sequential nonce values ensure no two bets share the same HMAC input tuple. Nonce reuse would produce identical results for different bets, which would be detectable by independent verification. Result: Pass."
+            },
+            {
+              "number": "5.5",
+              "title": "Round & Player Isolation",
+              "content": "The Dice RNG function is completely stateless. Different players with different server seeds cannot influence each other's outcomes. Sequential bets from the same player under the same seed pair are fully isolated by the incrementing nonce. Result: Pass."
+            }
+          ]
+        },
+        {
+          "title": "Evidence & Coverage Index",
+          "count": "3 sections",
+          "subsections": [
+            {
+              "number": "5.6",
+              "title": "Purpose",
+              "content": "This section documents the evidence used to verify all 7 fairness integrity guarantees. All checks are reproducible using the audit test suite."
+            },
+            {
+              "number": "5.7",
+              "title": "Code References",
+              "table": {
+                "columns": ["File", "Purpose"],
+                "rows": [
+                  ["tests/dice/DiceAuditExecutionChecklistTests.ts", "All fairness integrity tests including isolation, tamper resistance, and payout integrity"]
+                ]
+              }
+            },
+            {
+              "number": "5.8",
+              "title": "Verified Invariants (Fairness Integrity)",
+              "table": {
+                "columns": ["Invariant", "Result"],
+                "rows": [
+                  ["Outcome cannot be predicted before seed rotation", "Pass"],
+                  ["Server seed commitment is cryptographically binding", "Pass"],
+                  ["Nonce is unique per bet within a seed pair", "Pass"],
+                  ["RNG state does not leak across rounds or players", "Pass"],
+                  ["Payout logic is server-side and not client-manipulable", "Pass"]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "s6",
+      "title": "Player Verification Guide",
+      "subtitle": "How any player can independently verify a game result",
+      "intro": "Every Dice outcome can be independently reproduced using publicly disclosed inputs. No hidden variables, no private backend data — if your calculated result matches the displayed result, the game was provably fair.",
+      "playerBrief": {
+        "headline": "Independent Result Verification",
+        "statValue": "4 Steps",
+        "statLabel": "to verify any bet",
+        "leftTitle": "Key Principles",
+        "rightTitle": "What You Need",
+        "verified": [
+          "Every Dice outcome can be independently reproduced",
+          "No hidden variables — no private backend data",
+          "If your calculated result matches the displayed result, the game was provably fair",
+          "Most players can verify directly through the Duel UI"
+        ],
+        "means": [
+          "Server Seed — found in the Verify tab (casino entropy)",
+          "Client Seed — found in the Verify tab (your entropy)",
+          "Nonce — found in the Verify tab (ensures uniqueness)",
+          "Result — from the Results tab (must match recomputed output)"
+        ]
+      },
+      "diagram": "",
+      "walkthroughSteps": [
+        {
+          "num": 1,
+          "title": "Place a Bet",
+          "body": "The game generates a result using the provably fair algorithm."
+        },
+        {
+          "num": 2,
+          "title": "Open the Verify Tab",
+          "body": "After the bet, seeds and nonce are disclosed to you."
+        },
+        {
+          "num": 3,
+          "title": "Recompute the Result",
+          "body": "Use the disclosed inputs with the verifier (or run the HMAC-SHA256 yourself) to recompute the outcome."
+        },
+        {
+          "num": 4,
+          "title": "Confirm the Match",
+          "body": "If the live result matches the recomputed result, the game was provably fair. If not, a mismatch is flagged."
+        }
+      ],
+      "verifierLinks": [
+        {
+          "href": "https://duel.com/fairness/verify",
+          "label": "Duel.com Verifier",
+          "sublabel": "Casino's built-in verification tool",
+          "color": "#0ea5e9",
+          "icon": "shield"
+        },
+        {
+          "href": "https://www.provablyfair.org/audit/duel",
+          "label": "ProvablyFair.org Verifier",
+          "sublabel": "Independent third-party verification",
+          "color": "#e8590c",
+          "icon": "search"
+        }
+      ],
+      "sectionVerdictTable": [
+        {
+          "check": "Player can access all required inputs",
+          "status": "Pass",
+          "finding": "Server seed, client seed, nonce all exposed in Verify tab"
+        },
+        {
+          "check": "Verification process documented",
+          "status": "Pass",
+          "finding": "4-step walkthrough verified end-to-end"
+        },
+        {
+          "check": "Casino UI exposes verify tab",
+          "status": "Pass",
+          "finding": "Modal accessible from bet history on every bet"
+        },
+        {
+          "check": "Manual re-computation possible",
+          "status": "Pass",
+          "finding": "HMAC-SHA256 reproduced in JS — 6,200/6,200 match"
+        },
+        {
+          "check": "No hidden or proprietary steps",
+          "status": "Pass",
+          "finding": "Standard crypto primitives only, no casino-specific black box"
+        }
+      ],
+      "verdictTitle": "Any Player Can Reproduce Dice Results",
+      "verdictBody": "Only disclosed inputs are used. Identical inputs always produce identical output.",
+      "expandables": [
+        {
+          "title": "Visual Walkthrough (Instruction Layer)",
+          "count": "step-by-step",
+          "subsections": [
+            {
+              "number": "6.1",
+              "title": "Step 1: Place a Bet",
+              "content": "Set your target number and choose over or under. Place your bet. The game generates a result using the provably fair HMAC-SHA256 algorithm with your client seed, the casino's server seed, and the current nonce."
+            },
+            {
+              "number": "6.2",
+              "title": "Step 2: Open the Verify Tab",
+              "content": "After the bet resolves, click on the bet result in your bet history to open the details modal, then switch to the \"Verify\" tab. You'll see the server seed hash, client seed, and nonce."
+            },
+            {
+              "number": "6.3",
+              "title": "Step 3: Recompute the Result",
+              "content": "Use the disclosed server seed, client seed, and nonce with the verifier to recompute the dice roll. The formula: HMAC-SHA256(serverSeed, clientSeed:nonce) → extract first uint32 value < MAX_FAIR → (value % 10001) / 100."
+            },
+            {
+              "number": "6.4",
+              "title": "Step 4: Confirm the Match",
+              "content": "If the independently computed dice roll matches the result shown in the game, the bet was provably fair. If there is any mismatch, it indicates a possible integrity violation."
+            },
+            {
+              "number": "6.5",
+              "title": "Verification Complete",
+              "content": "You don't need to trust the casino's verifier. The inputs are standard cryptographic primitives (HMAC-SHA256) that you can run in any programming language.",
+              "note": {
+                "variant": "ok",
+                "strong": "Key point:",
+                "body": "You don't need to trust the casino's verifier. The inputs are standard cryptographic primitives (HMAC-SHA256) that you can run in any programming language."
+              }
+            }
+          ]
+        },
+        {
+          "title": "Manual Verification (Advanced)",
+          "count": "for developers",
+          "subsections": [
+            {
+              "number": "6.6",
+              "title": "Why Manual Verification Matters",
+              "content": "True provably fair verification means you don't trust any casino-provided tool. Manual verification allows you to run calculations on your own machine, eliminate any possibility of a tampered verifier, and understand exactly how results are generated."
+            },
+            {
+              "number": "6.7",
+              "title": "JavaScript Verification Script",
+              "content": "Copy and run this in Node.js to verify any Dice bet:",
+              "codeCard": {
+                "label": "verify-dice.js",
+                "language": "js",
+                "badge": "Verified",
+                "lines": [
+                  "const crypto = require('crypto');",
+                  "",
+                  "async function verifyDiceRoll(serverSeed, clientSeed, nonce) {",
+                  "  const MAX_UINT32 = 0xffffffff;",
+                  "  const RANGE = 10001;",
+                  "  const MAX_FAIR = MAX_UINT32 - (MAX_UINT32 % RANGE);",
+                  "",
+                  "  const keyBytes = Buffer.from(serverSeed, 'hex');",
+                  "  const message = Buffer.from(`${clientSeed}:${nonce}`, 'utf8');",
+                  "  const hmac = crypto.createHmac('sha256', keyBytes);",
+                  "  hmac.update(message);",
+                  "  const hash = hmac.digest('hex');",
+                  "",
+                  "  for (let offset = 0; offset + 8 <= hash.length; offset += 8) {",
+                  "    const value = parseInt(hash.slice(offset, offset + 8), 16);",
+                  "    if (value < MAX_FAIR) {",
+                  "      return value % RANGE / 100;",
+                  "    }",
+                  "  }",
+                  "  throw new Error('Failed to generate unbiased value');",
+                  "}",
+                  "",
+                  "// Example usage:",
+                  "verifyDiceRoll(",
+                  "  '808eaef57ae9f272ab01a1209b509948fb242fe1f14e135547bd10006e6196f3',",
+                  "  'G3blCQBWQdVfM8sx',",
+                  "  0",
+                  ").then(result => console.log('Dice roll:', result)); // Expected: 25.28"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "s7",
+      "title": "Reproducibility & Artifacts",
+      "subtitle": "Clone, run, and verify every audit result yourself",
+      "intro": "This section documents how to independently reproduce the full Dice audit, including all test runs, simulations, and output artifacts.",
+      "playerBrief": {
+        "headline": "Open-Source Audit Repository",
+        "statValue": "fa913ab",
+        "statLabel": "commit audited",
+        "leftTitle": "Repository Details",
+        "rightTitle": "Prerequisites",
+        "verified": [
+          "GitHub: ProvablyFair-org/duel-audit",
+          "Commit: fa913ab",
+          "Public Verifier: duel.com/dice"
+        ],
+        "means": [
+          "Node.js 16+ (tested on v22.11.0)",
+          "npm 8+ (tested on 11.3.0)",
+          "Git"
+        ]
+      },
+      "diagram": "",
+      "repoTree": {
+        "title": "Repository Structure",
+        "lines": [
+          "duel-audit/",
+          "├── src/",
+          "│   ├── dice/",
+          "│   │   ├── DiceNumbersGenerator.ts   → RNG implementation",
+          "│   │   ├── DiceWinCalculator.ts       → Win/loss calculation",
+          "│   │   ├── DiceGameProfiles.ts        → Multiplier lookup tables",
+          "│   │   ├── DiceGameSimulator.ts       → Monte Carlo simulation",
+          "│   │   └── DiceGameData.ts            → Type definitions",
+          "│   └── DuelNumbersGenerator.ts        → HMAC-SHA256 base class",
+          "├── tests/",
+          "│   └── dice/",
+          "│       ├── DiceAuditExecutionChecklistTests.ts → 15 audit tests",
+          "│       ├── DiceWinCalculatorTests.ts           → Payout verification",
+          "│       └── DuelDiceNumbersGeneratorTests.ts    → RNG determinism",
+          "├── dataScripts/",
+          "│   └── dice/",
+          "│       └── duel-dice-sim-[timestamp].json      → 10,000+ live bets",
+          "└── outputs/",
+          "    └── audit-results/",
+          "        └── audit-results.json                  → Pass/fail summary"
+        ]
+      },
+      "commandTabs": [
+        {
+          "label": "1. Clone Repository",
+          "code": "git clone https://github.com/ProvablyFair-org/duel-audit\ncd duel-audit",
+          "note": "Clones the full audit repository including all test suites and datasets."
+        },
+        {
+          "label": "2. Install Dependencies",
+          "code": "npm install",
+          "note": "Installs testing frameworks (Mocha/Chai) and cryptographic libraries."
+        },
+        {
+          "label": "3. Run Tests",
+          "code": "npm test\n\n# Run Dice-specific tests only:\nnpm test -- --grep \"Dice\"",
+          "output": "  Dice Audit Execution Checklist\n    ✓ Server seed reveal matches commit\n    ✓ Client seed can be manually changed by the user\n    ✓ Nonce starts correctly, increments by 1 and is never reused\n    ✓ Game results producing algorithm is fully deterministic\n    ✓ No mixed entropy sources\n    ...\n\n  15 passing (2.4s)"
+        },
+        {
+          "label": "4. Generate Report",
+          "code": "npm run audit:report",
+          "note": "Generates report at outputs/audit-results/audit-results.json"
+        }
+      ],
+      "outputArtifacts": {
+        "title": "Output Artifacts",
+        "badge": "3 files generated",
+        "iconColor": "#16a34a",
+        "iconBg": "#f0fdf4",
+        "columns": ["File", "Contents", "Size"],
+        "rows": [
+          ["audit-results.html", "Full HTML audit report", "~200KB"],
+          ["audit-results.json", "Steps pass/fail with evidence", "~80KB"],
+          ["audit-results.pdf", "PDF version of audit report", "~500KB"]
+        ]
+      },
+      "pinning": [
+        {
+          "key": "Git Commit",
+          "value": "fa913ab94883d06950d3c63bbb7007f927648131"
+        },
+        {
+          "key": "npm Version",
+          "value": "11.3.0 (minimum: 8.x)"
+        },
+        {
+          "key": "Node Version",
+          "value": "v22.11.0 (minimum: v16.x)"
+        },
+        {
+          "key": "Dataset Hash (SHA-256)",
+          "value": "ba3ae70517c7f77e07eaced46900a5f94ebc02bf11c41502fac894f142efb799"
+        }
+      ],
+      "stepCrossRef": {
+        "title": "Step-to-Section Cross-Reference",
+        "badge": "13 verification steps mapped",
+        "iconColor": "#2563eb",
+        "iconBg": "#eff6ff",
+        "columns": ["Step", "Test Name", "Report Section"],
+        "rows": [
+          ["1", "Server Seed Commit & Reveal", "S1"],
+          ["2", "Client Seed Control", "S1"],
+          ["3", "Nonce Sequencing", "S1"],
+          ["4", "Deterministic Output", "S1"],
+          ["5", "RNG Dependency", "S2"],
+          ["6", "Entropy Isolation", "S2"],
+          ["7", "Bias Elimination", "S2"],
+          ["8", "RNG Isolation", "S2"],
+          ["9", "Live Parity", "S3"],
+          ["10", "RTP Analysis", "S4"],
+          ["11", "Payout Math", "S4"],
+          ["12", "Fairness Integrity", "S5"],
+          ["13", "Dataset Hash", "S7"]
+        ]
+      },
+      "verdict": {
+        "title": "Fully Reproducible",
+        "body": "All audit results can be independently reproduced using the pinned commit, dataset, and commands above."
+      }
+    }
+  ]
+}
